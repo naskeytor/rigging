@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <record id="rigging_canopy_size_action" model="ir.actions.act_window">
+            <field name="name">Canopy Size</field>
+            <field name="res_model">rigging.canopy.size</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

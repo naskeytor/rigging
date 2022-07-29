@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="rigging.list">
+      <field name="name">rigging list</field>
+      <field name="model">rigging.rigging</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="rigging.action_window">
+      <field name="name">rigging window</field>
+      <field name="res_model">rigging.rigging</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="rigging.action_server">
+      <field name="name">rigging server</field>
+      <field name="model_id" ref="model_rigging_rigging"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="rigging" id="rigging.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="rigging.menu_1" parent="rigging.menu_root"/>
+    <menuitem name="Menu 2" id="rigging.menu_2" parent="rigging.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="rigging.menu_1_list" parent="rigging.menu_1"
+              action="rigging.action_window"/>
+    <menuitem name="Server to list" id="rigging" parent="rigging.menu_2"
+              action="rigging.action_server"/>
+-->
+  </data>
+</odoo>

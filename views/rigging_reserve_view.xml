@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <record id="rigging_reserve_action" model="ir.actions.act_window">
+            <field name="name">Reserve</field>
+            <field name="res_model">rigging.reserve</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

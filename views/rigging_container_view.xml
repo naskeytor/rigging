@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <record id="rigging_container_action" model="ir.actions.act_window">
+            <field name="name">Container</field>
+            <field name="res_model">rigging.container</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

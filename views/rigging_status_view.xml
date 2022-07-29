@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <record id="rigging_status_action" model="ir.actions.act_window">
+            <field name="name">Status</field>
+            <field name="res_model">rigging.status</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
