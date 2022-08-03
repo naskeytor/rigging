@@ -2,22 +2,10 @@
     <data>
 
         <menuitem name="Rigging" 
-                  id="rigging.menu_root"/>
+                  id="rigging.menu_root"
+                  action="rigging_rigs_action"/>
+                  
 
-        <menuitem name="Brands" 
-                  id="brand_menu" 
-                  parent="rigging.menu_root"/>
-                
-
-        <menuitem name="Manifacturer" 
-                  id="rigging.menu_manifacturer" 
-                  parent="brand_menu"
-                  action="rigging_manifacturer_action"/>
-
-        <menuitem name="Model" 
-                  id="rigging.menu_model" 
-                  parent="brand_menu"
-                  action="rigging_model_action"/>
 
         <menuitem name="Components" 
                   id="components_menu" 
@@ -50,6 +38,18 @@
         <menuitem name="Settings" 
                   id="settings_menu" 
                   parent="rigging.menu_root"/>
+
+
+        <menuitem name="Manifacturer" 
+                  id="rigging.menu_manifacturer" 
+                  parent="settings_menu"
+                  action="rigging_manifacturer_action"/>
+
+
+        <menuitem name="Model" 
+                  id="rigging.menu_model" 
+                  parent="settings_menu"
+                  action="rigging_model_action"/>
 
 
         <menuitem name="Type" 

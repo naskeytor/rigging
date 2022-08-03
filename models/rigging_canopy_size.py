@@ -6,3 +6,4 @@ class RiggingCanopySize(models.Model):
     _description = 'Canopy size'
 
     name = fields.Char()
+    #canopy_id = fields.One2many( 'rigging.canopy', 'size_id' )

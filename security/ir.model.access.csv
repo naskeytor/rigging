@@ -6,9 +6,9 @@ access_rigging_canopy,access_rigging_canopy,model_rigging_canopy,base.group_user
 access_rigging_container,access_rigging_container,model_rigging_container,base.group_user,1,1,1,1
 access_rigging_reserve,access_rigging_reserve,model_rigging_reserve,base.group_user,1,1,1,1
 access_rigging_aad,access_rigging_aad,model_rigging_aad,base.group_user,1,1,1,1
-access_rigging_components,access_rigging_components,model_rigging_components,base.group_user,1,1,1,1
 access_rigging_status,access_rigging_status,model_rigging_status,base.group_user,1,1,1,1
 access_rigging_type,access_rigging_type,model_rigging_type,base.group_user,1,1,1,1
 access_rigging_canopy_size,access_rigging_canopy_size,model_rigging_canopy_size,base.group_user,1,1,1,1
 access_rigging_container_size,access_rigging_container_size,model_rigging_container_size,base.group_user,1,1,1,1
+access_rigging_rigs,access_rigging_rigs,model_rigging_rigs,base.group_user,1,1,1,1
 

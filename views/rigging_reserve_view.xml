@@ -5,5 +5,41 @@
             <field name="res_model">rigging.reserve</field>
             <field name="view_mode">tree,form</field>
         </record>
+        
+        <record id="rigging_reserve_view" model="ir.ui.view">
+            <field name="name">rigging.reserve.tree</field>
+            <field name="model">rigging.reserve</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="name" string="SerialN"/>
+                    <field name="model_id" string="Model"/>
+                    <field name="size_id" string="Size"/>
+                    <field name="type_id" string="Type"/>
+                    <field name="status_id" string="Status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="rigging_reserve_view_form" model="ir.ui.view">
+            <field name="name">rigging.reserve.view.form</field>
+            <field name="model">rigging.reserve</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <h1>header</h1>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="model_id" string="Model"/>
+                            <field name="size_id"/>
+                            <field name="dom"/>
+                            <field name="type_id"/>
+                            <field name="status_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
     </data>
 </odoo>

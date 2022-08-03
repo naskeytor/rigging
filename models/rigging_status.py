@@ -5,4 +5,4 @@ class Status(models.Model):
     _description = 'Status'
 
     name = fields.Char()
-    components_id = fields.Many2one( 'rigging.components' )
+    #canopy_id = fields.One2many( 'rigging.canopy', 'status_id' )

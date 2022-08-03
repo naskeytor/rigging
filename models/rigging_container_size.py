@@ -5,3 +5,4 @@ class RiggingContainerSize(models.Model):
     _description = 'Container Size'
 
     name = fields.Char()
+    #container_id = fields.One2many( 'rigging.container', 'size_id' )

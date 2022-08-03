@@ -5,5 +5,64 @@
             <field name="res_model">rigging.aad</field>
             <field name="view_mode">tree,form</field>
         </record>
+
+        <record id="rigging_aad_view" model="ir.ui.view">
+            <field name="name">rigging.aad.tree</field>
+            <field name="model">rigging.aad</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="name" string="SerialN"/>
+                    <field name="model_id" string="Model"/>
+                    <field name="dom" string="DOM"/>
+                    <field name="next_rev" string="Next Revision"/>
+                    <field name="expire" string="Expire"/>
+                    <field name="status_id" string="Status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="rigging_aad_view_form" model="ir.ui.view">
+            <field name="name">rigging.aad.view.form</field>
+            <field name="model">rigging.aad</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <h1>header</h1>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="model_id" string="Model"/>
+                            <field name="dom"/>
+                            <field name="next_rev"/>
+                            <field name="expire"/>
+                            <field name="status_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="rigging_aao_view_form" model="ir.ui.view">
+            <field name="name">rigging.aad.view.form</field>
+            <field name="model">rigging.aad</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <h1>header</h1>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="model_id" string="Model"/>
+                            <field name="dom"/>
+                            <field name="next_rev"/>
+                            <field name="expire"/>
+                            <field name="status_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
     </data>
 </odoo>
