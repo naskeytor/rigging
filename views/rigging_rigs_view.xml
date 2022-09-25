@@ -42,52 +42,6 @@
                 </form>
             </field>
         </record>
-        <!--<record id="rigging_rigs_view_form" model="ir.ui.view">
-            <field name="name">rigging.rigs.view.form</field>
-            <field name="model">rigging.rigs</field>
-            <field name="arch" type="xml">
-                <form string="Form">
-
-                    <field name="canopy_sn" widget="selection"/>
-
-                        <header>
-                        <field name="sn"/>
-                    </header>
-                    <sheet>
-                        <group name="Title">
-                            <div class="oe_title">
-                                <h1>Components</h1>
-                            </div>
-                        </group>
-                        <group name="group1">
-                            <group name="Canopy">
-                                <div class="oe_title">
-                                    <h3>Canopy</h3>
-                                </div>
-                                <field name="canopy_model" string="Model"/>
-                            </group>
-                            <group name="Container">
-                                <div class="oe_title">
-                                    <h3>Container</h3>
-                                </div>
-                            </group>
-                        </group>
-                        <group name="group2">
-                            <group name="Reserve">
-                                <div class="oe_title">
-                                    <h3>Reserve</h3>
-                                </div>
-                            </group>
-                        <group name="AAD">
-                            <div class="oe_title">
-                                <h3>AAD</h3>
-                            </div>
-                        </group>
-                        </group>
-                        </sheet>
-                </form>
-            </field>
-        </record>-->
-
+        
     </data>
 </odoo>

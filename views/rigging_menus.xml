@@ -1,7 +1,7 @@
 <odoo>
     <data>
 
-        <menuitem name="Rigging" 
+        <menuitem name="Rigs" 
                   id="rigging.menu_root"
                   action="rigging_rigs_action"/>
                   
@@ -63,6 +63,10 @@
                   parent="settings_menu"
                   action="rigging_status_action"/>
 
+        <menuitem name="Components" 
+                  id="rigging.menu_components" 
+                  parent="settings_menu"
+                  action="rigging_components_action"/>
 
         <menuitem name="Canopy size" 
                   id="rigging.menu_canopy_size" 
@@ -75,7 +79,10 @@
                   parent="settings_menu"
                   action="rigging_container_size_action"/>
 
-
+        <menuitem name="Rigging" 
+                  id="rigging.menu_rigging" 
+                  parent="rigging.menu_root"
+                  action="rigging_rigging_action"/>
 
     </data>
 </odoo>

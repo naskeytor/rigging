@@ -9,3 +9,5 @@ from . import rigging_canopy_size
 from . import rigging_container_size
 from . import rigging_components
 from . import rigging_rigs
+from . import rigging_rigging
+from . import rig_components

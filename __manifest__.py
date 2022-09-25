@@ -37,8 +37,10 @@
         'views/rigging_reserve_view.xml',
         'views/rigging_aad_view.xml',
         'views/rigging_rigs_view.xml',
+        'views/rigging_rigging_view.xml',
         'views/rigging_canopy_size_view.xml',
         'views/rigging_container_size_view.xml',
+        'views/rigging_components_view.xml',
         'views/rigging_menus.xml',
     ],
     # only loaded in demonstration mode

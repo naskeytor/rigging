@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        
+        <record id="rigging_rigging_action" model="ir.actions.act_window">
+            <field name="name">Rigging</field>
+            <field name="res_model">rigging.rigging</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="rigging_rigging_view" model="ir.ui.view">
+            <field name="name">rigging.rigging.tree</field>
+            <field name="model">rigging.rigging</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Name"/>
+                    <field name="rigging_type" string="Type"/>                    
+                    <field name="date" string="Date"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="rigging_rigging_view_form" model="ir.ui.view">
+            <field name="name">rigging.rigging.form</field>
+            <field name="model">rigging.rigging</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <h1>header</h1>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name='rigging_component'/> 
+                            <field name='rig_id' attrs="{'invisible': [('rigging_component', '!=', 'rig')]}"/>
+                            <field name='container_id' attrs="{'invisible': [('rigging_component', '!=', 'container')]}" />
+                            <field name='canopy_id' attrs="{'invisible': [('rigging_component', '!=', 'canopy')] }" />
+                            <field name='reserve_id' attrs="{'invisible': [('rigging_component', '!=', 'reserve')]}" />                                
+                            <field name='aad_id' attrs="{'invisible': [('rigging_component', '!=', 'aad')]}" />
+                            <field name='name' string='Description'/>
+                            <field name='rigging_type' string='Type'/>                                    
+                            <field name='date' string='Date'/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

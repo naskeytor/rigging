@@ -17,6 +17,7 @@
                     <field name="next_rev" string="Next Revision"/>
                     <field name="expire" string="Expire"/>
                     <field name="status_id" string="Status"/>
+                    <field name="mounted" string="Mounted"/>
                 </tree>
             </field>
         </record>
@@ -37,6 +38,8 @@
                             <field name="next_rev"/>
                             <field name="expire"/>
                             <field name="status_id"/>
+                            <field name="is_mounted"/>
+                            <button name="action_umount_aad" type="object" />
                         </group>
                     </sheet>
                 </form>

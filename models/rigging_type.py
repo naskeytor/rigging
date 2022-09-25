@@ -5,5 +5,3 @@ class Type(models.Model):
     _description = 'Type'
 
     name = fields.Char()
-    components_id = fields.Many2one( 'rigging.components' )
-    canopy_id = fields.Many2one( 'rigging.canopy', 'type_id' )

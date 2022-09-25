@@ -16,6 +16,7 @@
                     <field name="size_id" string="Size"/>
                     <field name="type_id" string="Type"/>
                     <field name="status_id" string="Status"/>
+                    <field name="mounted" string="Mounted"/>
                 </tree>
             </field>
         </record>

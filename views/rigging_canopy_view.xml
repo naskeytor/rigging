@@ -19,6 +19,7 @@
                     <field name="dom" string="DOM"/>
                     <field name="type_id" string="Type"/>
                     <field name="status_id" string="Status"/>
+                    <field name="mounted" string="Mounted"/>
                 </tree>
             </field>
         </record>
@@ -39,6 +40,18 @@
                             <field name="dom"/>
                             <field name="type_id"/>
                             <field name="status_id"/>
+                            <field name="component_id"/>
+                            <field name="is_mounted"/>
+                            <button name="action_umount_canopy" type="object" />
+                        </group>
+                        <group>
+                            <field name="rigging_ids">
+                                <form>
+                                    <field name="name"/>
+                                    <field name="rigging_type"/>
+                                    <field name="date"/>
+                                </form>
+                            </field>
                         </group>
                     </sheet>
                 </form>
