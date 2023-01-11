@@ -14,6 +14,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" string="Name"/>
+                    <!--<field name="partner_id" string="Partner"/>-->
                     <field name="rigging_type" string="Type"/>                    
                     <field name="date" string="Date"/>
                 </tree>
@@ -31,13 +32,14 @@
                     </header>
                     <sheet>
                         <group>
-                            <field name='rigging_component'/> 
+                            <field name='name' string="Rigger"/>
+                            <field name='rigging_component' string="Component"/> 
                             <field name='rig_id' attrs="{'invisible': [('rigging_component', '!=', 'rig')]}"/>
                             <field name='container_id' attrs="{'invisible': [('rigging_component', '!=', 'container')]}" />
                             <field name='canopy_id' attrs="{'invisible': [('rigging_component', '!=', 'canopy')] }" />
-                            <field name='reserve_id' attrs="{'invisible': [('rigging_component', '!=', 'reserve')]}" />                                
+                            <field name='reserve_id' attrs="{'invisible': [('rigging_component', '!=', 'reserve')]}" />
                             <field name='aad_id' attrs="{'invisible': [('rigging_component', '!=', 'aad')]}" />
-                            <field name='name' string='Description'/>
+                            <field name='description' string='Description'/>
                             <field name='rigging_type' string='Type'/>                                    
                             <field name='date' string='Date'/>
                         </group>

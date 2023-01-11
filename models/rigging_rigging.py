@@ -3,10 +3,13 @@ from odoo import models, fields, api
 class RiggingRigging(models.Model):
     _name = 'rigging.rigging'
     _description = "Rigging Management"
-    #_rec_name = "day"
+    #_rec_name = "date"
 
-    name = fields.Char()
-    date = fields.Date()
+    #name = fields.Char()
+    name = fields.Many2one("res.partner", string="Partner")
+    date = fields.Date('Date')
+
+
     rigging_type = fields.Selection(
         string = "Type",
         selection = [
@@ -30,6 +33,8 @@ class RiggingRigging(models.Model):
     reserve_id = fields.Many2one('rigging.reserve')
     aad_id = fields.Many2one('rigging.aad')
     rig_id = fields.Many2one('rigging.rigs')
+    description = fields.Char()
+
 
 
     """rig_number = fields.Char( related = 'rig_id.number' )

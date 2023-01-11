@@ -20,6 +20,8 @@
                     <field name="type_id" string="Type"/>
                     <field name="status_id" string="Status"/>
                     <field name="mounted" string="Mounted"/>
+                    <field name="location" string="Location"/>
+
                 </tree>
             </field>
         </record>
@@ -33,17 +35,20 @@
                         <h1>header</h1>
                     </header>
                     <sheet>
+
                         <group>
                             <field name="name"/>
-                            <field name="model_id" string="Model"/>
-                            <field name="size_id"/>
+                            <field name="model_id" string="Model" widget="selection"/>
+                            <field name="size_id" widget="selection"/>
                             <field name="dom"/>
-                            <field name="type_id"/>
-                            <field name="status_id"/>
-                            <field name="component_id"/>
-                            <field name="is_mounted"/>
-                            <button name="action_umount_canopy" type="object" />
+                            <field name="type_id" widget="selection"/>
+                            <field name="status_id" widget="selection"/>
+                            <field name="component_id" widget="selection"/>
+                            <field name="is_mounted" widget="boolean_toggle"/>
+                            <field name="rig_id" widget="selection"/>
+                            <button name="action_umount_canopy" class="oe_highlight" type="object" string="Umount" confirm="Confirm?"/>
                         </group>
+                        
                         <group>
                             <field name="rigging_ids">
                                 <form>
@@ -53,6 +58,7 @@
                                 </form>
                             </field>
                         </group>
+
                     </sheet>
                 </form>
             </field>

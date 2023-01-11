@@ -32,10 +32,10 @@ class Aad(models.Model):
             else:
                 record.next_rev = record.dom + relativedelta(year=15)
 
-    @api.depends('rig_id.number', 'is_mounted')    # Setup the mounting status
+    @api.depends('rig_id.name', 'is_mounted')    # Setup the mounting status
     def _compute_mount(self):
         for record in self:
-            record.mounted = record.rig_id.number
+            record.mounted = record.rig_id.name
             if record.mounted:
                 record.is_mounted = True
             else:
@@ -55,7 +55,7 @@ class Canopy(models.Model):
     _name = 'rigging.canopy'
     _description = 'Canopy'
    
-
+    """
     name = fields.Char(string="Serial number")
     model_id = fields.Many2one( 'rigging.model', string="Model_ID" )
     model = fields.Char( related="model_id.name", string="Model" )
@@ -68,27 +68,60 @@ class Canopy(models.Model):
     rigging_ids = fields.One2many( 'rigging.rigging', 'canopy_id', string="Rigging" )
     component_id = fields.Many2one('rigging.components', string="Component ID")
     component = fields.Char( related="component_id.name", string="Component" )
-    rig_id = fields.One2many( 'rigging.rigs', 'canopy_id' )
+    rig_id = fields.Many2one( 'rigging.rigs' )
     mounted = fields.Char( 'Mounted ON', compute='_compute_mount' )
+    #mounted = fields.Char( related='rig_id.number', string='Location' )
     is_mounted = fields.Boolean( 'Mounted', default=False )
+    """
+
+    name = fields.Char(string="Serial number")
+    model_id = fields.Many2one( 'rigging.model', string="Model_ID" )
+    model = fields.Char( related="model_id.name", string="Model" )
+    size_id = fields.Many2one( 'rigging.canopy.size', string="Size" )
+    size = fields.Char( related="size_id.name", string="Size ID" )
+    model_canopy = fields.Char(compute='_model_canopy', string="Canopy Model")
+    dom = fields.Date()
+    rigging_ids = fields.One2many('rigging.rigging', 'canopy_id', string="Rigging")
+    component_id = fields.Many2one('rigging.components', string="Component ID")
+    component = fields.Char(related="component_id.name", string="Component")
+    type_id = fields.Many2one( 'rigging.type' )
+    status_id = fields.Many2one( 'rigging.status' )
+    rigging_id = fields.Many2one( 'rigging.rigging' )
+    rig_id = fields.Many2one( 'rigging.rigs', domain=[('canopy_id', '=', False )] )
+    location = fields.Char(related='rig_id.name', string='Location')
+    mounted = fields.Char( 'Location', compute='_compute_mount' )
+    is_mounted = fields.Boolean( 'Mounted', default=False )
+    
+
     
 
     ####         Compute methods canopy         ###
 
+    @api.onchange('rig_id')
+    def _mount_canopy(self):
+        self.rig_id.canopy_id = self._origin
+        self.is_mounted = True
 
-    @api.depends('rig_id.number', 'is_mounted')    # Setup the mounting status
+
+    @api.depends('rig_id.name')    # Setup the mounting status
     def _compute_mount(self):
         for record in self:
-            record.mounted = record.rig_id.number
+            record.mounted = record.rig_id.name
             if record.mounted:
                 record.is_mounted = True
-            else:
-                record.is_mounted = False
         
 
     def action_umount_canopy(self):
+
         self.is_mounted = False
-        self.rig_id = None
+        self.rig_id.canopy_id = False
+        self.rig_id = False
+
+    def mount_canopy(self):
+        self.rig_id.canopy_id = self.id
+        self.is_mounted = True
+         
+
 
     @api.depends("model", "size")            # Setup the model for better visibility
     def _model_canopy(self):
@@ -113,10 +146,10 @@ class Container(models.Model):
     mounted = fields.Char( 'Mounted', compute='_compute_mount' )
     is_mounted = fields.Boolean( 'Mounted', default=False )
     
-    @api.depends('rig_id.number')
+    @api.depends('rig_id.name')
     def _compute_mount(self):
         for record in self:
-            record.mounted = record.rig_id.number
+            record.mounted = record.rig_id.name
             if record.mounted:
                 record.is_mounted = True
             else:
@@ -147,14 +180,15 @@ class Reserve(models.Model):
     status_id = fields.Many2one( 'rigging.status' )
     rigging_id = fields.Many2one( 'rigging.rigging' )
     rig_id = fields.One2many( 'rigging.rigs', 'reserve_id' )
-    mounted = fields.Char( 'Mounted', compute='_compute_mount' )
+    #mounted = fields.Char( 'Mounted', compute='_compute_mount' )
+    mounted = fields.Char( related='rig_id.name', string='Location' )
     is_mounted = fields.Boolean( 'Mounted', default=False )
 
     
-    @api.depends('rig_id.number')
+    @api.depends('rig_id.name')
     def _compute_mount(self):
         for record in self:
-            record.mounted = record.rig_id.number
+            record.mounted = record.rig_id.name
             if record.mounted:
                 record.is_mounted = True
             else:

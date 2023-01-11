@@ -3,7 +3,7 @@
         <record id="rigging_rigs_action" model="ir.actions.act_window">
             <field name="name">Rigs</field>
             <field name="res_model">rigging.rigs</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
         </record>
     
         <record id="rigging_rigs_view" model="ir.ui.view">
@@ -11,7 +11,7 @@
             <field name="model">rigging.rigs</field>
             <field name="arch" type="xml">
                 <tree >
-                    <field name="number" string="Number"/>
+                    <field name="name" string="Number"/>
                     <field name="rig_canopy_model" string="Canopy" widget="char" readonly="1"/>
                     <field name="rig_container_model" string="Container"/>
                     <field name="rig_reserve_model" string="Reserve"/>
@@ -31,17 +31,44 @@
                     </header>
                     <sheet>
                         <group>
-                            <field name="number"/>
-                            <field name="canopy_id"/>
-                            <field name="container_id"/>
-                            <field name="reserve_id"/>
-                            <field name="aad_id"/>
-                            <field name="status_id"/>
+                            <field name="name"/>
+                            <field name="canopy_id" widget='selection'/>
+                            <field name="container_id" widget='selection'/>
+                            <field name="reserve_id" widget='selection'/>
+                            <field name="aad_id" widget='selection'/>
+                            <field name="status_id" widget='selection'/>
+                            <field name="reserve_repack"/>
+                            <field name="reserve_next"/>
+                            <field name="umount_component" widget="selection"/>
+                            <button name="action_umount_component" class="oe_highlight" type="object" string="Umount Component"/>
                         </group>
+                        <group>
+                            <field name="rigging_ids">
+                                <form>
+                                    <field name="name"/>
+                                    <field name="rigging_type"/>
+                                    <field name="date"/>
+                                </form>
+                            </field>
+                        </group>
+                         
+
+
+                    <!--<group>
+                        <field name="number"/>
+                        <field name="canopy_id"/>
+                        <button name="action_umount_canopy_rig" type="object" string="Umount Canopy"/>
+                        <button name="action_mount_canopy_rig" type="object" string="Mount Canopy"/>
+                        <field name="container_id"/>
+                        <field name="reserve_id"/>
+                        <field name="aad_id"/>
+                        <field name="status_id"/>
+                    </group>-->
                     </sheet>
                 </form>
             </field>
         </record>
-        
+
+         
     </data>
 </odoo>
