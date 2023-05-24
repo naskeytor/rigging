@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <record id="rigging_component_type_action" model="ir.actions.act_window">
+            <field name="name">Compt</field>
+            <field name="res_model">rigging.compt</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,58 @@
+<odoo>
+    <data>
+        <record id="rigging_comp_action" model="ir.actions.act_window">
+            <field name="name">Comp</field>
+            <field name="res_model">rigging.comp</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="rigging_comp_view" model="ir.ui.view">
+            <field name="name">rigging.comp.tree</field>
+            <field name="model">rigging.comp</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="name" string="Serial Number"/>
+                    <field name="compt_id" string="Component Type"/>
+                    <field name="model" string="Model"/>
+                    <!--<field name="size" string="Size"/>-->
+                    <field name="compt_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="rigging_comp_form" model="ir.ui.view">
+            <field name="name">rigging.comp.form</field>
+            <field name="model">rigging.comp</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <h1>header</h1>
+                    </header>
+                    <sheet>
+
+                        <group>
+                            <field name="name"/>
+
+                            <field name="compt_id"/>
+                            <field name="size_id_canopy" widget="selection" attrs="{'invisible': [('compt_id', '!=', 'Container')] }"/>
+                            <field name="size_id_container" widget="selection" attrs="{'invisible': [('compt_id', '!=', 'Canopy')] }"/>
+                            <field name="model_id" string="Model" widget="selection"/>
+
+                        </group>
+
+                        <group>
+                            <field name="rigging_ids">
+                                <form>
+
+                                </form>
+                            </field>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+
+
+</odoo>
