@@ -18,7 +18,7 @@ class RiggingRigging(models.Model):
             ('alternation', 'Alternation')
         ]
     )
-    rigging_component = fields.Selection(
+    """rigging_component = fields.Selection(
         string = "Component",
         selection = [
             ('rig', 'Rig'),
@@ -27,13 +27,27 @@ class RiggingRigging(models.Model):
             ('reserve', 'Reserve'),
             ('aad', 'Aad')
         ]
-    )
+    )"""
+
+    
+    rigging_component = fields.Many2one( 'rigging.components', string="Component ID" )
+    #rigging_component = fields.Char( related="component_id.name", string="Component" )
+
     canopy_id = fields.Many2one('rigging.canopy')
     container_id = fields.Many2one('rigging.container')
     reserve_id = fields.Many2one('rigging.reserve')
     aad_id = fields.Many2one('rigging.aad')
     rig_id = fields.Many2one('rigging.rigs')
     description = fields.Char()
+
+
+
+
+    """serial_canopy = fields.Char(related='canopy_id.name', string='Canopy number')
+    serial_container = fields.Char(related='container_id.name', string='Container number')
+    serial_reserve = fields.Char(related='reserve_id.name', string='Reserve number')
+    serial_aad = fields.Char(related='aad_id.name', string='AAD number')
+    serial_rig = fields.Char(related='rig_id.name', string='Rig number')"""
 
 
 

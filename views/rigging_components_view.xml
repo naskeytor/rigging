@@ -5,5 +5,15 @@
             <field name="res_model">rigging.components</field>
             <field name="view_mode">tree,form</field>
         </record>
+
+        <!--<record id="rig_components_view" model="ir.ui.view">
+            <field name="name">rigging.components.tree</field>
+            <field name="model">rigging.components</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="name" string="SerialN"/>
+                </tree>
+            </field>
+        </record>-->
     </data>
 </odoo>

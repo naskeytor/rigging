@@ -13,10 +13,12 @@
             <field name="model">rigging.rigging</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name='rigging_component' string="Components"/>
                     <field name="name" string="Name"/>
+                    <field name="date" string="Date"/>
                     <!--<field name="partner_id" string="Partner"/>-->
                     <field name="rigging_type" string="Type"/>                    
-                    <field name="date" string="Date"/>
+                    <field name='description' string='Description'/>
                 </tree>
             </field>
         </record>
@@ -39,9 +41,9 @@
                             <field name='canopy_id' attrs="{'invisible': [('rigging_component', '!=', 'canopy')] }" />
                             <field name='reserve_id' attrs="{'invisible': [('rigging_component', '!=', 'reserve')]}" />
                             <field name='aad_id' attrs="{'invisible': [('rigging_component', '!=', 'aad')]}" />
-                            <field name='description' string='Description'/>
                             <field name='rigging_type' string='Type'/>                                    
                             <field name='date' string='Date'/>
+                            <field name='description' string='Description'/>
                         </group>
                     </sheet>
                 </form>

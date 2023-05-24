@@ -14,5 +14,5 @@ class ComponentModel(models.Model):
         for record in self:
             record.model = str(record.name) + str(record.manifacturer)
 
-    #canopy_id = fields.One2many( 'rigging.canopy', 'model_id' )
+    # canopy_id = fields.One2many( 'rigging.canopy', 'model_id' )
 

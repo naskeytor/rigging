@@ -6,5 +6,5 @@ class manifacturer(models.Model):
 
 
     name = fields.Char()
-    #model_id = fields.One2many('rigging.model', 'manifacturer_id')
+    model_id = fields.One2many('rigging.model', 'manifacturer_id')
 

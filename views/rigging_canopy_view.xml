@@ -14,6 +14,7 @@
             <field name="arch" type="xml">
                 <tree >
                     <field name="name" string="SerialN"/>
+                    <field name="serial_id" string="Serial"/>
                     <field name="model_id" string="Model"/>
                     <field name="size_id" string="Size"/>
                     <field name="dom" string="DOM"/>
@@ -38,12 +39,14 @@
 
                         <group>
                             <field name="name"/>
+
+                            <field name="serial_id" string="Serial"/>
                             <field name="model_id" string="Model" widget="selection"/>
                             <field name="size_id" widget="selection"/>
                             <field name="dom"/>
+                            <field name='rigging_component' string="Components"/>
                             <field name="type_id" widget="selection"/>
                             <field name="status_id" widget="selection"/>
-                            <field name="component_id" widget="selection"/>
                             <field name="is_mounted" widget="boolean_toggle"/>
                             <field name="rig_id" widget="selection"/>
                             <button name="action_umount_canopy" class="oe_highlight" type="object" string="Umount" confirm="Confirm?"/>
@@ -52,9 +55,10 @@
                         <group>
                             <field name="rigging_ids">
                                 <form>
-                                    <field name="name"/>
-                                    <field name="rigging_type"/>
-                                    <field name="date"/>
+                                    <field name="name" string="Name"/>
+                                    <field name="rigging_type" tring="Type"/>
+                                    <field name="date" string="Date"/>
+                                    <field name='description' string='Description'/>
                                 </form>
                             </field>
                         </group>

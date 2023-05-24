@@ -77,4 +77,6 @@ class ComponentModel(models.Model):
         self.canopy_id.rig_id = self.id
 
 
+
+
         

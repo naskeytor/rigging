@@ -1,9 +1,0 @@
-<odoo>
-    <data>
-        <record id="rigging_components_action" model="ir.actions.act_window">
-            <field name="name">Components</field>
-            <field name="res_model">rigging.components</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-    </data>
-</odoo>

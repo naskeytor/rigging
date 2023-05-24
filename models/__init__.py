@@ -11,3 +11,7 @@ from . import rigging_components
 from . import rigging_rigs
 from . import rigging_rigging
 from . import rig_components
+from . import rigging_comp
+from . import rigging_compt
+
+

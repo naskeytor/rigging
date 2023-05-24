@@ -46,7 +46,7 @@
                   action="rigging_manifacturer_action"/>
 
 
-        <menuitem name="Model" 
+        <menuitem name="Model"
                   id="rigging.menu_model" 
                   parent="settings_menu"
                   action="rigging_model_action"/>
@@ -63,10 +63,6 @@
                   parent="settings_menu"
                   action="rigging_status_action"/>
 
-        <menuitem name="Components" 
-                  id="rigging.menu_components" 
-                  parent="settings_menu"
-                  action="rigging_components_action"/>
 
         <menuitem name="Canopy size" 
                   id="rigging.menu_canopy_size" 
@@ -75,14 +71,26 @@
 
 
         <menuitem name="Container Size" 
-                  id="rigging.contaier_size" 
+                  id="rigging.container_size"
                   parent="settings_menu"
                   action="rigging_container_size_action"/>
 
-        <menuitem name="Rigging" 
-                  id="rigging.menu_rigging" 
+        <menuitem name="Component Type"
+                  id="rigging.comp_t"
+                  parent="settings_menu"
+                  action="rigging_component_type_action"/>
+
+
+        <menuitem name="Rigging"
+                  id="rigging.menu_rigging"
                   parent="rigging.menu_root"
                   action="rigging_rigging_action"/>
+
+        <menuitem name="Component"
+                  id="rigging.menu_component"
+                  parent="rigging.menu_root"
+                  action="rigging_comp_action"/>
+
 
     </data>
 </odoo>

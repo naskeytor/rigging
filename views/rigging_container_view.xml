@@ -21,7 +21,7 @@
             </field>
         </record>
         <record id="rigging_container_view_form" model="ir.ui.view">
-            <field name="name">rigging.containe.view.form</field>
+            <field name="name">rigging.container.view.form</field>
             <field name="model">rigging.container</field>
             <field name="arch" type="xml">
                 <form>
