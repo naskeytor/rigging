@@ -1,9 +1,9 @@
 <odoo>
     <data>
-        <record id="rigging_serial_action" model="ir.actions.act_window">
+        <!--<record id="rigging_serial_action" model="ir.actions.act_window">
             <field name="name">serial</field>
             <field name="res_model">rigging.serial</field>
             <field name="view_mode">tree,form</field>
-        </record>
+        </record>-->
     </data>
 </odoo>

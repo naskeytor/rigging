@@ -1,12 +1,12 @@
 <odoo>
     <data>
-        <record id="rigging_components_action" model="ir.actions.act_window">
+        <!--<record id="rigging_components_action" model="ir.actions.act_window">
             <field name="name">Components</field>
             <field name="res_model">rigging.components</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <!--<record id="rig_components_view" model="ir.ui.view">
+        <record id="rig_components_view" model="ir.ui.view">
             <field name="name">rigging.components.tree</field>
             <field name="model">rigging.components</field>
             <field name="arch" type="xml">

@@ -12,11 +12,11 @@
             <field name="arch" type="xml">
                 <tree >
                     <field name="name" string="Number"/>
-                    <field name="rig_canopy_model" string="Canopy" widget="char" readonly="1"/>
+                    <!--<field name="rig_canopy_model" string="Canopy" widget="char" readonly="1"/>
                     <field name="rig_container_model" string="Container"/>
                     <field name="rig_reserve_model" string="Reserve"/>
                     <field name="rig_aad_model" string="AAD"/>
-                    <field name="status_id" string="Status"/>
+                    <field name="status_id" string="Status"/>-->
                 </tree>
             </field>
         </record>
@@ -32,22 +32,22 @@
                     <sheet>
                         <group>
                             <field name="name"/>
-                            <field name="canopy_id" widget='selection'/>
-                            <field name="container_id" widget='selection'/>
+                            <!--<field name="comp_id" widget='selection'/>-->
+                            <!--<field name="container_id" widget='selection'/>
                             <field name="reserve_id" widget='selection'/>
                             <field name="aad_id" widget='selection'/>
                             <field name="status_id" widget='selection'/>
                             <field name="reserve_repack"/>
                             <field name="reserve_next"/>
                             <field name="umount_component" widget="selection"/>
-                            <button name="action_umount_component" class="oe_highlight" type="object" string="Umount Component"/>
+                            <button name="action_umount_component" class="oe_highlight" type="object" string="Umount Component"/>-->
                         </group>
                         <group>
                             <field name="rigging_ids">
                                 <form>
-                                    <field name="name"/>
+                                    <!--<field name="name"/>
                                     <field name="rigging_type"/>
-                                    <field name="date"/>
+                                    <field name="date"/>-->
                                 </form>
                             </field>
                         </group>

@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <record id="rigging_aad_action" model="ir.actions.act_window">
+        <!--<record id="rigging_aad_action" model="ir.actions.act_window">
             <field name="name">AAD</field>
             <field name="res_model">rigging.aad</field>
             <field name="view_mode">tree,form</field>
@@ -66,6 +66,6 @@
                     </sheet>
                 </form>
             </field>
-        </record>
+        </record>-->
     </data>
 </odoo>
