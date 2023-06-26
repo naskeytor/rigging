@@ -1,6 +1,13 @@
 <odoo>
     <data>
-        <record id="rigging_canopy_action" model="ir.actions.act_window">
+
+        <!--<record id="rigging_canopy_action" model="ir.actions.act_window">
+            <field name="name">Canopy</field>
+            <field name="res_model">rigging.canopy</field>
+            <field name="view_mode">tree,form</field>
+        </record>-->
+
+        <!--<record id="rigging_canopy_action" model="ir.actions.act_window">
             <field name="name">Canopy</field>
             <field name="res_model">rigging.canopy</field>
             <field name="view_mode">tree,form</field>
@@ -66,6 +73,6 @@
                     </sheet>
                 </form>
             </field>
-        </record>
+        </record>-->
     </data>
 </odoo>

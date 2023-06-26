@@ -13,9 +13,11 @@
                 <tree >
                     <field name="name" string="Serial Number"/>
                     <field name="compt_id" string="Component Type"/>
-                    <field name="model" string="Model"/>
-                    <!--<field name="size" string="Size"/>-->
-                    <field name="compt_id"/>
+                    <!--<field name="model" string="Model"/>
+                    <field name="size" string="Size"/>-->
+                    <field name="model_component" string="Model"/>
+                    <field name="dom" string="DOM"/>
+
                 </tree>
             </field>
         </record>
@@ -34,10 +36,11 @@
                             <field name="name"/>
 
                             <field name="compt_id"/>
-                            <field name="size_id_canopy" widget="selection" attrs="{'invisible': [('compt_id', '!=', 'Container')] }"/>
-                            <field name="size_id_container" widget="selection" attrs="{'invisible': [('compt_id', '!=', 'Canopy')] }"/>
+                            <field name="compt" attrs="{'invisible': True}"/>
+                            <field name="size_id_canopy" widget="selection" attrs="{'invisible': ['|', ('compt', '=', 'Container'), ('compt', '=', 'Aad')] }"/>
+                            <field name="size_id_container" widget="selection" attrs="{'invisible': ['|', ('compt', '!=', 'Container'), ('compt', '=', 'Aad')] }"/>
                             <field name="model_id" string="Model" widget="selection"/>
-
+                            <field name="dom" string="DOM"/>
                         </group>
 
                         <group>
