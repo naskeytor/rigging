@@ -21,23 +21,24 @@ class Comp(models.Model):
 
 
 
-    @api.depends('size_id_canopy.name', 'size_id_container', 'size', 'compt_id')
+    @api.depends('size_id_canopy.name', 'size_id_container.name', 'size', 'compt')
     def _compute_size(self):
         for record in self:
-            if record.compt == "Canopy":
+            if record.compt == "Reserve" or record.compt == "Canopy":
                 record.size = record.size_id_canopy.name
             else:
                 record.size = record.size_id_container.name
 
+
     rigging_ids = fields.Many2one('rigging.rigging')
 
     # compute in model-size format
-    @api.depends("model", "size", "compt")            # Setup the model for better visibility
+    @api.depends("model", "compt", "size")            # Set up the model for better visibility
     def _model_component(self):
         for record in self:
-            if record.compt == "Canopy" or record.compt == "Reserve":
+            if record.compt == "Reserve" or record.compt == "Canopy":
                 record.model_component = str(record.model) + "-" + str(record.size)
             else:
-                record.model_component = record.model
+                record.model_component = str(record.model)
 
     # setup date
