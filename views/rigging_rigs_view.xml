@@ -32,6 +32,10 @@
                     <sheet>
                         <group>
                             <field name="name"/>
+                            <field name="canopy" widget="selection" string="Canopy"/>
+                            <field name="container" widget="selection" string="Container"/>
+                            <field name="reserve" widget="selection" string="Reserve"/>
+                            <field name="aad" widget="selection" string="Aad"/>
                             <!--<field name="comp_id" widget='selection'/>-->
                             <!--<field name="container_id" widget='selection'/>
                             <field name="reserve_id" widget='selection'/>

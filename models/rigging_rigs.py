@@ -7,9 +7,16 @@ class ComponentModel(models.Model):
     
 
     name = fields.Char(string='Rig number')
+    canopy = fields.Many2one('rigging.comp', domain=[('compt', '=', 'Canopy')])
+    container = fields.Many2one('rigging.comp', domain=[('compt', '=', 'Container')])
+    reserve = fields.Many2one('rigging.comp', domain=[('compt', '=', 'Reserve')])
+    aad = fields.Many2one('rigging.comp', domain=[('compt', '=', 'Aad')])
+    #comp_id = fields.Many2one( 'rigging.comp', domain=[ 'compt', '=', 'Canopy' ])
+    #canopy = fields.Char(related='comp_id.name')
+
     status_id = fields.Many2one( 'rigging.status' )
 
-    comp_id = fields.Many2one( 'rigging.comp', domain=[ 'compt', '=', 'Canopy' ])
+
     #canopy_id = fields.Many2one( 'rigging.canopy', domain=[('is_mounted', '=', False )] )
     """container_id = fields.Many2one( 'rigging.container', domain=[('is_mounted', '=', False )] )
     reserve_id = fields.Many2one( 'rigging.reserve' , domain=[('is_mounted', '=', False )])
