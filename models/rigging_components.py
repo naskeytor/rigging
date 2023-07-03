@@ -69,9 +69,12 @@ class Canopy(models.Model):
     status_id = fields.Many2one( 'rigging.status' )
     rigging_id = fields.Many2one( 'rigging.rigging' )
     rig_id = fields.Many2one( 'rigging.rigs', domain=[('canopy_id', '=', False )] )
+
     location = fields.Char(related='rig_id.name', string='Location')
+
     mounted = fields.Char( 'Location', compute='_compute_mount' )
     is_mounted = fields.Boolean( 'Mounted', default=False )
+
     #comp_id = fields.Many2one( 'rigging.comp', string='Comp_id' )
     #comp = fields.Char( related='comp_id.name', string='Comp' )
 

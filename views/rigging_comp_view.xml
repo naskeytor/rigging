@@ -16,6 +16,9 @@
                     <field name="model_component" string="Model"/>
                     <field name="size" string="Size"/>
                     <field name="dom" string="DOM"/>
+                    <field name="rig_id" string="Rig ID"/>
+                    <field name="location" string="Location"/>
+                    <field name="mounted" string="Mounted"/>
 
                 </tree>
             </field>
@@ -40,6 +43,10 @@
                             <field name="size_id_container" widget="selection" attrs="{'invisible': ['|', ('compt', '!=', 'Container'), ('compt', '=', 'Aad')] }"/>
                             <field name="model_id" string="Model" widget="selection"/>
                             <field name="dom" string="DOM"/>
+                            <field name="rig_id" string="Rig ID"/>
+                            <field name="location" string="Location"/>
+                            <field name="is_mounted" widget="boolean_toggle"/>
+                            <field name="mounted" string="Mounted"/>
 
                         </group>
 

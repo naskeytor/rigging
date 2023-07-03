@@ -6,15 +6,25 @@ class ComponentModel(models.Model):
     _description = 'Rigs'
     
 
-    name = fields.Char(string='Rig number')
-    canopy = fields.Many2one('rigging.comp', domain=[('compt', '=', 'Canopy')])
-    container = fields.Many2one('rigging.comp', domain=[('compt', '=', 'Container')])
-    reserve = fields.Many2one('rigging.comp', domain=[('compt', '=', 'Reserve')])
-    aad = fields.Many2one('rigging.comp', domain=[('compt', '=', 'Aad')])
-    #comp_id = fields.Many2one( 'rigging.comp', domain=[ 'compt', '=', 'Canopy' ])
-    #canopy = fields.Char(related='comp_id.name')
+    name = fields.Char(string='Rig Number')
+
+    comp_ids = fields.Many2one('rigging.comp')
+
+    canopy_id = fields.Many2one('rigging.comp', domain=['&', ('compt', '=', 'Canopy'), ('is_mounted', '=', False)])
+    container_id = fields.Many2one('rigging.comp', domain=['&', ('compt', '=', 'Container'), ('is_mounted', '=', False)])
+    reserve_id = fields.Many2one('rigging.comp', domain=['&', ('compt', '=', 'Reserve'), ('is_mounted', '=', False)])
+    aad_id = fields.Many2one('rigging.comp', domain=['&', ('compt', '=', 'Aad'), ('is_mounted', '=', False)])
 
     status_id = fields.Many2one( 'rigging.status' )
+
+    rig_canopy_model = fields.Char(related="canopy_id.model_component", string="Canopy Model")
+    rig_container_model = fields.Char(related="container_id.model_component", string="Container Model")
+    rig_reserve_model = fields.Char(related="reserve_id.model_component", string="Reserve Model")
+    rig_aad_model = fields.Char(related="aad_id.model_component", string="AAD Model")
+
+    rig_canopy_full = fields.Char(related="canopy_id.full_component", string="Canopy Info", store=True, readonly=False)
+
+    state = fields.Char('State', compute='_compute_state_component', store=True)
 
 
     #canopy_id = fields.Many2one( 'rigging.canopy', domain=[('is_mounted', '=', False )] )
@@ -22,7 +32,7 @@ class ComponentModel(models.Model):
     reserve_id = fields.Many2one( 'rigging.reserve' , domain=[('is_mounted', '=', False )])
     aad_id = fields.Many2one( 'rigging.aad', domain=[('is_mounted', '=', False )] )
 
-    #rig_canopy_model = fields.Char(related="canopy_id.model_canopy", string="Canopy Model")
+    rig_canopy_model = fields.Char(related="canopy_id.model_canopy", string="Canopy Model")
     rig_container_model = fields.Char( related="container_id.model", string="Container Model")
     rig_reserve_model = fields.Char( related="reserve_id.model_reserve", string="Reserve Model")
     rig_aad_model = fields.Char( related="aad_id.model", string="AAD Model")
@@ -32,7 +42,7 @@ class ComponentModel(models.Model):
     reserve_repack = fields.Date('Date Last Revision')
     reserve_next = fields.Date('Date Next Revision', compute='_next_reserve_repack')"""
 
-    """umount_component = fields.Selection(
+    umount_component = fields.Selection(
         string = "Component",
         selection =[
             ('container', 'Container'),
@@ -40,20 +50,29 @@ class ComponentModel(models.Model):
             ('reserve', 'Reserve'),
             ('aad', 'Aad')
         ]
-    )"""
+    )
 
-    """def action_umount_component(self):
+    def action_umount_component(self):
         if self.umount_component == "canopy":
             self.canopy_id.rig_id = False
             self.canopy_id.is_mounted = False
-            
+            self.canopy_id = False
             self.umount_component = False
         elif self.umount_component == "container":
-            pass
+            self.container_id.rig_id = False
+            self.container_id.is_mounted = False
+            self.container_id = False
+            self.umount_component = False
         elif self.umount_component == "reserve":
-            pass
+            self.reserve_id.rig_id = False
+            self.reserve_id.is_mounted = False
+            self.reserve_id = False
+            self.umount_component = False
         else:
-            pass"""
+            self.aad_id.rig_id = False
+            self.aad_id.is_mounted = False
+            self.aad_id = False
+            self.umount_component = False
 
 
     """@api.depends('reserve_repack', 'reserve_next')
@@ -64,10 +83,13 @@ class ComponentModel(models.Model):
             else:
                 record.reserve_next = False"""
 
-    """"@api.onchange('canopy_id')
-    def _onchange_canopy(self):
-        self.canopy_id.rig_id = self._origin"""
-        
+    @api.onchange('canopy_id', 'container_id', 'reserve_id', 'aad_id')
+    def _onchange_component(self):
+        self.canopy_id.rig_id = self._origin
+        self.container_id.rig_id = self._origin
+        self.reserve_id.rig_id = self._origin
+        self.aad_id.rig_id = self._origin
+
 
 
 
@@ -79,10 +101,24 @@ class ComponentModel(models.Model):
     """def action_umount_canopy_rig(self):
         self.canopy_id.rig_id = False
         self.canopy_id.is_mounted = False
-        self.canopy_id = False
+        self.canopy_id = False"""
 
     def action_mount_canopy_rig(self):
-        self.canopy_id.rig_id = self.id"""
+        self.canopy_id.rig_id = self.id
+
+    """@api.onchange('canopy_id')
+    def _mount_canopy_rig(self):
+        self.canopy_id = self._origin"""
+
+    """@api.depends('comp_ids.is_mounted')  # Set up the mounting status
+    def _compute_state_component(self):
+        for record in self:
+            if record.comp_ids.is_mounted == True:
+                record.state = "Mounted"
+                record.comp_ids.is_mounted = True
+            else:
+                record.state = "Unmounted"""""
+
 
 
 

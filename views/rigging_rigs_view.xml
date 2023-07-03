@@ -12,11 +12,11 @@
             <field name="arch" type="xml">
                 <tree >
                     <field name="name" string="Number"/>
-                    <!--<field name="rig_canopy_model" string="Canopy" widget="char" readonly="1"/>
+                    <field name="rig_canopy_model" string="Canopy" widget="char" readonly="1"/>
                     <field name="rig_container_model" string="Container"/>
                     <field name="rig_reserve_model" string="Reserve"/>
                     <field name="rig_aad_model" string="AAD"/>
-                    <field name="status_id" string="Status"/>-->
+                    <field name="status_id" string="Status"/>
                 </tree>
             </field>
         </record>
@@ -27,15 +27,29 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <h1>header</h1>
+                        <h1>Header</h1>
                     </header>
                     <sheet>
                         <group>
                             <field name="name"/>
-                            <field name="canopy" widget="selection" string="Canopy"/>
-                            <field name="container" widget="selection" string="Container"/>
-                            <field name="reserve" widget="selection" string="Reserve"/>
-                            <field name="aad" widget="selection" string="Aad"/>
+                            <field name="comp_ids"/>
+
+                                <!--<field name="canopy_id" widget="selection" string="Canopy" attrs="{'invisible': [('rig_canopy_full', '!=', False)] }"/>
+                                <field name="rig_canopy_full" string="Canopy Info" attrs="{'invisible': [('state', '=', 'mounted')] }"/>
+                                <field name="container" widget="selection" string="Container"/>
+                                <field name="reserve" widget="selection" string="Reserve"/>
+                                <field name="aad" widget="selection" string="Aad"/>
+                                <field name="state"/>-->
+
+                            <field name="canopy_id" string="Canopy"/>
+                            <!--<field name="rig_canopy_full" string="Canopy Info"  />-->
+                            <field name="container_id" string="Container"/>
+                            <field name="reserve_id" string="Reserve"/>
+                            <field name="aad_id" string="Aad"/>
+                            <field name="umount_component" widget="selection" string="For umount"/>
+                            <button name="action_umount_component" class="oe_highlight" type="object" string="Umount Component"/>
+                            <!--<field name="state"/>-->
+
                             <!--<field name="comp_id" widget='selection'/>-->
                             <!--<field name="container_id" widget='selection'/>
                             <field name="reserve_id" widget='selection'/>
