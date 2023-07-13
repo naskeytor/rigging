@@ -81,8 +81,12 @@ class Comp(models.Model):
             self.rig_id.aad_id = self._origin
             self.is_mounted = True
 
+    def action_umount(self):
+        self.rig_id = False
+        self.is_mounted = False
 
-    #self.rig_id.canopy_id = self._origin
+
+    #lf.rig_id.canopy_id = self._origin
     #self.is_mounted = True
 
 
