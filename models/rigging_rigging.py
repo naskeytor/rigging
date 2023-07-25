@@ -29,16 +29,28 @@ class RiggingRigging(models.Model):
         ]
     )"""
 
-    
-    rigging_component = fields.Many2one( 'rigging.components', string="Component ID" )
-    #rigging_component = fields.Char( related="component_id.name", string="Component" )
+    comp_id = fields.Many2one('rigging.comp')
+    compt_id = fields.Many2one('rigging.compt')
 
-    canopy_id = fields.Many2one('rigging.canopy')
-    container_id = fields.Many2one('rigging.container')
+
+
+    #component_sn = fields.Char(related='comp_id.name', string='Serial Number')
+    """container_id = fields.Many2one('rigging.container')
     reserve_id = fields.Many2one('rigging.reserve')
-    aad_id = fields.Many2one('rigging.aad')
+    aad_id = fields.Many2one('rigging.aad')"""
     rig_id = fields.Many2one('rigging.rigs')
     description = fields.Char()
+
+    @api.onchange('compt_id')
+    def on_change_component(self):
+        for rec in self:
+            return {'domain': {'comp_id': [('compt_id', '=', rec.compt_id.id)]}}
+
+        """if self.rigging_component:
+            domain = [('rigging_component', '=', self.rigging_component)]
+            return {'domain': {'comp_id': domain}}
+        else:
+            return {'domain': {'comp_id': []}}"""
 
 
 

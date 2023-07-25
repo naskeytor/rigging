@@ -13,7 +13,7 @@
             <field name="model">rigging.rigging</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name='rigging_component' string="Components"/>
+                    <field name='compt_id' string="Components"/>
                     <field name="name" string="Name"/>
                     <field name="date" string="Date"/>
                     <!--<field name="partner_id" string="Partner"/>-->
@@ -35,12 +35,15 @@
                     <sheet>
                         <group>
                             <field name='name' string="Rigger"/>
-                            <field name='rigging_component' string="Component"/> 
+                            <field name='compt_id' string="Component"/>
+                            <field name='comp_id' string="Serial Number"/>
+
+                            <!--<field name='rigging_component' string="Component"/>
                             <field name='rig_id' attrs="{'invisible': [('rigging_component', '!=', 'rig')]}"/>
                             <field name='container_id' attrs="{'invisible': [('rigging_component', '!=', 'container')]}" />
                             <field name='canopy_id' attrs="{'invisible': [('rigging_component', '!=', 'canopy')] }" />
                             <field name='reserve_id' attrs="{'invisible': [('rigging_component', '!=', 'reserve')]}" />
-                            <field name='aad_id' attrs="{'invisible': [('rigging_component', '!=', 'aad')]}" />
+                            <field name='aad_id' attrs="{'invisible': [('rigging_component', '!=', 'aad')]}" />-->
                             <field name='rigging_type' string='Type'/>                                    
                             <field name='date' string='Date'/>
                             <field name='description' string='Description'/>
