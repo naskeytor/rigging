@@ -25,6 +25,10 @@ class Comp(models.Model):
 
     dom = fields.Date()
 
+    rigging_ids = fields.One2many('rigging.rigging', 'comp_id', string="Rigging")
+
+
+
 
 
 
@@ -37,7 +41,7 @@ class Comp(models.Model):
                 record.size = record.size_id_container.name
 
 
-    rigging_ids = fields.Many2one('rigging.rigging')
+    #rigging_ids = fields.Many2one('rigging.rigging')
 
     # compute in model-size format
     @api.depends("model", "compt", "size", "name")            # Set up the model for better visibility

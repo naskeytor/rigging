@@ -54,7 +54,10 @@
                         <group>
                             <field name="rigging_ids">
                                 <form>
-
+                                    <field name='name' string="Rigger"/>
+                                    <field name='rigging_type' string='Type'/>
+                                    <field name='date' string='Date'/>
+                                    <field name='description' string='Description'/>
                                 </form>
                             </field>
                         </group>
