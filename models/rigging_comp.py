@@ -27,6 +27,11 @@ class Comp(models.Model):
 
     rigging_ids = fields.One2many('rigging.rigging', 'comp_id', string="Rigging")
 
+    #set the component type field automaticaly when make a rigging record from comonent
+    @api.onchange('rigging_ids')
+    def _onchange_rigging_ids(self):
+        self.rigging_ids.compt_id = self.compt_id
+
 
 
 
