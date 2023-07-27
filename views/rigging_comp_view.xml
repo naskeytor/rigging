@@ -47,7 +47,9 @@
                             <field name="location" string="Location"/>
                             <field name="is_mounted" widget="boolean_toggle"/>
                             <field name="mounted" string="Mounted"/>
-                            <button name="action_umount" class="oe_highlight" type="object" string="Umount"/>
+                            <button name="action_umount" class="oe_highlight" type="object" string="Umount"
+                                    confirm="Confirm umount?"
+                                    attrs="{'invisible': [('is_mounted','=',False)]}"/>
 
                         </group>
 
