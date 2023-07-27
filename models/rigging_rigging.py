@@ -34,6 +34,8 @@ class RiggingRigging(models.Model):
 
 
 
+
+
     #component_sn = fields.Char(related='comp_id.name', string='Serial Number')
     """container_id = fields.Many2one('rigging.container')
     reserve_id = fields.Many2one('rigging.reserve')

@@ -37,7 +37,7 @@
                         <group>
                             <field name="name"/>
 
-                            <field name="compt_id"/>
+                            <field name="compt_id" widget="many2one"/>
                             <field name="compt" attrs="{'invisible': True}"/>
                             <field name="size_id_canopy" widget="selection" attrs="{'invisible': ['|', ('compt', '=', 'Container'), ('compt', '=', 'Aad')] }"/>
                             <field name="size_id_container" widget="selection" attrs="{'invisible': ['|', ('compt', '!=', 'Container'), ('compt', '=', 'Aad')] }"/>
@@ -54,10 +54,13 @@
                         <group>
                             <field name="rigging_ids">
                                 <form>
-                                    <field name='name' string="Rigger"/>
-                                    <field name='rigging_type' string='Type'/>
-                                    <field name='date' string='Date'/>
-                                    <field name='description' string='Description'/>
+                                    <group>
+                                        <field name='name' string="Rigger"/>
+                                        <field name='compt_id' string="Component" invisible="1"/>
+                                        <field name='rigging_type' string='Type'/>
+                                        <field name='date' string='Date'/>
+                                        <field name='description' string='Description'/>
+                                    </group>
                                 </form>
                             </field>
                         </group>
