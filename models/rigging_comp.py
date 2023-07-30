@@ -37,6 +37,7 @@ class Comp(models.Model):
 
 
 
+
     @api.depends('size_id_canopy.name', 'size_id_container.name', 'size', 'compt')
     def _compute_size(self):
         for record in self:
