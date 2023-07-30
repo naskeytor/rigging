@@ -24,7 +24,7 @@ class ComponentModel(models.Model):
 
     rig_canopy_full = fields.Char(related="canopy_id.full_component", string="Canopy Info", store=True, readonly=False)
 
-    state = fields.Char('State', compute='_compute_state_component', store=True)
+    #state = fields.Char('State', compute='_compute_state_component', store=True)
 
 
     #canopy_id = fields.Many2one( 'rigging.canopy', domain=[('is_mounted', '=', False )] )
