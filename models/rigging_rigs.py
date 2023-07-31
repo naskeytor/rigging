@@ -8,7 +8,12 @@ class ComponentModel(models.Model):
 
     name = fields.Char(string='Rig Number')
 
+
+
     comp_ids = fields.Many2one('rigging.comp')
+    compt_id = fields.Many2one('rigging.compt')
+
+
 
     canopy_id = fields.Many2one('rigging.comp', domain=['&', ('compt', '=', 'Canopy'), ('is_mounted', '=', False)])
     container_id = fields.Many2one('rigging.comp', domain=['&', ('compt', '=', 'Container'), ('is_mounted', '=', False)])
@@ -94,6 +99,11 @@ class ComponentModel(models.Model):
 
 
     rigging_ids = fields.One2many('rigging.rigging', 'rig_id', string="Rigging")
+
+    @api.onchange('rigging_ids')
+    def _onchange_rigging_ids(self):
+        rig = self.env['rigging.compt'].search([], limit=1, offset=4)
+        self.rigging_ids.compt_id = rig
 
 
 
