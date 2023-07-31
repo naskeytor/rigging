@@ -32,7 +32,7 @@
                     <sheet>
                         <group>
                             <field name="name"/>
-                            <field name="comp_ids" invisible="1" />
+                            <field name="comp_ids" invisible="0" />
 
                                 <!--<field name="canopy_id" widget="selection" string="Canopy" attrs="{'invisible': [('rig_canopy_full', '!=', False)] }"/>
                                 <field name="rig_canopy_full" string="Canopy Info" attrs="{'invisible': [('state', '=', 'mounted')] }"/>
@@ -65,6 +65,13 @@
                         <group>
                             <field name="rigging_ids">
                                 <form>
+                                    <group>
+                                        <field name='name' string="Rigger"/>
+                                        <field name='compt_id' string="Component"/>
+                                        <field name='rigging_type' string='Type'/>
+                                        <field name='date' string='Date'/>
+                                        <field name='description' string='Description'/>
+                                    </group>
                                     <!--<field name="name"/>
                                     <field name="rigging_type"/>
                                     <field name="date"/>-->
