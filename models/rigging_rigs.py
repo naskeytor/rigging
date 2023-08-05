@@ -124,29 +124,39 @@ class ComponentModel(models.Model):
     @api.onchange('canopy_id')
     def _onchange_canopy(self):
         if self.canopy_id:
-            self.env['rigging.comp'].search([('rig_id', '=', 'self.id')]).write({'is_mounted': False})
+            #self.env['rigging.comp'].search([('rig_id', '=', 'self.canopy_id.id')]).write({'is_mounted': False})
+            previous_canopy = self._origin.canopy_id
+            if previous_canopy:
+                previous_canopy.rig_id = False
+                previous_canopy.is_mounted = False
             self.canopy_id.rig_id = self._origin
-            self.canopy_id.is_mounted = True
+
     @api.onchange('container_id')
     def _onchange_container(self):
         if self.container_id:
-            self.env['rigging.comp'].search([('rig_id', '=', 'self.container_id.id')]).write({'is_mounted': False})
+            previous_container = self._origin.container_id
+            if previous_container:
+                previous_container.rig_id = False
+                previous_container.is_mounted = False
             self.container_id.rig_id = self._origin
-            self.container_id.is_mounted = True
 
     @api.onchange('reserve_id')
     def _onchange_reserve(self):
         if self.reserve_id:
-            self.env['rigging.comp'].search([('rig_id', '=', 'self.reserve_id.id')]).write({'is_mounted': False})
+            previous_reserve = self._origin.reserve_id
+            if previous_reserve:
+                previous_reserve.rig_id = False
+                previous_reserve.is_mounted = False
             self.reserve_id.rig_id = self._origin
-            self.reserve_id.is_mounted = True
 
     @api.onchange('aad_id')
     def _onchange_aad(self):
         if self.aad_id:
-            self.env['rigging.comp'].search([('rig_id', '=', 'self.aad_id.id')]).write({'is_mounted': False})
+            previous_aad = self._origin.aad_id
+            if previous_aad:
+                previous_aad.rig_id = False
+                previous_aad.is_mounted = False
             self.aad_id.rig_id = self._origin
-            self.aad_id.is_mounted = True
 
     """def write(self, vals):
         if 'canopy_id' in vals and self.canopy_id:
