@@ -17,6 +17,8 @@
                     <field name="rig_reserve_model" string="Reserve"/>
                     <field name="rig_aad_model" string="AAD"/>
                     <field name="status_id" string="Status"/>
+
+                    <field name="aad_jumps_variable"/>
                 </tree>
             </field>
         </record>
@@ -32,7 +34,7 @@
                     <sheet>
                         <group>
                             <field name="name"/>
-                            <field name="comp_ids" invisible="0" />
+                            <field name="comp_ids" invisible="1" />
 
                                 <!--<field name="canopy_id" widget="selection" string="Canopy" attrs="{'invisible': [('rig_canopy_full', '!=', False)] }"/>
                                 <field name="rig_canopy_full" string="Canopy Info" attrs="{'invisible': [('state', '=', 'mounted')] }"/>
@@ -46,11 +48,14 @@
                             <field name="container_id" string="Container"/>
                             <field name="reserve_id" string="Reserve"/>
                             <field name="aad_id" string="Aad"/>
+
+                            <field name="aad_jumps_variable" invisible="1"/>
                             <field name="umount_component" widget="selection" string="For umount"/>
                             <button name="action_umount_component" class="oe_highlight" type="object" string="Umount Component"
                                     confirm="Confirm umount?"
                                     attrs="{'invisible': [('canopy_id','=',False), ('container_id', '=', False), ('reserve_id', '=', False), ('aad_id', '=', False)]}"/>
                             <!--<field name="state"/>-->
+                            <button name="open_aad_input" class="oe_highlight" type="object" string="Test" context="{'default_jumps': aad_jumps_variable}"/>
 
                             <!--<field name="comp_id" widget='selection'/>-->
                             <!--<field name="container_id" widget='selection'/>
@@ -67,7 +72,7 @@
                                 <form>
                                     <group>
                                         <field name='name' string="Rigger"/>
-                                        <field name='compt_id' string="Component"/>
+                                        <field name='compt_id' string="Component" invisible="0"/>
                                         <field name='rigging_type' string='Type'/>
                                         <field name='date' string='Date'/>
                                         <field name='description' string='Description'/>
@@ -95,6 +100,8 @@
                 </form>
             </field>
         </record>
+
+
 
          
     </data>

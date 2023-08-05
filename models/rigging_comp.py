@@ -25,6 +25,9 @@ class Comp(models.Model):
 
     dom = fields.Date()
 
+    jumps_number_component = fields.Integer(string='Number of jumps')
+
+
     rigging_ids = fields.One2many('rigging.rigging', 'comp_id', string="Rigging")
 
     #set the component type field automaticaly when make a rigging record from comonent
@@ -92,6 +95,18 @@ class Comp(models.Model):
             self.is_mounted = True
 
     def action_umount(self):
+        if self.compt == "Canopy":
+            self.rig_id.canopy_id = False
+
+        elif self.compt == "Container":
+            self.rig_id.container_id = False
+
+        elif self.compt == "Reserve":
+            self.rig_id.reserve_id = False
+
+        else:
+            self.rig_id.aad_id = False
+
         self.rig_id = False
         self.is_mounted = False
 

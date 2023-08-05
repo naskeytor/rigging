@@ -41,10 +41,11 @@
         'views/rigging_canopy_size_view.xml',
         'views/rigging_container_size_view.xml',
         'views/rigging_components_view.xml',
-        'views/rigging_menus.xml',
         'views/rigging_serial_view.xml',
         'views/rigging_comp_view.xml',
         'views/rigging_compt_view.xml',
+        'views/rigging_menus.xml',
+        'views/rigging_input_view.xml',
 
     ],
     # only loaded in demonstration mode

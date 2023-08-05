@@ -11,5 +11,6 @@ from . import rigging_rigs
 from . import rigging_rigging
 from . import rigging_comp
 from . import rigging_compt
+from . import rigging_input
 
 

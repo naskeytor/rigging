@@ -29,6 +29,31 @@ class ComponentModel(models.Model):
 
     rig_canopy_full = fields.Char(related="canopy_id.full_component", string="Canopy Info", store=True, readonly=False)
 
+    jumps_number_rig = fields.Integer(string='Number of jumps')
+    aad_jumps_variable = fields.Integer(string='Number of jumps AAD')
+
+
+    def open_aad_input(self):
+        #self.env.context['var'] = self.var
+
+        context = {
+            'default_jumps': self.aad_jumps_variable
+        }
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Input Aad Jumps',
+            'res_model': 'rigging.input',
+            'view_mode': 'form',
+            'target': 'new'
+        }
+
+
+
+    def save_aad_input(self):
+        self.aad_jumps_variable = self.env.context['aad_jumps_variable']
+
+
     #state = fields.Char('State', compute='_compute_state_component', store=True)
 
 
@@ -88,15 +113,45 @@ class ComponentModel(models.Model):
             else:
                 record.reserve_next = False"""
 
-    @api.onchange('canopy_id', 'container_id', 'reserve_id', 'aad_id')
+    """@api.onchange('canopy_id', 'container_id', 'reserve_id', 'aad_id')
     def _onchange_component(self):
         self.canopy_id.rig_id = self._origin
         self.container_id.rig_id = self._origin
         self.reserve_id.rig_id = self._origin
-        self.aad_id.rig_id = self._origin
+        self.aad_id.rig_id = self._origin"""
 
 
+    @api.onchange('canopy_id')
+    def _onchange_canopy(self):
+        if self.canopy_id:
+            self.env['rigging.comp'].search([('rig_id', '=', 'self.id')]).write({'is_mounted': False})
+            self.canopy_id.rig_id = self._origin
+            self.canopy_id.is_mounted = True
+    @api.onchange('container_id')
+    def _onchange_container(self):
+        if self.container_id:
+            self.env['rigging.comp'].search([('rig_id', '=', 'self.container_id.id')]).write({'is_mounted': False})
+            self.container_id.rig_id = self._origin
+            self.container_id.is_mounted = True
 
+    @api.onchange('reserve_id')
+    def _onchange_reserve(self):
+        if self.reserve_id:
+            self.env['rigging.comp'].search([('rig_id', '=', 'self.reserve_id.id')]).write({'is_mounted': False})
+            self.reserve_id.rig_id = self._origin
+            self.reserve_id.is_mounted = True
+
+    @api.onchange('aad_id')
+    def _onchange_aad(self):
+        if self.aad_id:
+            self.env['rigging.comp'].search([('rig_id', '=', 'self.aad_id.id')]).write({'is_mounted': False})
+            self.aad_id.rig_id = self._origin
+            self.aad_id.is_mounted = True
+
+    """def write(self, vals):
+        if 'canopy_id' in vals and self.canopy_id:
+            self.canopy_id.is_mounted = False
+        return super().write(vals)"""
 
     rigging_ids = fields.One2many('rigging.rigging', 'rig_id', string="Rigging")
 
@@ -105,16 +160,13 @@ class ComponentModel(models.Model):
         rig = self.env['rigging.compt'].search([], limit=1, offset=4)
         self.rigging_ids.compt_id = rig
 
-
-
-
     """def action_umount_canopy_rig(self):
         self.canopy_id.rig_id = False
         self.canopy_id.is_mounted = False
         self.canopy_id = False"""
 
-    def action_mount_canopy_rig(self):
-        self.canopy_id.rig_id = self.id
+    """def action_mount_canopy_rig(self):
+        self.canopy_id.rig_id = self.id"""
 
     """@api.onchange('canopy_id')
     def _mount_canopy_rig(self):

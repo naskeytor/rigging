@@ -10,7 +10,7 @@ access_rigging_rigs,access_rigging_rigs,model_rigging_rigs,base.group_user,1,1,1
 access_rigging_rigging,access_rigging_rigging,model_rigging_rigging,base.group_user,1,1,1,1
 access_rigging_comp,access_rigging_comp,model_rigging_comp,base.group_user,1,1,1,1
 access_rigging_compt,access_rigging_compt,model_rigging_compt,base.group_user,1,1,1,1
-"",""
+access_rigging_input,access_rigging_input,model_rigging_input,base.group_user,1,1,1,1
 
 
 
