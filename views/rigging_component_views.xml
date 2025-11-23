@@ -1,0 +1,74 @@
+<odoo>
+
+    <!-- Acción Components -->
+    <record id="rigging_component_action" model="ir.actions.act_window">
+        <field name="name">Components</field>
+        <field name="res_model">rigging.component</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- LIST VIEW -->
+    <record id="rigging_component_list" model="ir.ui.view">
+        <field name="name">rigging.component.list</field>
+        <field name="model">rigging.component</field>
+        <field name="arch" type="xml">
+            <list string="Components">
+                <field name="name"/>
+                <field name="component_type"/>
+                <field name="manufacturer_id"/>
+                <field name="model_id"/>
+                <field name="size_id"/>
+                <field name="owner_id"/>
+                <field name="dom"/>
+                <field name="jumps_on_mount"/>
+                <field name="total_jumps"/>
+                <field name="rig_id"/>
+                <field name="is_mounted"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="rigging_component_form" model="ir.ui.view">
+        <field name="name">rigging.component.form</field>
+        <field name="model">rigging.component</field>
+        <field name="arch" type="xml">
+            <form string="Component">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="component_type"/>
+                    </group>
+                    <group>
+                        <field name="manufacturer_id"/>
+                        <field name="model_id"/>
+                        <field name="size_id"/>
+                    </group>
+                    <group>
+                        <field name="owner_id"/>
+                        <field name="dom"/>
+                        <field name="jumps_on_mount"/>
+                        <field name="total_jumps"/>
+                    </group>
+                    <group>
+                        <field name="rig_id"/>
+                        <field name="is_mounted"/>
+                    </group>
+
+                    <!-- Histórico simple: usa la list view de rigging.rigging -->
+                    <group string="Rigging History">
+                        <field name="rigging_ids"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menú Components -->
+    <menuitem name="Components"
+              id="rigging.menu_components"
+              parent="rigging.menu_root"
+              action="rigging_component_action"/>
+
+</odoo>

@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+
+        <!-- Acción para Sizes -->
+        <record id="rigging_size_action" model="ir.actions.act_window">
+            <field name="name">Sizes</field>
+            <field name="res_model">rigging.size</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Vista lista -->
+        <record id="rigging_size_view_list" model="ir.ui.view">
+            <field name="name">rigging.size.list</field>
+            <field name="model">rigging.size</field>
+            <field name="arch" type="xml">
+                <list string="Sizes">
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista formulario -->
+        <record id="rigging_size_view_form" model="ir.ui.view">
+            <field name="name">rigging.size.form</field>
+            <field name="model">rigging.size</field>
+            <field name="arch" type="xml">
+                <form string="Size">
+                    <sheet>
+                        <group>
+                            <field name="name" widget="number" min="0" max="999"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- 🔹 Menú Sizes debajo de Rigging -->
+        <menuitem name="Sizes"
+                  id="rigging.menu_sizes"
+                  parent="rigging.menu_root"
+                  action="rigging_size_action"/>
+
+    </data>
+</odoo>

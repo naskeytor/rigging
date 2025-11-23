@@ -1,0 +1,51 @@
+<odoo>
+
+    <record id="rigging_rigging_list" model="ir.ui.view">
+        <field name="name">rigging.rigging.list</field>
+        <field name="model">rigging.rigging</field>
+        <field name="arch" type="xml">
+            <list string="Rigging Jobs">
+                <field name="owner_id"/>
+                <field name="date"/>
+                <field name="component_id"/>
+                <field name="rigging_type"/>
+                <!-- solo esta columna se colorea -->
+                <field name="price_color" widget="html" string="Price"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="rigging_rigging_form" model="ir.ui.view">
+        <field name="name">rigging.rigging.form</field>
+        <field name="model">rigging.rigging</field>
+        <field name="arch" type="xml">
+            <form string="Rigging Job">
+                <sheet>
+                    <group>
+                        <field name="owner_id"/>
+                        <field name="component_id"/>
+                    </group>
+                    <group>
+                        <field name="date"/>
+                        <field name="rigging_type"/>
+                    </group>
+                    <group>
+                        <field name="price"/>
+                        <field name="state"/>
+                    </group>
+                    <group>
+                        <field name="comment"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="rigging_rigging_action" model="ir.actions.act_window">
+        <field name="name">Rigging Jobs</field>
+        <field name="res_model">rigging.rigging</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

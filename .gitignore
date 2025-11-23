@@ -1,0 +1,20 @@
+# Odoo cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Odoo generated
+*.zip
+*.pot
+*.po~
+
+# Python envs
+venv/
+env/
