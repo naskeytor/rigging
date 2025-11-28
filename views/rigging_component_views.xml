@@ -51,11 +51,26 @@
                         <field name="total_jumps"/>
                     </group>
                     <group>
-                        <field name="rig_id"/>
+                        <!-- 👇 aquí pasamos info al contexto -->
+                        <field name="rig_id"
+                               context="{
+                                   'component_type': component_type,
+                                   'current_component_id': id
+                               }"/>
                         <field name="is_mounted"/>
                     </group>
 
-                    <!-- Histórico simple: usa la list view de rigging.rigging -->
+                    <group string="Component Actions">
+                        <button name="action_open_mount_wizard"
+                                type="object"
+                                string="Mount"
+                                class="btn-primary"/>
+                        <button name="action_open_unmount_wizard"
+                                type="object"
+                                string="Unmount"
+                                class="btn-secondary"/>
+                    </group>
+
                     <group string="Rigging History">
                         <field name="rigging_ids"/>
                     </group>

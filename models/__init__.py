@@ -5,3 +5,4 @@ from . import rigging_manufacturer
 from . import rigging_component
 from . import rigging_rig
 from . import rigging_rigging
+from . import aad_jumps_wizzard

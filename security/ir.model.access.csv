@@ -5,3 +5,4 @@ access_rigging_manufacturer_user,access_rigging_manufacturer_user,model_rigging_
 access_rigging_component_user,access_rigging_component_user,model_rigging_component,base.group_user,1,1,1,1
 access_rigging_rig_user,access_rigging_rig_user,model_rigging_rig,base.group_user,1,1,1,1
 access_rigging_rigging_user,access_rigging_rigging_user,model_rigging_rigging,base.group_user,1,1,1,1
+access_rigging_aad_jumps_wizard,access_rigging_aad_jumps_wizard,model_rigging_aad_jumps_wizard,base.group_user,1,1,1,1
