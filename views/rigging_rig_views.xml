@@ -13,6 +13,7 @@
             <field name="name">rigging.rig.list</field>
             <field name="model">rigging.rig</field>
             <field name="arch" type="xml">
+                <!-- 👇 IMPORTANTE: <list>, NO <tree> -->
                 <list string="Rigs">
                     <field name="number"/>
                     <field name="owner_id"/>
@@ -24,44 +25,35 @@
             </field>
         </record>
 
-        <!-- FORM VIEW (solo se edita número y owner) -->
+        <!-- FORM VIEW -->
         <record id="rigging_rig_form" model="ir.ui.view">
             <field name="name">rigging.rig.form</field>
             <field name="model">rigging.rig</field>
             <field name="arch" type="xml">
                 <form string="Rig">
                     <sheet>
-                        <!-- Solo editable: número y owner -->
                         <group>
                             <field name="number"/>
                             <field name="owner_id"/>
                         </group>
 
-                        <!-- Componentes montados: SOLO LECTURA -->
                         <group string="Mounted Components">
-                            <field name="canopy_id"
-                                   readonly="1"
-                                   options="{'no_create_edit': True}"/>
-                            <field name="container_id"
-                                   readonly="1"
-                                   options="{'no_create_edit': True}"/>
-                            <field name="reserve_id"
-                                   readonly="1"
-                                   options="{'no_create_edit': True}"/>
-                            <field name="aad_id"
-                                   readonly="1"
-                                   options="{'no_create_edit': True}"/>
+                            <field name="canopy_id" readonly="1" options="{'no_create_edit': True}"/>
+                            <field name="container_id" readonly="1" options="{'no_create_edit': True}"/>
+                            <field name="reserve_id" readonly="1" options="{'no_create_edit': True}"/>
+                            <field name="aad_id" readonly="1" options="{'no_create_edit': True}"/>
+                        </group>
+
+                        <group string="Tools">
+                            <button name="%(rigging_rig_jumps_wizard_action)d"
+                                    type="action"
+                                    string="Update All Jumps"
+                                    class="btn-primary"/>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
-        <!-- Menú Rigs -->
-        <menuitem name="Rigs"
-                  id="rigging.menu_rigs"
-                  parent="rigging.menu_root"
-                  action="rigging_rig_action"/>
 
     </data>
 </odoo>

@@ -25,13 +25,20 @@ Long description of module's purpose
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        "views/rigging_menus.xml",
-        "views/rigging_sizes_views.xml",
-        "views/rigging_model_views.xml",
-        "views/rigging_manufacturer_views.xml",
-        "views/rigging_rigging_views.xml",
-        "views/rigging_component_views.xml",
-        "views/rigging_rig_views.xml",
+        'views/rigging_menus.xml',
+
+        'views/rigging_sizes_views.xml',
+        'views/rigging_model_views.xml',
+        'views/rigging_manufacturer_views.xml',
+        'views/rigging_component_views.xml',
+        'views/rigging_rigging_views.xml',
+
+        # 👇 PRIMERO el wizard (define la acción)
+        'views/rigging_rig_jumps_wizard_views.xml',
+
+        # 👇 DESPUÉS la vista del rig que usa el botón
+        'views/rigging_rig_views.xml',
+
         'views/rigging_aad_jumps_wizard_views.xml',
     ],
     # only loaded in demonstration mode
