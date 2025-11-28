@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+
+        <!-- Acción del wizard -->
+        <record id="rigging_rig_jumps_wizard_action" model="ir.actions.act_window">
+            <field name="name">Update All Jumps</field>
+            <field name="res_model">rigging.rig.jumps.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'default_rig_id': active_id}</field>
+        </record>
+
+        <!-- Vista form del wizard -->
+        <record id="rigging_rig_jumps_wizard_form" model="ir.ui.view">
+            <field name="name">rigging.rig.jumps.wizard.form</field>
+            <field name="model">rigging.rig.jumps.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Update All Jumps">
+                    <sheet>
+                        <group>
+                            <field name="rig_id" readonly="1"/>
+                            <field name="aad_jumps"/>
+                        </group>
+                        <footer>
+                            <button string="Confirm"
+                                    name="action_confirm"
+                                    type="object"
+                                    class="btn-primary"/>
+                            <button string="Cancel" special="cancel" class="btn-secondary"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
