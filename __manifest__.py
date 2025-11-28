@@ -32,6 +32,7 @@ Long description of module's purpose
         "views/rigging_rigging_views.xml",
         "views/rigging_component_views.xml",
         "views/rigging_rig_views.xml",
+        'views/rigging_aad_jumps_wizard_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
