@@ -10,7 +10,7 @@ class RigJumpsWizard(models.TransientModel):
         "rigging.rig",
         string="Rig",
         required=True,
-        readline=True,
+        readonly=True,
     )
 
     # Lo que el usuario introduce (no queremos default 0)
@@ -53,11 +53,18 @@ class RigJumpsWizard(models.TransientModel):
         ])
 
         for comp in comps:
-            old_jom = comp.jumps_on_mount or 0
-            delta = aad_jumps - old_jom
+            if comp.component_type != "aad":
+                #old_jom = comp.jumps_on_mount or 0
+                if comp.last_jumps_update == 0:
+                    delta = aad_jumps - (comp.jumps_on_mount or 0)
+                else:
+                    delta = aad_jumps - (comp.last_jumps_update or 0)
+                    comp.last_jumps_update = aad_jumps
 
-            comp.total_jumps = (comp.total_jumps or 0) + delta
-            comp.jumps_on_mount = aad_jumps
+                comp.total_jumps = (comp.total_jumps or 0) + delta
+                #comp.jumps_on_mount = aad_jumps
+            else:
+                comp.total_jumps = aad_jumps
 
         # Cerrar el wizard
         return {"type": "ir.actions.act_window_close"}

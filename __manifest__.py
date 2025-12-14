@@ -18,7 +18,9 @@ Long description of module's purpose
     'application': True,
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': [
+        'base',
+    ],
 
     # always loaded
     'data': [
@@ -45,4 +47,11 @@ Long description of module's purpose
     'demo': [
         'demo/demo.xml',
     ],
+
+    "assets": {
+        "web.assets_backend": [
+            'rigging/static/src/js/theme_switcher.js',
+            'rigging/static/src/css/theme_dark.css',
+        ],
+    },
 }

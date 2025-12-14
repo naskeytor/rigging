@@ -15,12 +15,14 @@
             <list string="Components">
                 <field name="name"/>
                 <field name="component_type"/>
+                <field name="usage_type"/>
                 <field name="manufacturer_id"/>
                 <field name="model_id"/>
                 <field name="size_id"/>
                 <field name="owner_id"/>
                 <field name="dom"/>
                 <field name="jumps_on_mount"/>
+                <field name="last_jumps_update"/>
                 <field name="total_jumps"/>
                 <field name="rig_id"/>
                 <field name="is_mounted"/>
@@ -38,6 +40,7 @@
                     <group>
                         <field name="name"/>
                         <field name="component_type"/>
+                        <field name="usage_type"/>
                     </group>
                     <group>
                         <field name="manufacturer_id"/>
@@ -48,6 +51,7 @@
                         <field name="owner_id"/>
                         <field name="dom"/>
                         <field name="jumps_on_mount"/>
+                        <field name="last_jumps_update"/>
                         <field name="total_jumps"/>
                     </group>
                     <group>

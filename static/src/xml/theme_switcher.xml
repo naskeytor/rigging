@@ -1,0 +1,18 @@
+<odoo>
+    <!-- Añadimos una entrada al menú de usuario -->
+    <template id="theme_switcher_user_menu"
+              inherit_id="web.UserMenu"
+              name="Rigging Theme Switcher">
+
+        <!-- Insertamos un ítem de menú al final del dropdown -->
+        <xpath expr="//div[contains(@class, 'dropdown-menu')]" position="inside">
+            <a role="menuitem"
+               href="#"
+               id="rigging_theme_toggle"
+               class="dropdown-item rigging-theme-toggle">
+                <i class="fa fa-moon-o me-2" aria-hidden="true"></i>
+                <span>Dark / Light</span>
+            </a>
+        </xpath>
+    </template>
+</odoo>
