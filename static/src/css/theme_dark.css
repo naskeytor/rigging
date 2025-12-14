@@ -1,0 +1,187 @@
+/* ==========================================================
+   GLOBAL DARK THEME FOR ODOO (RIGGING MODULE)
+   Applied when <body> has class "rigging-dark-mode"
+   ========================================================== */
+
+body.rigging-dark-mode {
+  --rig-bg-main: #121212;
+  --rig-bg-secondary: #181818;
+  --rig-bg-elevated: #1f1f1f;
+  --rig-border-soft: #333333;
+  --rig-text-main: #f0f0f0;
+  --rig-text-muted: #bbbbbb;
+}
+
+/* === Base === */
+
+body.rigging-dark-mode,
+body.rigging-dark-mode .o_web_client {
+  background-color: var(--rig-bg-main) !important;
+  color: var(--rig-text-main) !important;
+}
+
+/* === Top navbar & app bar === */
+
+body.rigging-dark-mode .o_main_navbar {
+  background-color: #000000 !important;
+  color: var(--rig-text-main) !important;
+  border-bottom: 1px solid var(--rig-border-soft) !important;
+}
+
+body.rigging-dark-mode .o_main_navbar .o_menu_brand,
+body.rigging-dark-mode .o_main_navbar .o_menu_sections,
+body.rigging-dark-mode .o_main_navbar .o_menu_systray {
+  color: var(--rig-text-main) !important;
+}
+
+body.rigging-dark-mode .o_main_navbar a,
+body.rigging-dark-mode .o_main_navbar button {
+  color: var(--rig-text-main) !important;
+}
+
+/* === Content wrapper (cuerpo de las vistas) === */
+
+body.rigging-dark-mode .o_content,
+body.rigging-dark-mode .o_action_manager,
+body.rigging-dark-mode .o_view_controller {
+  background-color: var(--rig-bg-main) !important;
+  color: var(--rig-text-main) !important;
+}
+
+/* === List / tree views === */
+
+body.rigging-dark-mode .o_list_view,
+body.rigging-dark-mode .o_list_view .table,
+body.rigging-dark-mode .o_list_view .o_list_table {
+  background-color: var(--rig-bg-main) !important;
+  color: var(--rig-text-main) !important;
+}
+
+body.rigging-dark-mode .o_list_view thead,
+body.rigging-dark-mode .o_list_view thead tr {
+  background-color: var(--rig-bg-secondary) !important;
+  color: var(--rig-text-main) !important;
+}
+
+body.rigging-dark-mode .o_list_view tbody tr {
+  background-color: var(--rig-bg-elevated) !important;
+  border-bottom: 1px solid var(--rig-border-soft) !important;
+}
+
+body.rigging-dark-mode .o_list_view tbody tr:hover {
+  background-color: #262626 !important;
+}
+
+/* === Form views === */
+
+body.rigging-dark-mode .o_form_view {
+  background-color: var(--rig-bg-main) !important;
+  color: var(--rig-text-main) !important;
+}
+
+body.rigging-dark-mode .o_form_view .o_group,
+body.rigging-dark-mode .o_form_view .o_inner_group {
+  background-color: var(--rig-bg-elevated) !important;
+  border: 1px solid var(--rig-border-soft) !important;
+}
+
+body.rigging-dark-mode .o_form_view .o_group > tbody > tr > td {
+  background-color: transparent !important;
+}
+
+/* === Kanban (TODOS los kanban: Projects, Tasks, etc.) === */
+
+body.rigging-dark-mode .o_kanban_view {
+  background-color: var(--rig-bg-main) !important;
+  color: var(--rig-text-main) !important;
+}
+
+body.rigging-dark-mode .o_kanban_view .o_kanban_renderer {
+  background-color: var(--rig-bg-main) !important;
+}
+
+body.rigging-dark-mode .o_kanban_view .o_kanban_group {
+  background-color: var(--rig-bg-secondary) !important;
+  border: 1px solid var(--rig-border-soft) !important;
+}
+
+body.rigging-dark-mode .o_kanban_view .o_kanban_group_header {
+  background-color: var(--rig-bg-elevated) !important;
+  color: var(--rig-text-main) !important;
+  border-bottom: 1px solid var(--rig-border-soft) !important;
+}
+
+body.rigging-dark-mode .o_kanban_view .o_kanban_record {
+  background-color: var(--rig-bg-elevated) !important;
+  border: 1px solid var(--rig-border-soft) !important;
+  color: var(--rig-text-main) !important;
+}
+
+body.rigging-dark-mode .o_kanban_view .o_kanban_record:hover {
+  background-color: #262626 !important;
+}
+
+/* === Search bar, filtros, botones === */
+
+body.rigging-dark-mode .o_searchview,
+body.rigging-dark-mode .o_searchview_input_container input {
+  background-color: var(--rig-bg-elevated) !important;
+  color: var(--rig-text-main) !important;
+  border-color: var(--rig-border-soft) !important;
+}
+
+body.rigging-dark-mode .o_control_panel,
+body.rigging-dark-mode .o_control_panel_background {
+  background-color: var(--rig-bg-main) !important;
+  border-bottom: 1px solid var(--rig-border-soft) !important;
+}
+
+/* Botones genéricos */
+
+body.rigging-dark-mode .btn,
+body.rigging-dark-mode .o_form_button_edit,
+body.rigging-dark-mode .o_button {
+  background-color: #2a2a2a !important;
+  color: var(--rig-text-main) !important;
+  border-color: var(--rig-border-soft) !important;
+}
+
+body.rigging-dark-mode .btn:hover,
+body.rigging-dark-mode .o_button:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* === Inputs === */
+
+body.rigging-dark-mode input,
+body.rigging-dark-mode textarea,
+body.rigging-dark-mode select {
+  background-color: #1a1a1a !important;
+  color: var(--rig-text-main) !important;
+  border: 1px solid var(--rig-border-soft) !important;
+}
+
+body.rigging-dark-mode ::placeholder {
+  color: var(--rig-text-muted) !important;
+}
+
+/* === Modals === */
+
+body.rigging-dark-mode .modal-content {
+  background-color: var(--rig-bg-elevated) !important;
+  color: var(--rig-text-main) !important;
+}
+
+/* === Breadcrumbs, tags, misc. === */
+
+body.rigging-dark-mode .o_breadcrumb,
+body.rigging-dark-mode .o_breadcrumb span,
+body.rigging-dark-mode .o_breadcrumb a {
+  color: var(--rig-text-main) !important;
+}
+
+body.rigging-dark-mode .badge,
+body.rigging-dark-mode .o_tag {
+  background-color: #303030 !important;
+  color: var(--rig-text-main) !important;
+}

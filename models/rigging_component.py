@@ -20,12 +20,24 @@ class Component(models.Model):
         required=True,
     )
 
+    usage_type = fields.Selection(
+        [
+            ("sport", "Sport"),
+            ("tandem", "Tandem"),
+            ("pilot", "Pilot"),
+        ],
+        string="Discipline",
+        default="sport",
+        help="Defines if this component is for Sport, Tandem, or Pilot rigs.",
+    )
+
     manufacturer_id = fields.Many2one("rigging.manufacturer", string="Manufacturer")
     model_id = fields.Many2one("rigging.model", string="Model")
     size_id = fields.Many2one("rigging.size", string="Size")
     dom = fields.Date(string="DOM")
 
     jumps_on_mount = fields.Integer(string="Jumps on mount")
+    last_jumps_update = fields.Integer(string="Last AAD Jumps Update")
     total_jumps = fields.Integer(string="Total jumps")
 
     owner_id = fields.Many2one(
