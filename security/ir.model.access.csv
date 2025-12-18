@@ -8,3 +8,5 @@ access_rigging_rigging_user,access_rigging_rigging_user,model_rigging_rigging,ba
 access_rigging_aad_jumps_wizard,access_rigging_aad_jumps_wizard,model_rigging_aad_jumps_wizard,base.group_user,1,1,1,1
 rigging_access_rigging_rig_jumps_wizard,access_rigging_rig_jumps_wizard,model_rigging_rig_jumps_wizard,base.group_user,1,1,1,0
 access_rigging_dashboard_user,rigging.dashboard,model_rigging_dashboard,base.group_user,1,0,0,0
+access_rigging_drogue_user,rigging.drogue user,model_rigging_drogue,base.group_user,1,1,1,1
+access_rigging_drogue_mount_wizard_user,rigging.drogue.mount.wizard user,model_rigging_drogue_mount_wizard,base.group_user,1,1,1,1

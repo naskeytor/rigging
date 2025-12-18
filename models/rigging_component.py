@@ -61,6 +61,12 @@ class Component(models.Model):
         string="Rigging History",
     )
 
+    drogue_ids = fields.One2many(
+        "rigging.drogue",
+        "container_id",
+        string="Drogues",
+    )
+
     # -------------------------------
     # Botones (tal como los tenías)
     # -------------------------------

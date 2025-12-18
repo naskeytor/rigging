@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
     <!-- Acción Components -->
@@ -37,16 +38,19 @@
         <field name="arch" type="xml">
             <form string="Component">
                 <sheet>
+
                     <group>
                         <field name="name"/>
                         <field name="component_type"/>
                         <field name="usage_type"/>
                     </group>
+
                     <group>
                         <field name="manufacturer_id"/>
                         <field name="model_id"/>
                         <field name="size_id"/>
                     </group>
+
                     <group>
                         <field name="owner_id"/>
                         <field name="dom"/>
@@ -54,8 +58,8 @@
                         <field name="last_jumps_update"/>
                         <field name="total_jumps"/>
                     </group>
+
                     <group>
-                        <!-- 👇 aquí pasamos info al contexto -->
                         <field name="rig_id"
                                context="{
                                    'component_type': component_type,
@@ -73,6 +77,19 @@
                                 type="object"
                                 string="Unmount"
                                 class="btn-secondary"/>
+                    </group>
+
+                    <!-- ✅ SOLO PARA Container + Tandem (Odoo 17) -->
+                    <!-- ✅ SOLO PARA Container + Tandem (Odoo 17) -->
+                    <group string="Drogues"
+                           invisible="component_type != 'container' or usage_type != 'tandem'">
+
+                        <field name="drogue_ids"
+                               context="{
+             'default_container_id': id,
+             'tree_view_ref': 'rigging.view_rigging_drogue_list_embedded',
+             'form_view_ref': 'rigging.view_rigging_drogue_form'
+           }"/>
                     </group>
 
                     <group string="Rigging History">

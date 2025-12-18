@@ -39,4 +39,10 @@
               parent="rigging.menu_settings"
               action="rigging_size_action"
               sequence="10"/>
+    <menuitem id="rigging.menu_drogues"
+              name="Drogues"
+              parent="rigging.menu_settings"
+              action="rigging_drogue_action"
+              sequence="40"/>
+
 </odoo>
