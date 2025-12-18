@@ -28,13 +28,14 @@ Long description of module's purpose
         'views/views.xml',
         'views/templates.xml',
         'views/rigging_dashboard_views.xml',
-        'views/rigging_menus.xml',
 
         'views/rigging_sizes_views.xml',
         'views/rigging_model_views.xml',
         'views/rigging_manufacturer_views.xml',
+        'views/drogue_views.xml',
         'views/rigging_component_views.xml',
         'views/rigging_rigging_views.xml',
+        'views/rigging_menus.xml',
 
         # 👇 PRIMERO el wizard (define la acción)
         'views/rigging_rig_jumps_wizard_views.xml',
