@@ -54,15 +54,11 @@ class RigJumpsWizard(models.TransientModel):
 
         for comp in comps:
             if comp.component_type != "aad":
-                #old_jom = comp.jumps_on_mount or 0
                 if comp.last_jumps_update == 0:
                     comp.last_jumps_update = comp.jumps_on_mount
-
                 delta = aad_jumps - (comp.last_jumps_update or 0)
                 comp.last_jumps_update = aad_jumps
-
                 comp.total_jumps = (comp.total_jumps or 0) + delta
-                #comp.jumps_on_mount = aad_jumps
             else:
                 comp.total_jumps = aad_jumps
 

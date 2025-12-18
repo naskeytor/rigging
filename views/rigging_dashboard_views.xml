@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="rigging_dashboard_action" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">rigging.dashboard</field>
+        <field name="view_mode">kanban</field>
+    </record>
+
+    <record id="rigging_dashboard_kanban_view" model="ir.ui.view">
+        <field name="name">rigging.dashboard.kanban</field>
+        <field name="model">rigging.dashboard</field>
+        <field name="arch" type="xml">
+            <kanban class="rg_dashboard" create="0" quick_create="0">
+                <templates>
+                    <t t-name="card">
+                        <div class="rg_page">
+                            <div class="rg_sidebar">
+                                <div class="rg_sidebar_header">Rigging</div>
+                                <div class="rg_nav">
+                                    <div class="rg_nav_item rg_nav_active">Dashboard</div>
+                                    <div class="rg_nav_item">Rigs</div>
+                                    <div class="rg_nav_item">Components</div>
+                                    <div class="rg_nav_item">Rigging Jobs</div>
+                                </div>
+                            </div>
+
+                            <div class="rg_content">
+                                <div class="rg_dashboard_grid">
+
+                                    <div class="rg_dashboard_card">
+                                        <div class="rg_card_header">
+                                            <div class="rg_card_title">Rigs</div>
+                                            <div class="rg_card_actions">
+                                                <button class="rg_icon_btn rg_expand_btn" type="button">⤢</button>
+                                                <button class="rg_icon_btn rg_minimize_btn" type="button">⤡</button>
+                                            </div>
+                                        </div>
+                                        <div class="rg_card_body">UI only</div>
+                                    </div>
+
+                                    <div class="rg_dashboard_card">
+                                        <div class="rg_card_header">
+                                            <div class="rg_card_title">Canopies</div>
+                                            <div class="rg_card_actions">
+                                                <button class="rg_icon_btn rg_expand_btn" type="button">⤢</button>
+                                                <button class="rg_icon_btn rg_minimize_btn" type="button">⤡</button>
+                                            </div>
+                                        </div>
+                                        <div class="rg_card_body">UI only</div>
+                                    </div>
+
+                                    <div class="rg_dashboard_card">
+                                        <div class="rg_card_header">
+                                            <div class="rg_card_title">Containers</div>
+                                            <div class="rg_card_actions">
+                                                <button class="rg_icon_btn rg_expand_btn" type="button">⤢</button>
+                                                <button class="rg_icon_btn rg_minimize_btn" type="button">⤡</button>
+                                            </div>
+                                        </div>
+                                        <div class="rg_card_body">UI only</div>
+                                    </div>
+
+                                    <div class="rg_dashboard_card">
+                                        <div class="rg_card_header">
+                                            <div class="rg_card_title">Reserves</div>
+                                            <div class="rg_card_actions">
+                                                <button class="rg_icon_btn rg_expand_btn" type="button">⤢</button>
+                                                <button class="rg_icon_btn rg_minimize_btn" type="button">⤡</button>
+                                            </div>
+                                        </div>
+                                        <div class="rg_card_body">UI only</div>
+                                    </div>
+
+                                    <div class="rg_dashboard_card">
+                                        <div class="rg_card_header">
+                                            <div class="rg_card_title">AAD’s</div>
+                                            <div class="rg_card_actions">
+                                                <button class="rg_icon_btn rg_expand_btn" type="button">⤢</button>
+                                                <button class="rg_icon_btn rg_minimize_btn" type="button">⤡</button>
+                                            </div>
+                                        </div>
+                                        <div class="rg_card_body">UI only</div>
+                                    </div>
+
+                                    <div class="rg_dashboard_card">
+                                        <div class="rg_card_header">
+                                            <div class="rg_card_title">Schedule</div>
+                                            <div class="rg_card_actions">
+                                                <button class="rg_icon_btn rg_expand_btn" type="button">⤢</button>
+                                                <button class="rg_icon_btn rg_minimize_btn" type="button">⤡</button>
+                                            </div>
+                                        </div>
+                                        <div class="rg_card_body">UI only</div>
+                                    </div>
+
+                                    <div class="rg_dashboard_card">
+                                        <div class="rg_card_header">
+                                            <div class="rg_card_title">Rigging</div>
+                                            <div class="rg_card_actions">
+                                                <button class="rg_icon_btn rg_expand_btn" type="button">⤢</button>
+                                                <button class="rg_icon_btn rg_minimize_btn" type="button">⤡</button>
+                                            </div>
+                                        </div>
+                                        <div class="rg_card_body">UI only</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+</odoo>

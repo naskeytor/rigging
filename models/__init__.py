@@ -7,3 +7,4 @@ from . import rigging_rig
 from . import rigging_rigging
 from . import aad_jumps_wizzard
 from . import rigging_rig_jumps_wizard
+from . import dashboard
