@@ -27,6 +27,7 @@ Long description of module's purpose
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'views/rigging_dashboard_views.xml',
         'views/rigging_menus.xml',
 
         'views/rigging_sizes_views.xml',
@@ -50,6 +51,9 @@ Long description of module's purpose
 
     "assets": {
         "web.assets_backend": [
+            "rigging/static/src/js/dashboard.js",
+            "rigging/static/src/css/dashboard.css",
+
             'rigging/static/src/js/theme_switcher.js',
             'rigging/static/src/css/theme_dark.css',
         ],

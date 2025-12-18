@@ -1,0 +1,62 @@
+/* El wrapper de Odoo no debe “encapsular” visualmente */
+.rg_dashboard .o_kanban_record {
+  width: 100% !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Sidebar + content */
+.rg_page { display: flex; gap: 14px; padding: 12px; }
+.rg_sidebar { width: 240px; border: 1px solid rgba(0,0,0,.08); border-radius: 14px; padding: 12px; background: #fff; }
+.rg_content { flex: 1; min-width: 0; }
+
+/* Grid cards */
+.rg_dashboard_grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 768px){ .rg_dashboard_grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width: 1200px){ .rg_dashboard_grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+.rg_dashboard_card { border: 1px solid rgba(0,0,0,.08); border-radius: 14px; background: #fff; overflow: hidden; }
+.rg_card_header { display:flex; justify-content:space-between; padding:12px 14px; border-bottom:1px solid rgba(0,0,0,.06); }
+.rg_card_body { padding: 14px; min-height: 110px; }
+
+/* Mobile: sidebar arriba */
+@media (max-width: 900px){ .rg_page{ flex-direction: column; } .rg_sidebar{ width: 100%; } }
+
+/* ===== Expand / Minimize ===== */
+.rg-dashboard-lock-scroll { overflow: hidden !important; }
+
+:root { --rg-odoo-topbar: 46px; }
+
+.rg_dashboard_overlay {
+  position: fixed;
+  top: var(--rg-odoo-topbar);
+  left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.22);
+  z-index: 9998;
+}
+
+.rg_dashboard_card.rg-is-expanded {
+  position: fixed !important;
+  top: calc(var(--rg-odoo-topbar) + 12px) !important;
+  left: 12px !important;
+  right: 12px !important;
+  bottom: 12px !important;
+  z-index: 9999 !important;
+
+  margin: 0 !important;
+  border-radius: 14px;
+  box-shadow: 0 16px 70px rgba(0,0,0,0.35);
+  transform: none !important;
+}
+
+.rg_dashboard_card.rg-is-expanded .rg_card_body {
+  height: calc(100% - 56px);
+  overflow: auto;
+}
+
+.rg_minimize_btn { display: none; }
+.rg_dashboard_card.rg-is-expanded .rg_minimize_btn { display: inline-flex; }
+.rg_dashboard_card.rg-is-expanded .rg_expand_btn { display: none; }

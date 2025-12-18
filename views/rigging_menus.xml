@@ -1,35 +1,42 @@
 <odoo>
-    <!-- Menú raíz de la app -->
+    <!-- Menú raíz -->
     <menuitem id="rigging.menu_root" name="Rigging" sequence="10"/>
 
-    <!-- Tus menús existentes -->
-    <menuitem id="rigging.menu_sizes"
-              name="Sizes"
+    <!-- ⭐ Dashboard -->
+    <menuitem id="rigging.menu_dashboard"
+              name="Dashboard"
               parent="rigging.menu_root"
-              action="rigging_size_action"
-              sequence="20"/>
+              action="rigging_dashboard_action"
+              sequence="10"/>
 
-    <menuitem id="rigging.menu_settings"
-              name="Settings"
+    <!-- Trabajo diario -->
+    <menuitem id="rigging.menu_rigs"
+              name="Rigs"
               parent="rigging.menu_root"
-              sequence="30"/>
+              action="rigging_rig_action"
+              sequence="20"/>
 
     <menuitem id="rigging.menu_components"
               name="Components"
               parent="rigging.menu_root"
               action="rigging_component_action"
-              sequence="40"/>
+              sequence="30"/>
 
-    <menuitem id="rigging.menu_rigs"
-              name="Rigs"
-              parent="rigging.menu_root"
-              action="rigging_rig_action"
-              sequence="50"/>
-
-    <!-- 👇 NUEVO: Rigging Jobs -->
     <menuitem id="rigging.menu_rigging_jobs"
               name="Rigging Jobs"
               parent="rigging.menu_root"
               action="rigging_rigging_action"
-              sequence="60"/>
+              sequence="40"/>
+
+    <!-- Configuración -->
+    <menuitem id="rigging.menu_settings"
+              name="Settings"
+              parent="rigging.menu_root"
+              sequence="90"/>
+
+    <menuitem id="rigging.menu_sizes"
+              name="Sizes"
+              parent="rigging.menu_settings"
+              action="rigging_size_action"
+              sequence="10"/>
 </odoo>

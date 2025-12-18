@@ -7,3 +7,4 @@ access_rigging_rig_user,access_rigging_rig_user,model_rigging_rig,base.group_use
 access_rigging_rigging_user,access_rigging_rigging_user,model_rigging_rigging,base.group_user,1,1,1,1
 access_rigging_aad_jumps_wizard,access_rigging_aad_jumps_wizard,model_rigging_aad_jumps_wizard,base.group_user,1,1,1,1
 rigging_access_rigging_rig_jumps_wizard,access_rigging_rig_jumps_wizard,model_rigging_rig_jumps_wizard,base.group_user,1,1,1,0
+access_rigging_dashboard_user,rigging.dashboard,model_rigging_dashboard,base.group_user,1,0,0,0
