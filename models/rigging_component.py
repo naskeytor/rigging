@@ -67,6 +67,12 @@ class Component(models.Model):
         string="Drogues",
     )
 
+    lineset_ids = fields.One2many(
+        "rigging.lineset",
+        "canopy_id",
+        string="Lineset",
+    )
+
     # -------------------------------
     # Botones (tal como los tenías)
     # -------------------------------

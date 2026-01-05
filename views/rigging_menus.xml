@@ -44,5 +44,10 @@
               parent="rigging.menu_settings"
               action="rigging_drogue_action"
               sequence="40"/>
+    <menuitem id="rigging.menu_linesets"
+              name="Linesets"
+              parent="rigging.menu_settings"
+              action="rigging_lineset_action"
+              sequence="50"/>
 
 </odoo>

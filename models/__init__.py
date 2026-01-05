@@ -7,3 +7,4 @@ from . import rigging_rig
 from . import rigging_rigging
 from . import dashboard
 from . import drogue
+from . import lineset
