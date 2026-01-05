@@ -72,11 +72,13 @@
                         <button name="action_open_mount_wizard"
                                 type="object"
                                 string="Mount"
-                                class="btn-primary"/>
+                                class="btn-primary"
+                                invisible="is_mounted"/>/>
                         <button name="action_open_unmount_wizard"
                                 type="object"
                                 string="Unmount"
-                                class="btn-secondary"/>
+                                class="btn-secondary"
+                                invisible="not is_mounted"/>/>
                     </group>
 
                     <!-- ✅ SOLO PARA Container + Tandem (Odoo 17) -->
@@ -89,6 +91,17 @@
              'default_container_id': id,
              'tree_view_ref': 'rigging.view_rigging_drogue_list_embedded',
              'form_view_ref': 'rigging.view_rigging_drogue_form'
+           }"/>
+                    </group>
+
+                    <group string="Lineset"
+                           invisible="component_type != 'canopy' ">
+
+                        <field name="lineset_ids"
+                               context="{
+             'default_canopy_id': id,
+             'tree_view_ref': 'rigging.view_rigging_lineset_list_embedded',
+             'form_view_ref': 'rigging.view_rigging_lineset_form'
            }"/>
                     </group>
 

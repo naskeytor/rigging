@@ -10,3 +10,5 @@ rigging_access_rigging_rig_jumps_wizard,access_rigging_rig_jumps_wizard,model_ri
 access_rigging_dashboard_user,rigging.dashboard,model_rigging_dashboard,base.group_user,1,0,0,0
 access_rigging_drogue_user,rigging.drogue user,model_rigging_drogue,base.group_user,1,1,1,1
 access_rigging_drogue_mount_wizard_user,rigging.drogue.mount.wizard user,model_rigging_drogue_mount_wizard,base.group_user,1,1,1,1
+access_rigging_lineset_user,rigging.lineset user,model_rigging_lineset,base.group_user,1,1,1,1
+access_rigging_lineset_mount_wizard_user,rigging.lineset.mount.wizard user,model_rigging_lineset_mount_wizard,base.group_user,1,1,1,1

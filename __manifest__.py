@@ -36,6 +36,8 @@ Long description of module's purpose
         'views/rigging_drogue_mount_wizard_views.xml',
         'views/rigging_component_views.xml',
         'views/rigging_rigging_views.xml',
+        'views/rigging_lineset_views.xml',
+        'views/rigging_lineset_mount_wizard_views.xml',
         'views/rigging_menus.xml',
 
         # 👇 PRIMERO el wizard (define la acción)
