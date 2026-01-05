@@ -1,56 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <!-- ========================= -->
-    <!-- Action -->
-    <!-- ========================= -->
+    <!-- ACTION -->
     <record id="rigging_drogue_action" model="ir.actions.act_window">
         <field name="name">Drogues</field>
         <field name="res_model">rigging.drogue</field>
         <field name="view_mode">list,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create your first Drogue
-            </p>
-        </field>
     </record>
 
-    <!-- ========================= -->
-    <!-- Tree View -->
-    <!-- ========================= -->
-    <!-- ========================= -->
-    <!-- List View (Odoo 17) -->
-    <!-- ========================= -->
+    <!-- LIST -->
     <record id="view_rigging_drogue_list" model="ir.ui.view">
         <field name="name">rigging.drogue.list</field>
         <field name="model">rigging.drogue</field>
         <field name="arch" type="xml">
-            <list string="Drogues">
+            <list>
                 <field name="name"/>
                 <field name="manufacturer_id"/>
                 <field name="model_id"/>
-                <field name="container_id"/>
-                <field name="is_mounted"/>
-                <field name="mounted_on"/>
-                <field name="total_cycles"/>
+                <field name="container_id" string="Mounted on"/>
+                <field name="mounted_on" string="Mounted at"/>
+                <field name="total_jumps"/>
             </list>
         </field>
     </record>
 
-    <!-- ========================= -->
-    <!-- Form View -->
-    <!-- ========================= -->
+    <!-- FORM -->
     <record id="view_rigging_drogue_form" model="ir.ui.view">
         <field name="name">rigging.drogue.form</field>
         <field name="model">rigging.drogue</field>
         <field name="arch" type="xml">
             <form string="Drogue">
                 <header>
-                    <button name="action_mount" type="object" string="Mount"
+                    <!-- SOLO UNO VISIBLE A LA VEZ -->
+                    <button name="action_mount"
+                            type="object"
+                            string="Mount"
                             class="btn-primary"
                             invisible="is_mounted"/>
 
-                    <button name="action_unmount" type="object" string="Unmount"
+                    <button name="action_unmount"
+                            type="object"
+                            string="Unmount"
                             class="btn-secondary"
                             invisible="not is_mounted"/>
                 </header>
@@ -65,11 +55,15 @@
                         </group>
 
                         <group>
-                            <field name="container_id"
-                                   domain="[('component_type','=','container'),('usage_type','=','tandem')]"/>
-                            <field name="is_mounted" readonly="1"/>
-                            <field name="mounted_on" readonly="1"/>
-                            <field name="total_cycles"/>
+                            <field name="container_id"/>
+                            <field name="mounted_on"/>
+                            <field name="is_mounted"/>
+                        </group>
+
+                        <group string="Jumps">
+                            <field name="jumps_on_mount"/>
+                            <field name="last_jumps_update"/>
+                            <field name="total_jumps"/>
                         </group>
                     </group>
 
@@ -78,24 +72,6 @@
                     </group>
                 </sheet>
             </form>
-        </field>
-    </record>
-
-    <!-- ========================= -->
-    <!-- Embedded List View (for container form) -->
-    <!-- ========================= -->
-    <record id="view_rigging_drogue_list_embedded" model="ir.ui.view">
-        <field name="name">rigging.drogue.list.embedded</field>
-        <field name="model">rigging.drogue</field>
-        <field name="arch" type="xml">
-            <list string="Mounted Drogues">
-                <field name="name"/>
-                <field name="manufacturer_id"/>
-                <field name="model_id"/>
-                <field name="is_mounted"/>
-                <field name="mounted_on"/>
-                <field name="total_cycles"/>
-            </list>
         </field>
     </record>
 
