@@ -42,6 +42,18 @@ class Rig(models.Model):
         domain=[("component_type", "=", "aad")],
     )
 
+    usage_type = fields.Selection(
+        [
+            ("sport", "Sport"),
+            ("tandem", "Tandem"),
+            ("pilot", "Pilot"),
+        ],
+        string="Discipline",
+        default="sport",
+        required=True,
+        help="Defines if this rig is for Sport, Tandem, or Pilot.",
+    )
+
     # -------------------------------------------------
     # CAMBIO DE OWNER → aplicar en componentes montados
     # -------------------------------------------------
@@ -115,7 +127,13 @@ class Rig(models.Model):
 
         component_type = ctx.get("component_type")
         current_component_id = ctx.get("current_component_id")
+        usage_type = ctx.get("usage_type")
 
+        # ✅ disciplina SOLO si no es AAD
+        if usage_type and component_type != "aad":
+            domain += [("usage_type", "=", usage_type)]
+
+        # ✅ tu filtro existente: que el slot esté libre o sea el mismo componente
         if component_type:
             field_map = {
                 "canopy": "canopy_id",
@@ -131,7 +149,7 @@ class Rig(models.Model):
                     (f, "=", current_component_id),
                 ]
 
-        return super(Rig, self).name_search(name, domain, operator, limit)
+        return super().name_search(name, domain, operator, limit)
 
     # ============================================================
     # 🔹 Helper: obtener todos los componentes montados en este rig

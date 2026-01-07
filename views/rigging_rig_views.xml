@@ -16,6 +16,7 @@
                 <!-- 👇 IMPORTANTE: <list>, NO <tree> -->
                 <list string="Rigs">
                     <field name="number"/>
+                    <field name="usage_type"/>
                     <field name="owner_id"/>
                     <field name="canopy_id"/>
                     <field name="container_id"/>
@@ -35,13 +36,7 @@
                         <group>
                             <field name="number"/>
                             <field name="owner_id"/>
-                        </group>
-
-                        <group string="Mounted Components">
-                            <field name="canopy_id" readonly="1" options="{'no_create_edit': True}"/>
-                            <field name="container_id" readonly="1" options="{'no_create_edit': True}"/>
-                            <field name="reserve_id" readonly="1" options="{'no_create_edit': True}"/>
-                            <field name="aad_id" readonly="1" options="{'no_create_edit': True}"/>
+                            <field name="usage_type"/>
                         </group>
 
                         <group string="Tools">
