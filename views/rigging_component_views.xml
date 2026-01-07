@@ -61,9 +61,11 @@
 
                     <group>
                         <field name="rig_id"
+
                                context="{
                                    'component_type': component_type,
-                                   'current_component_id': id
+                                   'current_component_id': id,
+                                   'usage_type': usage_type
                                }"/>
                         <field name="is_mounted"/>
                     </group>
