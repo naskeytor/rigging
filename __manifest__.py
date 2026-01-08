@@ -19,7 +19,7 @@ Long description of module's purpose
 
     # any module necessary for this one to work correctly
     'depends': [
-        'base',
+        'base', 'contacts'
     ],
 
     # always loaded
@@ -35,6 +35,7 @@ Long description of module's purpose
         'views/drogue_views.xml',
         'views/rigging_drogue_mount_wizard_views.xml',
         'views/rigging_component_views.xml',
+        "views/res_partner_views.xml",
         'views/rigging_rigging_views.xml',
         'views/rigging_lineset_views.xml',
         'views/rigging_lineset_mount_wizard_views.xml',

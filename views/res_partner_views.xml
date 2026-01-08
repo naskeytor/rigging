@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="view_partner_form_inherit_rigging_equipment" model="ir.ui.view">
+      <field name="name">res.partner.form.inherit.rigging.equipment</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+
+        <!-- STAT BUTTONS -->
+        <xpath expr="//sheet/div[@name='button_box']" position="inside">
+
+          <button type="object"
+                  name="action_open_owner_rigging"
+                  class="oe_stat_button"
+                  icon="fa-wrench">
+            <field name="rigging_count" widget="statinfo" string="Rigging"/>
+          </button>
+
+          <button type="object"
+                  name="action_open_owner_rigs"
+                  class="oe_stat_button"
+                  icon="fa-suitcase">
+            <field name="rig_count" widget="statinfo" string="Rigs"/>
+          </button>
+
+          <button type="object"
+                  name="action_open_owner_components"
+                  class="oe_stat_button"
+                  icon="fa-cubes">
+            <field name="component_count" widget="statinfo" string="Components"/>
+          </button>
+
+        </xpath>
+
+        <!-- OCULTAR TAGS -->
+        <xpath expr="//field[@name='category_id']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+
+        <!-- OCULTAR ADDRESS (grupo que contiene street) -->
+        <xpath expr="//field[@name='street']/ancestor::group[1]" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+
+        <!-- AÑADIR TAB “Rigging” -->
+        <xpath expr="//sheet/notebook" position="inside">
+          <page name="rigging_tab" string="Rigging">
+            <group>
+              <div class="o_form_label">
+                Rigging info will go here (Rigs / Components / Rigging Jobs)
+              </div>
+            </group>
+          </page>
+        </xpath>
+
+      </field>
+    </record>
+
+  </data>
+</odoo>
