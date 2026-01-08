@@ -1,62 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <data>
+    <data>
 
-    <record id="view_partner_form_inherit_rigging_equipment" model="ir.ui.view">
-      <field name="name">res.partner.form.inherit.rigging.equipment</field>
-      <field name="model">res.partner</field>
-      <field name="inherit_id" ref="base.view_partner_form"/>
-      <field name="arch" type="xml">
+        <record id="view_partner_form_inherit_rigging_equipment" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.rigging.equipment</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
 
-        <!-- STAT BUTTONS -->
-        <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <!-- (Opcional) ocultar VAT / Website / Address si quieres -->
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
 
-          <button type="object"
-                  name="action_open_owner_rigging"
-                  class="oe_stat_button"
-                  icon="fa-wrench">
-            <field name="rigging_count" widget="statinfo" string="Rigging"/>
-          </button>
+                <xpath expr="//field[@name='website']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
 
-          <button type="object"
-                  name="action_open_owner_rigs"
-                  class="oe_stat_button"
-                  icon="fa-suitcase">
-            <field name="rig_count" widget="statinfo" string="Rigs"/>
-          </button>
+                <xpath expr="//field[@name='street']/ancestor::group[1]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
 
-          <button type="object"
-                  name="action_open_owner_components"
-                  class="oe_stat_button"
-                  icon="fa-cubes">
-            <field name="component_count" widget="statinfo" string="Components"/>
-          </button>
+                <xpath expr="//field[@name='category_id']/ancestor::group[1]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
 
-        </xpath>
+                <!-- Sustituir el notebook por nuestros tabs -->
+                <xpath expr="//sheet/notebook" position="replace">
+                    <notebook>
 
-        <!-- OCULTAR TAGS -->
-        <xpath expr="//field[@name='category_id']" position="attributes">
-          <attribute name="invisible">1</attribute>
-        </xpath>
+                        <page name="rigging_tab" string="Rigging">
+                            <group>
+                                <field name="rigging_count" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="rigging_ids" readonly="1" nolabel="1">
+                                    <list string="Rigging Jobs">
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                        <field name="rigging_type"/>
+                                        <field name="component_id"/>
+                                        <field name="price"/>
+                                        <field name="state"/>
+                                    </list>
+                                </field>
+                            </group>
+                        </page>
 
-        <!-- OCULTAR ADDRESS (grupo que contiene street) -->
-        <xpath expr="//field[@name='street']/ancestor::group[1]" position="attributes">
-          <attribute name="invisible">1</attribute>
-        </xpath>
+                        <page name="rigs_tab" string="Rigs">
+                            <group>
+                                <field name="rig_count" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="rig_ids" readonly="1" nolabel="1">
+                                    <list string="Rigs">
+                                        <field name="number"/>
+                                        <field name="usage_type"/>
+                                        <field name="canopy_id"/>
+                                        <field name="container_id"/>
+                                        <field name="reserve_id"/>
+                                        <field name="aad_id"/>
+                                    </list>
+                                </field>
+                            </group>
+                        </page>
 
-        <!-- AÑADIR TAB “Rigging” -->
-        <xpath expr="//sheet/notebook" position="inside">
-          <page name="rigging_tab" string="Rigging">
-            <group>
-              <div class="o_form_label">
-                Rigging info will go here (Rigs / Components / Rigging Jobs)
-              </div>
-            </group>
-          </page>
-        </xpath>
+                        <page name="components_tab" string="Components">
+                            <group>
+                                <field name="component_count" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="component_ids" readonly="1" nolabel="1">
+                                    <list string="Components">
+                                        <field name="name"/>
+                                        <field name="component_type"/>
+                                        <field name="usage_type"/>
+                                        <field name="manufacturer_id"/>
+                                        <field name="model_id"/>
+                                        <field name="size_id"/>
+                                        <field name="rig_id"/>
+                                        <field name="is_mounted"/>
+                                        <field name="total_jumps"/>
+                                    </list>
+                                </field>
+                            </group>
+                        </page>
 
-      </field>
-    </record>
+                    </notebook>
+                </xpath>
 
-  </data>
+            </field>
+        </record>
+
+    </data>
 </odoo>
