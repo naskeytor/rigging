@@ -42,10 +42,51 @@
         </field>
     </record>
 
+    <!-- SEARCH VIEW: Rigging Jobs -->
+    <record id="rigging_rigging_search" model="ir.ui.view">
+        <field name="name">rigging.rigging.search</field>
+        <field name="model">rigging.rigging</field>
+        <field name="arch" type="xml">
+            <search string="Rigging Jobs">
+
+                <!-- Quick search fields -->
+                <field name="name"/>
+                <field name="date"/>
+                <field name="owner_id"/>
+                <field name="component_id"/>
+                <field name="rigging_type"/>
+                <field name="state"/>
+
+                <separator/>
+
+                <!-- Common filters -->
+                <filter string="Pending" name="pending" domain="[('state','=','pending')]"/>
+                <filter string="Paid" name="paid" domain="[('state','=','paid')]"/>
+                <filter string="SKDM" name="skdm" domain="[('owner_id','=','SKDM')]"/>
+
+                <separator/>
+
+                <!-- Date helpers (you can tweak later) -->
+
+
+                <separator string="Group By"/>
+
+                <!-- Group by (safe: as filters, no <group>) -->
+                <filter string="Group by Type" name="gb_type" context="{'group_by':'rigging_type'}"/>
+                <filter string="Group by State" name="gb_state" context="{'group_by':'state'}"/>
+                <filter string="Group by Date" name="gb_date" context="{'group_by':'date'}"/>
+                <filter string="Group by Owner" name="gb_owner" context="{'group_by':'owner_id'}"/>
+                <filter string="Group by Component" name="gb_component" context="{'group_by':'component_id'}"/>
+
+            </search>
+        </field>
+    </record>
+
     <record id="rigging_rigging_action" model="ir.actions.act_window">
         <field name="name">Rigging Jobs</field>
         <field name="res_model">rigging.rigging</field>
         <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="rigging_rigging_search"/>
     </record>
 
 </odoo>
