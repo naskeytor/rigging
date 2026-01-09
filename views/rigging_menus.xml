@@ -2,17 +2,16 @@
 <odoo>
     <data>
 
-        <!-- Root -->
+        <!-- ROOT APP -->
         <menuitem id="menu_root" name="Rigging" sequence="10"/>
 
-        <!-- Dashboard -->
+        <!-- TOP MENUS -->
         <menuitem id="menu_dashboard"
                   name="Dashboard"
                   parent="menu_root"
                   action="rigging_dashboard_action"
                   sequence="10"/>
 
-        <!-- Daily work -->
         <menuitem id="menu_rigs"
                   name="Rigs"
                   parent="menu_root"
@@ -31,7 +30,7 @@
                   action="rigging_rigging_action"
                   sequence="40"/>
 
-        <!-- Settings -->
+        <!-- SETTINGS -->
         <menuitem id="menu_settings"
                   name="Settings"
                   parent="menu_root"
