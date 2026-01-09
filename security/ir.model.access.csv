@@ -1,14 +1,24 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_rigging_size_user,access_rigging_size_user,model_rigging_size,base.group_user,1,1,1,1
-access_rigging_model,ridging.model,model_rigging_model,base.group_user,1,1,1,1
-access_rigging_manufacturer_user,access_rigging_manufacturer_user,model_rigging_manufacturer,base.group_user,1,1,1,1
-access_rigging_component_user,access_rigging_component_user,model_rigging_component,base.group_user,1,1,1,1
-access_rigging_rig_user,access_rigging_rig_user,model_rigging_rig,base.group_user,1,1,1,1
-access_rigging_rigging_user,access_rigging_rigging_user,model_rigging_rigging,base.group_user,1,1,1,1
-access_rigging_aad_jumps_wizard,access_rigging_aad_jumps_wizard,model_rigging_aad_jumps_wizard,base.group_user,1,1,1,1
-rigging_access_rigging_rig_jumps_wizard,access_rigging_rig_jumps_wizard,model_rigging_rig_jumps_wizard,base.group_user,1,1,1,0
-access_rigging_dashboard_user,rigging.dashboard,model_rigging_dashboard,base.group_user,1,0,0,0
-access_rigging_drogue_user,rigging.drogue user,model_rigging_drogue,base.group_user,1,1,1,1
-access_rigging_drogue_mount_wizard_user,rigging.drogue.mount.wizard user,model_rigging_drogue_mount_wizard,base.group_user,1,1,1,1
-access_rigging_lineset_user,rigging.lineset user,model_rigging_lineset,base.group_user,1,1,1,1
-access_rigging_lineset_mount_wizard_user,rigging.lineset.mount.wizard user,model_rigging_lineset_mount_wizard,base.group_user,1,1,1,1
+access_rigging_size_internal,rigging.size internal,model_rigging_size,base.group_user,1,1,1,1
+access_rigging_model_internal,rigging.model internal,model_rigging_model,base.group_user,1,1,1,1
+access_rigging_manufacturer_internal,rigging.manufacturer internal,model_rigging_manufacturer,base.group_user,1,1,1,1
+access_rigging_dashboard_internal,rigging.dashboard internal,model_rigging_dashboard,base.group_user,1,0,0,0
+access_rigging_aad_jumps_wizard_internal,rigging.aad.jumps.wizard internal,model_rigging_aad_jumps_wizard,base.group_user,1,1,1,1
+access_rigging_rig_jumps_wizard_internal,rigging.rig.jumps.wizard internal,model_rigging_rig_jumps_wizard,base.group_user,1,1,1,0
+access_rigging_component_rigger,rigging.component rigger,model_rigging_component,rigging.group_rigging_rigger,1,1,1,1
+access_rigging_rig_rigger,rigging.rig rigger,model_rigging_rig,rigging.group_rigging_rigger,1,1,1,1
+access_rigging_rigging_rigger,rigging.rigging rigger,model_rigging_rigging,rigging.group_rigging_rigger,1,1,1,1
+access_rigging_drogue_rigger,rigging.drogue rigger,model_rigging_drogue,rigging.group_rigging_rigger,1,1,1,1
+access_rigging_drogue_mount_wizard_rigger,rigging.drogue.mount.wizard rigger,model_rigging_drogue_mount_wizard,rigging.group_rigging_rigger,1,1,1,1
+access_rigging_lineset_rigger,rigging.lineset rigger,model_rigging_lineset,rigging.group_rigging_rigger,1,1,1,1
+access_rigging_lineset_mount_wizard_rigger,rigging.lineset.mount.wizard rigger,model_rigging_lineset_mount_wizard,rigging.group_rigging_rigger,1,1,1,1
+access_res_partner_rigger,res.partner rigger,base.model_res_partner,rigging.group_rigging_rigger,1,1,1,1
+access_rigging_component_user_read,rigging.component user read,model_rigging_component,rigging.group_rigging_user,1,0,0,0
+access_rigging_rig_user_read,rigging.rig user read,model_rigging_rig,rigging.group_rigging_user,1,0,0,0
+access_rigging_rigging_user_read,rigging.rigging user read,model_rigging_rigging,rigging.group_rigging_user,1,0,0,0
+access_rigging_drogue_user_read,rigging.drogue user read,model_rigging_drogue,rigging.group_rigging_user,1,0,0,0
+access_rigging_lineset_user_read,rigging.lineset user read,model_rigging_lineset,rigging.group_rigging_user,1,0,0,0
+access_res_partner_user_read,res.partner user read,base.model_res_partner,rigging.group_rigging_user,1,0,0,0
+access_rigging_rig_admin,rigging.rig admin,model_rigging_rig,rigging.group_rigging_admin,1,1,1,1
+access_rigging_component_admin,rigging.component admin,model_rigging_component,rigging.group_rigging_admin,1,1,1,1
+access_rigging_rigging_admin,rigging.rigging admin,model_rigging_rigging,rigging.group_rigging_admin,1,1,1,1

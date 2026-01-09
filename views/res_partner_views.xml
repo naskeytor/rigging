@@ -8,7 +8,37 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
 
-                <!-- (Opcional) ocultar VAT / Website / Address si quieres -->
+                <!-- ========================================================= -->
+                <!-- 1) SMART BUTTONS (arriba) -->
+                <!-- ========================================================= -->
+                <xpath expr="//sheet/div[@name='button_box']" position="inside">
+
+                    <button type="object"
+                            name="action_open_owner_rigging"
+                            class="oe_stat_button"
+                            icon="fa-wrench">
+                        <field name="rigging_count" widget="statinfo" string="Rigging"/>
+                    </button>
+
+                    <button type="object"
+                            name="action_open_owner_rigs"
+                            class="oe_stat_button"
+                            icon="fa-suitcase">
+                        <field name="rig_count" widget="statinfo" string="Rigs"/>
+                    </button>
+
+                    <button type="object"
+                            name="action_open_owner_components"
+                            class="oe_stat_button"
+                            icon="fa-cubes">
+                        <field name="component_count" widget="statinfo" string="Components"/>
+                    </button>
+
+                </xpath>
+
+                <!-- ========================================================= -->
+                <!-- 2) OCULTAR CAMPOS (opcional) -->
+                <!-- ========================================================= -->
                 <xpath expr="//field[@name='vat']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
@@ -25,70 +55,114 @@
                     <attribute name="invisible">1</attribute>
                 </xpath>
 
-                <!-- Sustituir el notebook por nuestros tabs -->
-                <xpath expr="//sheet/notebook" position="replace">
-                    <notebook>
-
-                        <page name="rigging_tab" string="Rigging">
-                            <group>
-                                <field name="rigging_count" readonly="1"/>
-                            </group>
-                            <group>
-                                <field name="rigging_ids" readonly="1" nolabel="1">
-                                    <list string="Rigging Jobs">
-                                        <field name="name"/>
-                                        <field name="date"/>
-                                        <field name="rigging_type"/>
-                                        <field name="component_id"/>
-                                        <field name="price"/>
-                                        <field name="state"/>
-                                    </list>
-                                </field>
-                            </group>
-                        </page>
-
-                        <page name="rigs_tab" string="Rigs">
-                            <group>
-                                <field name="rig_count" readonly="1"/>
-                            </group>
-                            <group>
-                                <field name="rig_ids" readonly="1" nolabel="1">
-                                    <list string="Rigs">
-                                        <field name="number"/>
-                                        <field name="usage_type"/>
-                                        <field name="canopy_id"/>
-                                        <field name="container_id"/>
-                                        <field name="reserve_id"/>
-                                        <field name="aad_id"/>
-                                    </list>
-                                </field>
-                            </group>
-                        </page>
-
-                        <page name="components_tab" string="Components">
-                            <group>
-                                <field name="component_count" readonly="1"/>
-                            </group>
-                            <group>
-                                <field name="component_ids" readonly="1" nolabel="1">
-                                    <list string="Components">
-                                        <field name="name"/>
-                                        <field name="component_type"/>
-                                        <field name="usage_type"/>
-                                        <field name="manufacturer_id"/>
-                                        <field name="model_id"/>
-                                        <field name="size_id"/>
-                                        <field name="rig_id"/>
-                                        <field name="is_mounted"/>
-                                        <field name="total_jumps"/>
-                                    </list>
-                                </field>
-                            </group>
-                        </page>
-
-                    </notebook>
+                <!-- ========================================================= -->
+                <!-- 3) OCULTAR PESTAÑAS ESTÁNDAR QUE NO QUIERES -->
+                <!-- ========================================================= -->
+                <xpath expr="//sheet/notebook/page[.//field[@name='child_ids']]" position="attributes" optional="1">
+                    <attribute name="invisible">1</attribute>
                 </xpath>
 
+                <!-- Notes tab (suele contener comment) -->
+                <xpath expr="//sheet/notebook/page[.//field[@name='comment']]" position="attributes" optional="1">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <!-- Sales & Purchase tab: en Odoo 19 cambia MUCHO.
+                     En vez de adivinar, atacamos por un campo muy típico en esa pestaña:
+                     'user_id' (Salesperson) o 'team_id' (Sales Team) -->
+                <xpath expr="//sheet/notebook/page[.//field[@name='user_id'] or .//field[@name='team_id']]"
+                       position="attributes" optional="1">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <!-- ========================================================= -->
+                <!-- 4) AÑADIR NUESTRAS PESTAÑAS (sin reemplazar notebook) -->
+                <!-- ========================================================= -->
+                <!-- 1) Insertar tus pestañas ANTES de la primera pestaña que encuentre con child_ids (Contacts) -->
+                <xpath expr="//sheet/notebook/page[.//field[@name='child_ids']]" position="before" optional="1">
+
+                    <page name="rigging_tab" string="Rigging">
+                        <group>
+                            <field name="rigging_count" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="rigging_ids" readonly="1" nolabel="1">
+                                <list string="Rigging Jobs">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="rigging_type"/>
+                                    <field name="component_id"/>
+                                    <field name="price"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+
+                    <page name="rigs_tab" string="Rigs">
+                        <group>
+                            <field name="rig_count" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="rig_ids" readonly="1" nolabel="1">
+                                <list string="Rigs">
+                                    <field name="number"/>
+                                    <field name="usage_type"/>
+                                    <field name="canopy_id"/>
+                                    <field name="container_id"/>
+                                    <field name="reserve_id"/>
+                                    <field name="aad_id"/>
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+
+                    <page name="components_tab" string="Components">
+                        <group>
+                            <field name="component_count" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="component_ids" readonly="1" nolabel="1">
+                                <list string="Components">
+                                    <field name="name"/>
+                                    <field name="component_type"/>
+                                    <field name="usage_type"/>
+                                    <field name="manufacturer_id"/>
+                                    <field name="model_id"/>
+                                    <field name="size_id"/>
+                                    <field name="rig_id"/>
+                                    <field name="is_mounted"/>
+                                    <field name="total_jumps"/>
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+
+                </xpath>
+                <!-- ========================================================= -->
+                <!-- 5) REORDENAR: Rigging -> Rigs -> Components -->
+                <!-- ========================================================= -->
+                <!-- mover Rigging al principio del notebook -->
+                <!-- Ocultar Contacts (child_ids) -->
+                <xpath expr="//sheet/notebook/page[.//field[@name='child_ids']]" position="attributes" optional="1">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <!-- Ocultar Notes (comment) -->
+                <xpath expr="//sheet/notebook/page[.//field[@name='comment']]" position="attributes" optional="1">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+sudo find /etc/letsencrypt -maxdepth 3 -type f -name "fullchain.pem" -o -name "privkey.pem" 2>/dev/nullcurl -I http://odoo.skydive-rigging.com
+                <!-- Ocultar Sales & Purchase (típicos: user_id/team_id/property_payment_term_id...) -->
+                <xpath expr="//sheet/notebook/page[
+                    .//field[@name='user_id']
+                    or .//field[@name='team_id']curl -I http://localhost/odoo/web/login
+                    or .//field[@name='property_payment_term_id']
+                    or .//field[@name='property_supplier_payment_term_id']
+                    or .//field[@name='property_product_pricelist']
+                  ]" position="attributes" optional="1">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
             </field>
         </record>
 

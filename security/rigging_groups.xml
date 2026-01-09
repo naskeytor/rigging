@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="category_rigging" model="ir.module.category">
+            <field name="name">Rigging</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="group_rigging_rigger" model="res.groups">
+            <field name="name">Rigger</field>
+            <field name="category_id" ref="rigging.category_rigging"/>
+        </record>
+
+        <record id="group_rigging_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="rigging.category_rigging"/>
+        </record>
+
+        <record id="group_rigging_admin" model="res.groups">
+            <field name="name">Rigging / Admin</field>
+        </record>
+
+    </data>
+</odoo>
