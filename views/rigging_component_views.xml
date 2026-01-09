@@ -169,10 +169,6 @@
         </record>
 
         <!-- MENU -->
-        <menuitem name="Components"
-                  id="rigging.menu_components"
-                  parent="rigging.menu_root"
-                  action="rigging_component_action"/>
 
     </data>
 </odoo>

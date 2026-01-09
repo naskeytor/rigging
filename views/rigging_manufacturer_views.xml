@@ -35,10 +35,7 @@
         </record>
 
         <!-- Menú dentro de Settings -->
-        <menuitem name="Manufacturers"
-                  id="rigging.menu_manufacturer"
-                  parent="rigging.menu_settings"
-                  action="rigging_manufacturer_action"/>
+
 
     </data>
 </odoo>
