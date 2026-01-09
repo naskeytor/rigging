@@ -9,12 +9,12 @@
 
         <record id="group_rigging_rigger" model="res.groups">
             <field name="name">Rigger</field>
-            <field name="category_id" ref="rigging.category_rigging"/>
+
         </record>
 
         <record id="group_rigging_user" model="res.groups">
             <field name="name">User</field>
-            <field name="category_id" ref="rigging.category_rigging"/>
+
         </record>
 
         <record id="group_rigging_admin" model="res.groups">
