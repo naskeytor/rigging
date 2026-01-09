@@ -24,6 +24,7 @@ Long description of module's purpose
 
     # always loaded
     'data': [
+        'views/views.xml',
         'security/rigging_groups.xml',
         'security/ir.model.access.csv',
         'security/rigging_rules.xml',
