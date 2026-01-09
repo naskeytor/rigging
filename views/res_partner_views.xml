@@ -152,15 +152,14 @@
                 <xpath expr="//sheet/notebook/page[.//field[@name='comment']]" position="attributes" optional="1">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-sudo find /etc/letsencrypt -maxdepth 3 -type f -name "fullchain.pem" -o -name "privkey.pem" 2>/dev/nullcurl -I http://odoo.skydive-rigging.com
                 <!-- Ocultar Sales & Purchase (típicos: user_id/team_id/property_payment_term_id...) -->
                 <xpath expr="//sheet/notebook/page[
-                    .//field[@name='user_id']
-                    or .//field[@name='team_id']curl -I http://localhost/odoo/web/login
-                    or .//field[@name='property_payment_term_id']
-                    or .//field[@name='property_supplier_payment_term_id']
-                    or .//field[@name='property_product_pricelist']
-                  ]" position="attributes" optional="1">
+    .//field[@name='user_id']
+    or .//field[@name='team_id']
+    or .//field[@name='property_payment_term_id']
+    or .//field[@name='property_supplier_payment_term_id']
+    or .//field[@name='property_product_pricelist']
+  ]" position="attributes" optional="1">
                     <attribute name="invisible">1</attribute>
                 </xpath>
             </field>
