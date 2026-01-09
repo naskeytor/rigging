@@ -24,22 +24,15 @@ Long description of module's purpose
 
     # always loaded
     'data': [
-        # --- Security primero ---
         'security/rigging_groups.xml',
         'security/ir.model.access.csv',
         'security/rigging_rules.xml',
 
-        # --- Views base / assets ---
-        'views/views.xml',
-        'views/templates.xml',
+        # views / actions (todo lo que define acciones primero)
 
-        # --- Dashboard (si no depende de menús) ---
+        'views/templates.xml',
         'views/rigging_dashboard_views.xml',
 
-        # --- MENÚ ROOT ANTES de cualquier menuitem con parent rigging.menu_root ---
-        'views/rigging_menus.xml',
-
-        # --- Luego todo lo demás que cuelga de ese menú ---
         'views/rigging_sizes_views.xml',
         'views/rigging_model_views.xml',
         'views/rigging_manufacturer_views.xml',
@@ -47,18 +40,22 @@ Long description of module's purpose
         'views/drogue_views.xml',
         'views/rigging_drogue_mount_wizard_views.xml',
 
-        'views/rigging_component_views.xml',
-        "views/res_partner_views.xml",
-        'views/rigging_rigging_views.xml',
-
         'views/rigging_lineset_views.xml',
         'views/rigging_lineset_mount_wizard_views.xml',
 
-        # Wizards + rigs (tu comentario está bien: acción antes del botón)
+        'views/rigging_component_views.xml',
+        'views/res_partner_views.xml',
+        'views/rigging_rigging_views.xml',
+
+        # wizards (antes de rigs si rig usa botones de wizard)
         'views/rigging_rig_jumps_wizard_views.xml',
+        'views/rigging_aad_jumps_wizard_views.xml',
+
+        # rigs al final de los modelos
         'views/rigging_rig_views.xml',
 
-        'views/rigging_aad_jumps_wizard_views.xml',
+        # ✅ MENÚS SIEMPRE AL FINAL
+        'views/rigging_menus.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

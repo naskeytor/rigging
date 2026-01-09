@@ -35,10 +35,6 @@
         </record>
 
         <!-- MENU ITEM (DENTRO DE SETTINGS) -->
-        <menuitem name="Model"
-                  id="rigging.menu_model"
-                  parent="rigging.menu_settings"
-                  action="rigging_model_action"/>
 
     </data>
 </odoo>

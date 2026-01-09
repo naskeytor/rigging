@@ -36,10 +36,6 @@
 
 
         <!-- 🔹 Menú Sizes debajo de Rigging -->
-        <menuitem name="Sizes"
-                  id="rigging.menu_sizes"
-                  parent="rigging.menu_root"
-                  action="rigging_size_action"/>
 
     </data>
 </odoo>
