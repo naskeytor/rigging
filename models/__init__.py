@@ -9,3 +9,5 @@ from . import dashboard
 from . import drogue
 from . import lineset
 from . import res_partner
+from . import task_defaults
+from . import rigging_task_home

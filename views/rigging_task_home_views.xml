@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Acción: abre el home -->
+        <record id="action_rigging_task_home" model="ir.actions.act_window">
+            <field name="name">Tasks</field>
+            <field name="res_model">rigging.task.home</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="rigging.rigging_task_home_singleton"/>
+        </record>
+
+        <!-- Vista form: pantalla simple con botón -->
+        <record id="view_rigging_task_home_form" model="ir.ui.view">
+            <field name="name">rigging.task.home.form</field>
+            <field name="model">rigging.task.home</field>
+            <field name="arch" type="xml">
+                <form string="Tasks">
+                    <sheet>
+                        <group>
+                            <div class="o_form_label">
+                                Create a new task for a rig / component.
+                            </div>
+                        </group>
+
+                        <group>
+                            <button
+                                    type="action"
+                                    name="%(rigging.action_rigging_task_wizard)d"
+                                    string="Add Task"
+                                    class="btn-primary btn-lg"
+                            />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

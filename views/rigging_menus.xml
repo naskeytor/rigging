@@ -29,6 +29,12 @@
                   parent="menu_root"
                   action="rigging_rigging_action"
                   sequence="40"/>
+        <menuitem id="menu_tasks"
+                  name="Tasks"
+                  parent="menu_root"
+                  action="action_rigging_task_home"
+                  sequence="85"
+                  groups="rigging.group_rigging_packer"/>
 
         <!-- SETTINGS -->
         <menuitem id="menu_settings"

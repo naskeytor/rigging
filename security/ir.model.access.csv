@@ -22,3 +22,8 @@ access_res_partner_user_read,res.partner user read,base.model_res_partner,riggin
 access_rigging_rig_admin,rigging.rig admin,model_rigging_rig,rigging.group_rigging_admin,1,1,1,1
 access_rigging_component_admin,rigging.component admin,model_rigging_component,rigging.group_rigging_admin,1,1,1,1
 access_rigging_rigging_admin,rigging.rigging admin,model_rigging_rigging,rigging.group_rigging_admin,1,1,1,1
+access_project_task_packer,project.task packer,project.model_project_task,rigging.group_rigging_packer,1,1,1,0
+access_rigging_task_home_packer,rigging.task.home packer,model_rigging_task_home,rigging.group_rigging_packer,1,0,0,0
+access_rigging_task_wizard_packer,rigging.task.wizard packer,model_rigging_task_wizard,rigging.group_rigging_packer,1,1,1,1
+access_rigging_task_wizard_rigger,rigging.task.wizard rigger,model_rigging_task_wizard,rigging.group_rigging_rigger,1,1,1,1
+access_rigging_task_wizard_user,rigging.task.wizard user,model_rigging_task_wizard,rigging.group_rigging_user,1,1,1,1

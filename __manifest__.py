@@ -19,7 +19,7 @@ Long description of module's purpose
 
     # any module necessary for this one to work correctly
     'depends': [
-        'base', 'contacts'
+        'base', 'contacts', 'project'
     ],
 
     # always loaded
@@ -47,6 +47,10 @@ Long description of module's purpose
         'views/rigging_component_views.xml',
         'views/res_partner_views.xml',
         'views/rigging_rigging_views.xml',
+        'views/rigging_tasks.xml',
+        'views/rigging_task_wizard_views.xml',
+        'data/rigging_task_home_data.xml',
+        'views/rigging_task_home_views.xml',
 
         # wizards (antes de rigs si rig usa botones de wizard)
         'views/rigging_rig_jumps_wizard_views.xml',
