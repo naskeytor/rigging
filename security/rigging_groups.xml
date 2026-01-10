@@ -21,5 +21,11 @@
             <field name="name">Rigging / Admin</field>
         </record>
 
+        <!-- 🔹 Packer -->
+        <record id="group_rigging_packer" model="res.groups">
+            <field name="name">Rigging / Packer</field>
+            <field name="implied_ids" eval="[(4, ref('project.group_project_user'))]"/>
+        </record>
+
     </data>
 </odoo>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data noupdate="1">
+    <record id="rigging_task_home_singleton" model="rigging.task.home">
+      <field name="name">Tasks</field>
+    </record>
+  </data>
+</odoo>

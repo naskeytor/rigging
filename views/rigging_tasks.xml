@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- Placeholder action: abre el backend (puedes cambiar la URL luego) -->
+    <record id="action_tasks" model="ir.actions.act_url">
+      <field name="name">Tasks</field>
+      <field name="url">/web</field>
+      <field name="target">self</field>
+    </record>
+
+  </data>
+</odoo>
