@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data noupdate="1">
+    <data>
 
-        <!-- Si quieres mantener category_rigging, OK, pero NO lo uses en res.groups -->
+        <!-- (Opcional) Categoría: OK mantenerla, pero NO la uses en res.groups si te da guerra -->
         <record id="category_rigging" model="ir.module.category">
             <field name="name">Rigging</field>
             <field name="sequence">50</field>
-        </record>
-
-        <record id="group_rigging_rigger" model="res.groups">
-            <field name="name">Rigging / Rigger</field>
-            <field name="implied_ids" eval="[(4, ref('project.group_project_user'))]"/>
         </record>
 
         <record id="group_rigging_user" model="res.groups">
@@ -18,14 +13,18 @@
             <field name="implied_ids" eval="[(4, ref('project.group_project_user'))]"/>
         </record>
 
+        <record id="group_rigging_packer" model="res.groups">
+            <field name="name">Rigging / Packer</field>
+        </record>
+
+        <record id="group_rigging_rigger" model="res.groups">
+            <field name="name">Rigging / Rigger</field>
+            <field name="implied_ids" eval="[(4, ref('project.group_project_user'))]"/>
+        </record>
+
         <record id="group_rigging_admin" model="res.groups">
             <field name="name">Rigging / Admin</field>
             <field name="implied_ids" eval="[(4, ref('project.group_project_manager'))]"/>
-        </record>
-
-        <record id="group_rigging_packer" model="res.groups">
-            <field name="name">Rigging / Packer</field>
-            <field name="implied_ids" eval="[(4, ref('project.group_project_user'))]"/>
         </record>
 
     </data>

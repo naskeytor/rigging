@@ -16,25 +16,29 @@
                   name="Rigs"
                   parent="menu_root"
                   action="rigging_rig_action"
+                  groups="rigging.group_rigging_packer,rigging.group_rigging_admin,rigging.group_rigging_rigger,rigging.group_rigging_user"
                   sequence="20"/>
 
         <menuitem id="menu_components"
                   name="Components"
                   parent="menu_root"
                   action="rigging_component_action"
+                  groups="rigging.group_rigging_admin,rigging.group_rigging_rigger,rigging.group_rigging_user"
                   sequence="30"/>
 
         <menuitem id="menu_rigging_jobs"
                   name="Rigging Jobs"
                   parent="menu_root"
                   action="rigging_rigging_action"
+                  groups="rigging.group_rigging_admin,rigging.group_rigging_rigger,rigging.group_rigging_user"
                   sequence="40"/>
         <menuitem id="menu_tasks"
                   name="Tasks"
                   parent="menu_root"
                   action="action_rigging_task_home"
-                  sequence="85"
-                  groups="rigging.group_rigging_packer"/>
+                  groups="rigging.group_rigging_packer,rigging.group_rigging_admin,rigging.group_rigging_rigger"
+                  sequence="85"/>
+
 
         <!-- SETTINGS -->
         <menuitem id="menu_settings"
