@@ -26,4 +26,8 @@ access_project_task_packer,project.task packer,project.model_project_task,riggin
 access_rigging_task_home_packer,rigging.task.home packer,model_rigging_task_home,rigging.group_rigging_packer,1,0,0,0
 access_rigging_task_wizard_packer,rigging.task.wizard packer,model_rigging_task_wizard,rigging.group_rigging_packer,1,1,1,1
 access_rigging_task_wizard_rigger,rigging.task.wizard rigger,model_rigging_task_wizard,rigging.group_rigging_rigger,1,1,1,1
-access_rigging_task_wizard_user,rigging.task.wizard user,model_rigging_task_wizard,rigging.group_rigging_user,1,1,1,1
+access_rigging_user_home_user,rigging.user.home user,model_rigging_user_home,rigging.group_rigging_user,1,0,0,0
+access_rigging_user_home_rigger,rigging.user.home rigger,model_rigging_user_home,rigging.group_rigging_rigger,1,1,1,1
+access_rigging_user_home_admin,rigging.user.home admin,model_rigging_user_home,rigging.group_rigging_admin,1,1,1,1
+access_rigging_task_home_admin,rigging.task.home admin,model_rigging_task_home,rigging.group_rigging_admin,1,1,1,1
+access_rigging_task_wizard_admin,rigging.task.wizard admin,model_rigging_task_wizard,rigging.group_rigging_admin,1,1,1,1

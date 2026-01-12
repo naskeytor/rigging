@@ -7,7 +7,7 @@
             <field name="name">User: own components only</field>
             <field name="model_id" ref="model_rigging_component"/>
             <field name="domain_force">[('owner_id','=', user.partner_id.id)]</field>
-            <field name="groups" eval="[(4, ref('rigging.group_rigging_user'))]"/>
+            <field name="groups" eval="[(6, ref('rigging.group_rigging_user'))]"/>
         </record>
 
         <!-- RIGS -->
@@ -15,7 +15,7 @@
             <field name="name">User: own rigs only</field>
             <field name="model_id" ref="model_rigging_rig"/>
             <field name="domain_force">[('owner_id','=', user.partner_id.id)]</field>
-            <field name="groups" eval="[(4, ref('rigging.group_rigging_user'))]"/>
+            <field name="groups" eval="[(6, ref('rigging.group_rigging_user'))]"/>
         </record>
 
         <!-- RIGGING -->
@@ -23,7 +23,7 @@
             <field name="name">User: own rigging only</field>
             <field name="model_id" ref="model_rigging_rigging"/>
             <field name="domain_force">[('owner_id','=', user.partner_id.id)]</field>
-            <field name="groups" eval="[(4, ref('rigging.group_rigging_user'))]"/>
+            <field name="groups" eval="[(6, ref('rigging.group_rigging_user'))]"/>
         </record>
 
     </data>
