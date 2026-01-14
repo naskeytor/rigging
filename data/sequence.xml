@@ -1,0 +1,8 @@
+<odoo>
+  <record id="seq_rigging_job" model="ir.sequence">
+    <field name="name">Rigging Job</field>
+    <field name="code">rigging.rigging</field>
+    <field name="prefix">RIG-</field>
+    <field name="padding">4</field>
+  </record>
+</odoo>

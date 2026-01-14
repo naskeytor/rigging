@@ -13,7 +13,6 @@
             <field name="name">rigging.rig.list</field>
             <field name="model">rigging.rig</field>
             <field name="arch" type="xml">
-                <!-- 👇 IMPORTANTE: <list>, NO <tree> -->
                 <list string="Rigs">
                     <field name="number"/>
                     <field name="usage_type"/>
@@ -22,6 +21,7 @@
                     <field name="container_id"/>
                     <field name="reserve_id"/>
                     <field name="aad_id"/>
+                    <field name="reserve_last_repack" optional="hide"/>
                 </list>
             </field>
         </record>
@@ -37,6 +37,12 @@
                             <field name="number"/>
                             <field name="owner_id"/>
                             <field name="usage_type"/>
+                            <field name="canopy_id"/>
+                            <field name="container_id"/>
+                            <field name="reserve_id"/>
+                            <field name="aad_id"/>
+                            <field name="reserve_last_repack"
+                                   modifiers='{"invisible":[["reserve_id","=",false]]}'/>
                         </group>
 
                         <group string="Tools">
