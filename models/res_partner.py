@@ -1,4 +1,7 @@
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
+import re
+
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
@@ -9,8 +12,34 @@ class ResPartner(models.Model):
 
     # Listas embebidas (computed O2M “virtual”)
     rig_ids = fields.One2many("rigging.rig", compute="_compute_rig_ids", string="Rigs", readonly=True)
-    component_ids = fields.One2many("rigging.component", compute="_compute_component_ids", string="Components", readonly=True)
-    rigging_ids = fields.One2many("rigging.rigging", compute="_compute_rigging_ids", string="Rigging Jobs", readonly=True)
+    component_ids = fields.One2many("rigging.component", compute="_compute_component_ids", string="Components",
+                                    readonly=True)
+    rigging_ids = fields.One2many("rigging.rigging", compute="_compute_rigging_ids", string="Rigging Jobs",
+                                  readonly=True)
+
+    def _normalize_phone(self, number):
+        if not number:
+            return False
+        return re.sub(r"[ \-\(\)\.]", "", number)
+
+    @api.constrains("phone")
+    def _check_unique_phone(self):
+        for rec in self:
+            if not rec.phone:
+                continue
+
+            phone_norm = self._normalize_phone(rec.phone)
+
+            dup = self.search([
+                ("id", "!=", rec.id),
+                ("phone", "!=", False),
+            ])
+
+            for other in dup:
+                if self._normalize_phone(other.phone) == phone_norm:
+                    raise ValidationError(
+                        f"This phone number already exists: {other.display_name}"
+                    )
 
     def _compute_counts(self):
         Rig = self.env["rigging.rig"]
