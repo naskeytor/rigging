@@ -73,6 +73,11 @@ class Component(models.Model):
         string="Lineset",
     )
 
+    last_repack = fields.Date(
+        string="Last Repack",
+        help="Last reserve repack date (auto-set by I+R rigging jobs).",
+    )
+
     # -------------------------------
     # Botones (tal como los tenías)
     # -------------------------------
