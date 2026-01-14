@@ -51,6 +51,8 @@
                             <field name="jumps_on_mount"/>
                             <field name="last_jumps_update"/>
                             <field name="total_jumps"/>
+                            <field name="last_repack"
+                                   modifiers="{'invisible': [['component_type', '!=', 'reserve']]}"/>
                         </group>
 
                         <group>

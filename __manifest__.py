@@ -30,6 +30,7 @@ Long description of module's purpose
         'security/rigging_rules.xml',
 
         # views / actions (todo lo que define acciones primero)
+        'data/sequence.xml',
 
         'views/templates.xml',
         'views/rigging_dashboard_views.xml',

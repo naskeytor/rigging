@@ -1,19 +1,30 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError, UserError
+
 
 class RiggingJob(models.Model):
     _name = "rigging.rigging"
     _description = "Rigging Job"
     _order = "date desc, id desc"
 
-    name = fields.Char(
-        string="Reference",
+    name = fields.Char(string="Reference", readonly=True, copy=False)
+
+    owner_id = fields.Many2one(
+        "res.partner",
+        string="Owner",
+        related="component_id.owner_id",
+        store=True,
         readonly=True,
-        copy=False,
     )
 
-    owner_id = fields.Many2one("res.partner", string="Owner")
     date = fields.Date(string="Date", required=True, default=fields.Date.context_today)
-    component_id = fields.Many2one("rigging.component", string="Component", required=True)
+
+    component_id = fields.Many2one(
+        "rigging.component",
+        string="Component",
+        required=True,
+    )
+
     rigging_type = fields.Selection(
         [
             ("inspection_repack", "I + R"),
@@ -23,14 +34,12 @@ class RiggingJob(models.Model):
         string="Rigging Type",
         required=True,
     )
+
     comment = fields.Text(string="Comment")
     price = fields.Float(string="Price")
 
     state = fields.Selection(
-        [
-            ("pending", "Pending"),
-            ("paid", "Paid"),
-        ],
+        [("pending", "Pending"), ("paid", "Paid")],
         string="State",
         default="pending",
         required=True,
@@ -47,19 +56,97 @@ class RiggingJob(models.Model):
     def _compute_price_color(self):
         for rec in self:
             value = rec.price or 0.0
-            if rec.state == "pending":
-                rec.price_color = f"<span style='color:red;'>{value}</span>"
-            else:
-                rec.price_color = f"<span style='color:green;'>{value}</span>"
+            rec.price_color = (
+                f"<span style='color:red;'>{value}</span>"
+                if rec.state == "pending"
+                else f"<span style='color:green;'>{value}</span>"
+            )
 
-    @api.model
+    # ------------------------------------------------------------
+    # 🔧 Helper: sincronizar last_repack en la reserve
+    # ------------------------------------------------------------
+    def _sync_last_repack(self):
+        for rec in self:
+            comp = rec.component_id
+            if (
+                    rec.rigging_type == "inspection_repack"
+                    and comp
+                    and comp.component_type == "reserve"
+            ):
+                comp.write({"last_repack": rec.date or fields.Date.context_today(rec)})
+
+    # ------------------------------------------------------------
+    # ✅ UI: filtra + valida inmediatamente
+    # ------------------------------------------------------------
+    @api.onchange("rigging_type", "component_id")
+    def _onchange_ir_requirements(self):
+        # dominio dinámico para el campo component_id
+        for rec in self:
+            domain = [("component_type", "=", "reserve")] if rec.rigging_type == "inspection_repack" else []
+            result = {"domain": {"component_id": domain}}
+
+            if not rec.component_id:
+                return result
+
+            if rec.rigging_type == "inspection_repack":
+                comp = rec.component_id
+
+                if comp.component_type != "reserve":
+                    rec.component_id = False
+                    raise UserError("I + R can only be done on a Reserve.")
+
+                if not comp.rig_id:
+                    rec.component_id = False
+                    raise UserError("Reserve must be mounted on a rig.")
+
+                rig = comp.rig_id
+                if not rig.container_id:
+                    raise UserError("Rig must have a Container mounted for I + R.")
+                if not rig.aad_id:
+                    raise UserError("Rig must have an AAD mounted for I + R.")
+
+            return result
+
+    # ------------------------------------------------------------
+    # ✅ Backend: reglas reales (import/API)
+    # ------------------------------------------------------------
+    @api.constrains("rigging_type", "component_id")
+    def _check_ir_requirements(self):
+        for rec in self:
+            if rec.rigging_type != "inspection_repack":
+                continue
+
+            comp = rec.component_id
+            if not comp:
+                continue
+
+            if comp.component_type != "reserve":
+                raise ValidationError("I + R can only be done on a Reserve.")
+
+            if not comp.rig_id:
+                raise ValidationError("Reserve must be mounted on a rig.")
+
+            rig = comp.rig_id
+            if not rig.container_id:
+                raise ValidationError("Rig must have a Container mounted for I + R.")
+            if not rig.aad_id:
+                raise ValidationError("Rig must have an AAD mounted for I + R.")
+
+    # ------------------------------------------------------------
+    # ✅ Backend: create/write robustos (multi)
+    # ------------------------------------------------------------
+    @api.model_create_multi
     def create(self, vals_list):
-        if isinstance(vals_list, dict):
-            vals_list = [vals_list]
-
         for vals in vals_list:
             if not vals.get("name"):
-                count = self.search_count([]) + 1
-                vals["name"] = f"RIG-{count:04d}"
+                vals["name"] = self.env["ir.sequence"].next_by_code("rigging.rigging") or "RIG-0000"
 
-        return super().create(vals_list)
+        recs = super().create(vals_list)
+        recs._sync_last_repack()
+        return recs
+
+    def write(self, vals):
+        res = super().write(vals)
+        if any(k in vals for k in ("rigging_type", "component_id", "date")):
+            self._sync_last_repack()
+        return res

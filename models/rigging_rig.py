@@ -54,6 +54,20 @@ class Rig(models.Model):
         help="Defines if this rig is for Sport, Tandem, or Pilot.",
     )
 
+    reserve_last_repack = fields.Date(
+        string="Last Repack",
+        compute="_compute_reserve_last_repack",
+        store=True,
+        readonly=True,
+    )
+
+    @api.depends("reserve_id", "reserve_id.last_repack")
+    def _compute_reserve_last_repack(self):
+        for rig in self:
+            rig.reserve_last_repack = (
+                rig.reserve_id.last_repack if rig.reserve_id else False
+            )
+
     # -------------------------------------------------
     # CAMBIO DE OWNER → aplicar en componentes montados
     # -------------------------------------------------
