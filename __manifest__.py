@@ -22,6 +22,8 @@ Long description of module's purpose
         'base', 'contacts', 'project'
     ],
 
+    'post_init_hook': 'post_init_hook',
+
     # always loaded
     'data': [
         'views/views.xml',

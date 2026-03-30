@@ -10,7 +10,7 @@ class Rig(models.Model):
     # ------------------------------------------
     # CAMPOS PRINCIPALES
     # ------------------------------------------
-    number = fields.Integer(string="Rig Number", required=True)
+    number = fields.Char(string="Rig Number", required=True)
 
     owner_id = fields.Many2one(
         "res.partner",

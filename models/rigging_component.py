@@ -115,6 +115,32 @@ class Component(models.Model):
             },
         }
 
+    def name_get(self):
+        res = []
+        for rec in self:
+            model = rec.model_id.display_name if rec.model_id else ""
+            size = rec.size_id.display_name if rec.size_id else ""
+
+            # AAD => solo modelo
+            if rec.component_type == "aad":
+                label = model
+
+            # canopy/container/reserve => modelo-size (si no hay size => solo modelo)
+            elif rec.component_type in ("canopy", "container", "reserve"):
+                label = model
+                if size:
+                    label = f"{model}-{size}" if model else size
+
+            else:
+                label = model or rec.name or ""
+
+            # fallback final
+            if not label:
+                label = rec.name or ""
+
+            res.append((rec.id, label))
+        return res
+
     # ---------------------------------------------------
     # Validar que no se repita tipo en el mismo rig
     # ---------------------------------------------------

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
 
@@ -6,6 +7,9 @@
             <field name="name">Rigs</field>
             <field name="res_model">rigging.rig</field>
             <field name="view_mode">list,form</field>
+
+            <!-- ✅ CLAVE: este context sí llega al name_get() del many2one -->
+            <field name="context">{'rig_display': 1}</field>
         </record>
 
         <!-- LIST VIEW -->
@@ -17,10 +21,13 @@
                     <field name="number"/>
                     <field name="usage_type"/>
                     <field name="owner_id"/>
-                    <field name="canopy_id"/>
-                    <field name="container_id"/>
-                    <field name="reserve_id"/>
-                    <field name="aad_id"/>
+
+                    <!-- readonly=1 => link / abrir componente -->
+                    <field name="canopy_id" readonly="1"/>
+                    <field name="container_id" readonly="1"/>
+                    <field name="reserve_id" readonly="1"/>
+                    <field name="aad_id" readonly="1"/>
+
                     <field name="reserve_last_repack" optional="hide"/>
                 </list>
             </field>
@@ -37,10 +44,13 @@
                             <field name="number"/>
                             <field name="owner_id"/>
                             <field name="usage_type"/>
-                            <field name="canopy_id"/>
-                            <field name="container_id"/>
-                            <field name="reserve_id"/>
-                            <field name="aad_id"/>
+
+                            <!-- readonly=1 => link -->
+                            <field name="canopy_id" readonly="1"/>
+                            <field name="container_id" readonly="1"/>
+                            <field name="reserve_id" readonly="1"/>
+                            <field name="aad_id" readonly="1"/>
+
                             <field name="reserve_last_repack"
                                    modifiers='{"invisible":[["reserve_id","=",false]]}'/>
                         </group>
