@@ -6,6 +6,21 @@ import re
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    privacy_accepted = fields.Boolean(
+        string="Privacy Accepted",
+        help="Indicates if the customer has accepted the privacy policy.",
+    )
+
+    privacy_accepted_date = fields.Datetime(
+        string="Privacy Accepted Date",
+        readonly=True,
+    )
+
+    @api.onchange("privacy_accepted")
+    def _onchange_privacy_accepted(self):
+        if self.privacy_accepted:
+            self.privacy_accepted_date = fields.Datetime.now()
+
     rig_count = fields.Integer(string="Rigs", compute="_compute_counts", store=False)
     component_count = fields.Integer(string="Components", compute="_compute_counts", store=False)
     rigging_count = fields.Integer(string="Rigging", compute="_compute_counts", store=False)
