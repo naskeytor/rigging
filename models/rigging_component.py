@@ -50,6 +50,26 @@ class Component(models.Model):
         help="Jumps done on the current lineset since the last reline.",
     )
 
+    has_drogue_replace = fields.Boolean(
+        string="Has Drogue Replace",
+        compute="_compute_jumps_on_drogue",
+    )
+    jumps_on_drogue = fields.Integer(
+        string="Jumps on Drogue",
+        compute="_compute_jumps_on_drogue",
+        help="Jumps done on the current drogue since the last drogue replace.",
+    )
+
+    has_killline_replace = fields.Boolean(
+        string="Has Kill Line Replace",
+        compute="_compute_jumps_on_killline",
+    )
+    jumps_on_killline = fields.Integer(
+        string="Jumps on Kill Line",
+        compute="_compute_jumps_on_killline",
+        help="Jumps done on the current kill line since the last kill line replace.",
+    )
+
     owner_id = fields.Many2one(
         "res.partner",
         string="Owner",
@@ -100,9 +120,37 @@ class Component(models.Model):
                 comp.has_reline = False
                 comp.jumps_on_lineset = 0
 
+    @api.depends("rigging_ids.drogue_replace", "rigging_ids.jumps", "rigging_ids.date", "last_jumps_update")
+    def _compute_jumps_on_drogue(self):
+        for comp in self:
+            drogue_jobs = comp.rigging_ids.filtered("drogue_replace")
+            if drogue_jobs:
+                last_drogue = max(drogue_jobs, key=lambda r: r.date)
+                comp.has_drogue_replace = True
+                comp.jumps_on_drogue = (comp.last_jumps_update or 0) - (last_drogue.jumps or 0)
+            else:
+                comp.has_drogue_replace = False
+                comp.jumps_on_drogue = 0
+
+    @api.depends("rigging_ids.killline_replace", "rigging_ids.jumps", "rigging_ids.date", "last_jumps_update")
+    def _compute_jumps_on_killline(self):
+        for comp in self:
+            killline_jobs = comp.rigging_ids.filtered("killline_replace")
+            if killline_jobs:
+                last_killline = max(killline_jobs, key=lambda r: r.date)
+                comp.has_killline_replace = True
+                comp.jumps_on_killline = (comp.last_jumps_update or 0) - (last_killline.jumps or 0)
+            else:
+                comp.has_killline_replace = False
+                comp.jumps_on_killline = 0
+
     # -------------------------------
     # Botones (tal como los tenías)
     # -------------------------------
+    def action_refresh(self):
+        """Recarga el formulario para reflejar saltos actualizados desde un rigging job."""
+        return True
+
     def action_open_mount_wizard(self):
         self.ensure_one()
         if not self.rig_id:

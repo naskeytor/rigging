@@ -112,6 +112,15 @@ class RiggingJob(models.Model):
                 comp.rig_id.action_update_all_jumps(str(rec.jumps))
 
     # ------------------------------------------------------------
+    # 🔧 UI: drogue replace implica killline replace (jumps on killline -> 0)
+    # ------------------------------------------------------------
+    @api.onchange("drogue_replace")
+    def _onchange_drogue_replace(self):
+        for rec in self:
+            if rec.drogue_replace:
+                rec.killline_replace = True
+
+    # ------------------------------------------------------------
     # ✅ UI: filtra + valida inmediatamente
     # ------------------------------------------------------------
     @api.onchange("rigging_type", "component_id")
@@ -176,6 +185,8 @@ class RiggingJob(models.Model):
         for vals in vals_list:
             if not vals.get("name"):
                 vals["name"] = self.env["ir.sequence"].next_by_code("rigging.rigging") or "RIG-0000"
+            if vals.get("drogue_replace"):
+                vals["killline_replace"] = True
 
         recs = super().create(vals_list)
         recs._sync_last_repack()
@@ -183,6 +194,8 @@ class RiggingJob(models.Model):
         return recs
 
     def write(self, vals):
+        if vals.get("drogue_replace"):
+            vals["killline_replace"] = True
         res = super().write(vals)
         if any(k in vals for k in ("rigging_type", "component_id", "date")):
             self._sync_last_repack()
