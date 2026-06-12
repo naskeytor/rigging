@@ -53,6 +53,14 @@
                             <field name="total_jumps"/>
                             <field name="last_repack"
                                    modifiers="{'invisible': [['component_type', '!=', 'reserve']]}"/>
+                            <field name="has_reline" invisible="1"/>
+                            <field name="jumps_on_lineset" invisible="not has_reline"/>
+                            <field name="has_drogue_replace" invisible="1"/>
+                            <field name="jumps_on_drogue"
+                                   invisible="not has_drogue_replace or component_type != 'container' or usage_type != 'tandem'"/>
+                            <field name="has_killline_replace" invisible="1"/>
+                            <field name="jumps_on_killline"
+                                   invisible="not has_killline_replace or component_type != 'container' or usage_type != 'tandem'"/>
                         </group>
 
                         <group>
@@ -76,6 +84,10 @@
                                     string="Unmount"
                                     class="btn-secondary"
                                     invisible="not is_mounted"/>
+                            <button name="action_refresh"
+                                    type="object"
+                                    string="Refresh"
+                                    class="btn-secondary"/>
                         </group>
 
                         <group string="Drogues"

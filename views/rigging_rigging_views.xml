@@ -29,6 +29,17 @@
                     <group>
                         <field name="date"/>
                         <field name="rigging_type"/>
+                        <field name="jumps" invisible="not component_is_mounted"/>
+                    </group>
+                    <field name="component_type" invisible="1"/>
+                    <field name="component_usage_type" invisible="1"/>
+                    <field name="component_is_mounted" invisible="1"/>
+                    <group string="Work Performed">
+                        <field name="reline" invisible="component_type != 'canopy'"/>
+                        <field name="drogue_replace"
+                               invisible="component_type != 'container' or component_usage_type != 'tandem'"/>
+                        <field name="killline_replace"
+                               invisible="component_type != 'container' or component_usage_type != 'tandem'"/>
                     </group>
                     <group>
                         <field name="price"/>

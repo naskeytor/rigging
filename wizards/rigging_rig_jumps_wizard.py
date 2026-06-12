@@ -21,46 +21,13 @@ class RigJumpsWizard(models.TransientModel):
     )
 
     def action_confirm(self):
-        """Actualiza saltos en TODOS los componentes del rig (excepto reserve):
-
-           total_jumps += aad_jumps - jumps_on_mount
-           jumps_on_mount = aad_jumps
-        """
+        """Actualiza saltos en TODOS los componentes del rig (excepto reserve)."""
         self.ensure_one()
 
-        # --- Validación de la entrada ---
-        if not self.aad_jumps:
-            raise UserError("Please enter the AAD jumps.")
-
-        try:
-            aad_jumps = int(self.aad_jumps)
-        except ValueError:
-            raise UserError("AAD jumps must be a number.")
-
-        if aad_jumps < 0:
-            raise UserError("AAD jumps cannot be negative.")
-
-        rig = self.rig_id
-        if not rig:
+        if not self.rig_id:
             raise UserError("No rig selected.")
 
-        Component = self.env["rigging.component"]
-
-        # Todos los componentes montados en este rig menos la reserve
-        comps = Component.search([
-            ("rig_id", "=", rig.id),
-            ("component_type", "!=", "reserve"),
-        ])
-
-        for comp in comps:
-            if comp.component_type != "aad":
-                if comp.last_jumps_update == 0:
-                    comp.last_jumps_update = comp.jumps_on_mount
-                delta = aad_jumps - (comp.last_jumps_update or 0)
-                comp.last_jumps_update = aad_jumps
-                comp.total_jumps = (comp.total_jumps or 0) + delta
-            else:
-                comp.total_jumps = aad_jumps
+        self.rig_id.action_update_all_jumps(self.aad_jumps)
 
         # Cerrar el wizard
         return {"type": "ir.actions.act_window_close"}
