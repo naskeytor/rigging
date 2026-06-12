@@ -25,6 +25,29 @@ class RiggingJob(models.Model):
         required=True,
     )
 
+    component_type = fields.Selection(
+        related="component_id.component_type",
+        string="Component Type",
+        readonly=True,
+    )
+
+    component_usage_type = fields.Selection(
+        related="component_id.usage_type",
+        string="Component Usage Type",
+        readonly=True,
+    )
+
+    component_is_mounted = fields.Boolean(
+        related="component_id.is_mounted",
+        string="Component Mounted",
+        readonly=True,
+    )
+
+    jumps = fields.Integer(
+        string="Jumps",
+        help="Current jumps on the equipment at the time of this job.",
+    )
+
     rigging_type = fields.Selection(
         [
             ("inspection_repack", "I + R"),
@@ -34,6 +57,10 @@ class RiggingJob(models.Model):
         string="Rigging Type",
         required=True,
     )
+
+    reline = fields.Boolean(string="Reline")
+    drogue_replace = fields.Boolean(string="Drogue Replace")
+    killline_replace = fields.Boolean(string="Kill Line Replace")
 
     comment = fields.Text(string="Comment")
     price = fields.Float(string="Price")
@@ -74,6 +101,15 @@ class RiggingJob(models.Model):
                     and comp.component_type == "reserve"
             ):
                 comp.write({"last_repack": rec.date or fields.Date.context_today(rec)})
+
+    # ------------------------------------------------------------
+    # 🔧 Helper: propagar jumps al rig del componente
+    # ------------------------------------------------------------
+    def _update_rig_jumps(self):
+        for rec in self:
+            comp = rec.component_id
+            if rec.jumps and comp and comp.rig_id:
+                comp.rig_id.action_update_all_jumps(str(rec.jumps))
 
     # ------------------------------------------------------------
     # ✅ UI: filtra + valida inmediatamente
@@ -143,10 +179,13 @@ class RiggingJob(models.Model):
 
         recs = super().create(vals_list)
         recs._sync_last_repack()
+        recs._update_rig_jumps()
         return recs
 
     def write(self, vals):
         res = super().write(vals)
         if any(k in vals for k in ("rigging_type", "component_id", "date")):
             self._sync_last_repack()
+        if "jumps" in vals:
+            self._update_rig_jumps()
         return res

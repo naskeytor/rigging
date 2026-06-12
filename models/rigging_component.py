@@ -40,6 +40,16 @@ class Component(models.Model):
     last_jumps_update = fields.Integer(string="Last AAD Jumps Update")
     total_jumps = fields.Integer(string="Total jumps")
 
+    has_reline = fields.Boolean(
+        string="Has Reline",
+        compute="_compute_jumps_on_lineset",
+    )
+    jumps_on_lineset = fields.Integer(
+        string="Jumps on Lineset",
+        compute="_compute_jumps_on_lineset",
+        help="Jumps done on the current lineset since the last reline.",
+    )
+
     owner_id = fields.Many2one(
         "res.partner",
         string="Owner",
@@ -77,6 +87,18 @@ class Component(models.Model):
         string="Last Repack",
         help="Last reserve repack date (auto-set by I+R rigging jobs).",
     )
+
+    @api.depends("rigging_ids.reline", "rigging_ids.jumps", "rigging_ids.date", "last_jumps_update")
+    def _compute_jumps_on_lineset(self):
+        for comp in self:
+            reline_jobs = comp.rigging_ids.filtered("reline")
+            if reline_jobs:
+                last_reline = max(reline_jobs, key=lambda r: r.date)
+                comp.has_reline = True
+                comp.jumps_on_lineset = (comp.last_jumps_update or 0) - (last_reline.jumps or 0)
+            else:
+                comp.has_reline = False
+                comp.jumps_on_lineset = 0
 
     # -------------------------------
     # Botones (tal como los tenías)

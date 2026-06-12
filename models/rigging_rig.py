@@ -166,19 +166,6 @@ class Rig(models.Model):
         return super().name_search(name, domain, operator, limit)
 
     # ============================================================
-    # 🔹 Helper: obtener todos los componentes montados en este rig
-    # ============================================================
-    def _get_mounted_components(self):
-        """Devuelve todos los componentes montados en este rig."""
-        self.ensure_one()
-        comps = []
-        for slot in ["canopy_id", "container_id", "reserve_id", "aad_id"]:
-            c = getattr(self, slot)
-            if c:
-                comps.append(c.id)
-        return self.env["rigging.component"].browse(comps)
-
-    # ============================================================
     # 🔥 Acción genérica: update saltos en TODO el equipo
     # ============================================================
     def action_update_all_jumps(self, aad_jumps_str):
@@ -186,9 +173,14 @@ class Rig(models.Model):
         Actualiza los saltos de TODOS los componentes montados del rig,
         excepto la reserve.
 
-        Fórmula:
-            total_jumps += aad_jumps - jumps_on_mount
-            jumps_on_mount = aad_jumps
+        Fórmula (no AAD):
+            last_jumps_update == 0 -> last_jumps_update = jumps_on_mount
+            delta = aad_jumps - last_jumps_update
+            last_jumps_update = aad_jumps
+            total_jumps += delta
+
+        AAD:
+            total_jumps = aad_jumps
         """
         self.ensure_one()
 
@@ -201,18 +193,24 @@ class Rig(models.Model):
         except ValueError:
             raise UserError("AAD jumps must be a number.")
 
+        if aad_jumps < 0:
+            raise UserError("AAD jumps cannot be negative.")
+
         # --- obtener componentes ---
-        components = self._get_mounted_components()
+        components = self.env["rigging.component"].search([
+            ("rig_id", "=", self.id),
+            ("component_type", "!=", "reserve"),
+        ])
 
         # --- aplicar lógica ---
         for comp in components:
-            if comp.component_type == "reserve":
-                continue  # la reserve nunca se toca
-
-            old_mount = comp.jumps_on_mount or 0
-            delta = aad_jumps - old_mount
-
-            comp.total_jumps = (comp.total_jumps or 0) + delta
-            comp.jumps_on_mount = aad_jumps
+            if comp.component_type != "aad":
+                if comp.last_jumps_update == 0:
+                    comp.last_jumps_update = comp.jumps_on_mount
+                delta = aad_jumps - (comp.last_jumps_update or 0)
+                comp.last_jumps_update = aad_jumps
+                comp.total_jumps = (comp.total_jumps or 0) + delta
+            else:
+                comp.total_jumps = aad_jumps
 
         return True

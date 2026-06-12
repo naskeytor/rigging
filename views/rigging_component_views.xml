@@ -53,6 +53,8 @@
                             <field name="total_jumps"/>
                             <field name="last_repack"
                                    modifiers="{'invisible': [['component_type', '!=', 'reserve']]}"/>
+                            <field name="has_reline" invisible="1"/>
+                            <field name="jumps_on_lineset" invisible="not has_reline"/>
                         </group>
 
                         <group>

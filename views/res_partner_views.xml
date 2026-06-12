@@ -81,12 +81,7 @@
                 <!-- 1) Insertar tus pestañas ANTES de la primera pestaña que encuentre con child_ids (Contacts) -->
                 <xpath expr="//sheet/notebook" position="inside">
 
-                    <page name="privacy_tab" string="Privacy">
-                        <group string="Privacy Policy">
-                            <field name="privacy_accepted"/>
-                            <field name="privacy_accepted_date" readonly="1"/>
-                        </group>
-                    </page>
+
 
                     <page name="rigging_tab" string="Rigging">
                         <group>
