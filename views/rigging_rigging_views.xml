@@ -40,6 +40,8 @@
                                invisible="component_type != 'container' or component_usage_type != 'tandem'"/>
                         <field name="killline_replace"
                                invisible="component_type != 'container' or component_usage_type != 'tandem'"/>
+                        <field name="inspection_100_jumps"
+                               invisible="component_type != 'container' or component_usage_type != 'tandem'"/>
                     </group>
                     <group>
                         <field name="price"/>

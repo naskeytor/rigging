@@ -61,6 +61,7 @@ class RiggingJob(models.Model):
     reline = fields.Boolean(string="Reline")
     drogue_replace = fields.Boolean(string="Drogue Replace")
     killline_replace = fields.Boolean(string="Kill Line Replace")
+    inspection_100_jumps = fields.Boolean(string="100 Jumps Inspection")
 
     comment = fields.Text(string="Comment")
     price = fields.Float(string="Price")
@@ -119,6 +120,29 @@ class RiggingJob(models.Model):
         for rec in self:
             if rec.drogue_replace:
                 rec.killline_replace = True
+
+    # ------------------------------------------------------------
+    # 🔧 I+R en un rig Tandem implica 100 Jumps Inspection
+    # ------------------------------------------------------------
+    @api.onchange("rigging_type", "component_id")
+    def _onchange_inspection_100_jumps(self):
+        for rec in self:
+            if rec._is_tandem_ir():
+                rec.inspection_100_jumps = True
+
+    def _is_tandem_ir(self):
+        self.ensure_one()
+        return (
+            self.rigging_type == "inspection_repack"
+            and self.component_id
+            and self.component_id.rig_id
+            and self.component_id.rig_id.usage_type == "tandem"
+        )
+
+    def _apply_100_jumps_inspection_rule(self):
+        for rec in self:
+            if rec._is_tandem_ir() and not rec.inspection_100_jumps:
+                rec.inspection_100_jumps = True
 
     # ------------------------------------------------------------
     # ✅ UI: filtra + valida inmediatamente
@@ -189,6 +213,7 @@ class RiggingJob(models.Model):
                 vals["killline_replace"] = True
 
         recs = super().create(vals_list)
+        recs._apply_100_jumps_inspection_rule()
         recs._sync_last_repack()
         recs._update_rig_jumps()
         return recs
@@ -197,6 +222,8 @@ class RiggingJob(models.Model):
         if vals.get("drogue_replace"):
             vals["killline_replace"] = True
         res = super().write(vals)
+        if any(k in vals for k in ("rigging_type", "component_id")):
+            self._apply_100_jumps_inspection_rule()
         if any(k in vals for k in ("rigging_type", "component_id", "date")):
             self._sync_last_repack()
         if "jumps" in vals:

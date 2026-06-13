@@ -70,6 +70,16 @@ class Component(models.Model):
         help="Jumps done on the current kill line since the last kill line replace.",
     )
 
+    has_100_jumps_inspection = fields.Boolean(
+        string="Has 100 Jumps Inspection",
+        compute="_compute_jumps_on_100_inspection",
+    )
+    jumps_on_100_inspection = fields.Integer(
+        string="Jumps Since Last 100 Jumps Inspection",
+        compute="_compute_jumps_on_100_inspection",
+        help="Jumps done since the last 100 jumps inspection.",
+    )
+
     owner_id = fields.Many2one(
         "res.partner",
         string="Owner",
@@ -143,6 +153,28 @@ class Component(models.Model):
             else:
                 comp.has_killline_replace = False
                 comp.jumps_on_killline = 0
+
+    @api.depends(
+        "rigging_ids.inspection_100_jumps", "rigging_ids.jumps", "rigging_ids.date", "last_jumps_update",
+        "rig_id.reserve_id.rigging_ids.inspection_100_jumps",
+        "rig_id.reserve_id.rigging_ids.jumps",
+        "rig_id.reserve_id.rigging_ids.date",
+    )
+    def _compute_jumps_on_100_inspection(self):
+        for comp in self:
+            inspection_jobs = comp.rigging_ids.filtered("inspection_100_jumps")
+            if comp.rig_id and comp.rig_id.reserve_id:
+                inspection_jobs |= comp.rig_id.reserve_id.rigging_ids.filtered("inspection_100_jumps")
+            if inspection_jobs:
+                last_inspection = max(inspection_jobs, key=lambda r: (r.date, r.id))
+                comp.has_100_jumps_inspection = True
+                # I+R jobs on the reserve don't always carry the rig's jump count,
+                # so fall back to the container's current count to read as 0.
+                baseline_jumps = last_inspection.jumps or comp.last_jumps_update or 0
+                comp.jumps_on_100_inspection = (comp.last_jumps_update or 0) - baseline_jumps
+            else:
+                comp.has_100_jumps_inspection = False
+                comp.jumps_on_100_inspection = 0
 
     # -------------------------------
     # Botones (tal como los tenías)
