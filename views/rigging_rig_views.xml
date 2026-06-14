@@ -2,34 +2,75 @@
 <odoo>
     <data>
 
-        <!-- Acción Rigs -->
-        <record id="rigging_rig_action" model="ir.actions.act_window">
-            <field name="name">Rigs</field>
-            <field name="res_model">rigging.rig</field>
-            <field name="view_mode">list,form</field>
-
-            <!-- ✅ CLAVE: este context sí llega al name_get() del many2one -->
-            <field name="context">{'rig_display': 1}</field>
-        </record>
-
         <!-- LIST VIEW -->
         <record id="rigging_rig_list" model="ir.ui.view">
             <field name="name">rigging.rig.list</field>
             <field name="model">rigging.rig</field>
             <field name="arch" type="xml">
-                <list string="Rigs">
-                    <field name="number"/>
-                    <field name="usage_type"/>
-                    <field name="owner_id"/>
+                <list string="Rigs"
+                      js_class="rigging_list"
+                      editable="bottom"
+                      decoration-danger="reserve_id and not reserve_last_repack"
+                      decoration-muted="not owner_id">
+
+                    <field name="sequence" widget="handle"/>
+                    <field name="number" string="Rig #" readonly="1"/>
+                    <field name="usage_type" widget="badge" readonly="1"/>
+                    <field name="owner_id" widget="many2one_avatar" readonly="1" options="{'no_open': False}"/>
 
                     <!-- readonly=1 => link / abrir componente -->
-                    <field name="canopy_id" readonly="1"/>
-                    <field name="container_id" readonly="1"/>
-                    <field name="reserve_id" readonly="1"/>
-                    <field name="aad_id" readonly="1"/>
+                    <field name="canopy_id" readonly="1" optional="show"/>
+                    <field name="container_id" readonly="1" optional="show"/>
+                    <field name="reserve_id" readonly="1" optional="show"/>
+                    <field name="aad_id" readonly="1" optional="show"/>
 
-                    <field name="reserve_last_repack" optional="hide"/>
+                    <field name="reserve_last_repack" readonly="1" optional="show"/>
                 </list>
+            </field>
+        </record>
+
+        <!-- SEARCH VIEW -->
+        <record id="rigging_rig_search" model="ir.ui.view">
+            <field name="name">rigging.rig.search</field>
+            <field name="model">rigging.rig</field>
+            <field name="arch" type="xml">
+                <search string="Rigs">
+
+                    <field name="number" string="Rig #"/>
+                    <field name="owner_id"/>
+                    <field name="canopy_id"/>
+                    <field name="container_id"/>
+                    <field name="reserve_id"/>
+                    <field name="aad_id"/>
+                    <field name="usage_type"/>
+
+                    <separator/>
+
+                    <filter string="Sport" name="sport" domain="[('usage_type','=','sport')]"/>
+                    <filter string="Tandem" name="tandem" domain="[('usage_type','=','tandem')]"/>
+                    <filter string="Pilot" name="pilot" domain="[('usage_type','=','pilot')]"/>
+
+                    <separator/>
+
+                    <filter string="No Owner" name="no_owner" domain="[('owner_id','=',False)]"/>
+                    <filter string="Incomplete Rig" name="incomplete"
+                            domain="['|','|','|',
+                                ('canopy_id','=',False),
+                                ('container_id','=',False),
+                                ('reserve_id','=',False),
+                                ('aad_id','=',False)]"/>
+                    <filter string="Reserve Repack Due (180+ days)" name="repack_due"
+                            domain="[('reserve_id','!=',False),
+                                '|',
+                                ('reserve_last_repack','=',False),
+                                ('reserve_last_repack','&lt;=', (context_today() - relativedelta(days=180)).strftime('%Y-%m-%d'))]"/>
+
+                    <separator string="Group By"/>
+
+                    <filter string="Discipline" name="gb_usage" context="{'group_by':'usage_type'}"/>
+                    <filter string="Owner" name="gb_owner" context="{'group_by':'owner_id'}"/>
+
+                </search>
             </field>
         </record>
 
@@ -64,6 +105,17 @@
                     </sheet>
                 </form>
             </field>
+        </record>
+
+        <!-- Acción Rigs -->
+        <record id="rigging_rig_action" model="ir.actions.act_window">
+            <field name="name">Rigs</field>
+            <field name="res_model">rigging.rig</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="rigging_rig_search"/>
+
+            <!-- ✅ CLAVE: este context sí llega al name_get() del many2one -->
+            <field name="context">{'rig_display': 1}</field>
         </record>
 
     </data>

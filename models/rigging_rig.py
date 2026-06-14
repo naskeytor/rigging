@@ -5,7 +5,9 @@ from odoo.exceptions import UserError
 class Rig(models.Model):
     _name = "rigging.rig"
     _description = "Rig"
-    _order = "number"
+    _order = "sequence, number"
+
+    sequence = fields.Integer(string="Sequence", default=10)
 
     # ------------------------------------------
     # CAMPOS PRINCIPALES

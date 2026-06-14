@@ -77,6 +77,10 @@ Long description of module's purpose
 
             'rigging/static/src/js/theme_switcher.js',
             'rigging/static/src/css/theme_dark.css',
+
+            'rigging/static/src/js/rig_list_renderer.js',
+            'rigging/static/src/xml/rig_list_renderer.xml',
+            'rigging/static/src/css/rig_list_filters.css',
         ],
     },
 }
