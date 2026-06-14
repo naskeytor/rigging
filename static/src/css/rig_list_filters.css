@@ -1,0 +1,23 @@
+.o_rigging_filter_row > th {
+    background-color: var(--list-view-header-bg, #f8f9fa);
+    border-top: 1px solid var(--border-color, #dee2e6);
+    vertical-align: middle;
+}
+
+.o_rigging_filter_row select,
+.o_rigging_filter_row input {
+    min-width: 80px;
+}
+
+.o_rigging_list_view .o_data_cell:not([name="sequence"]) {
+    cursor: pointer;
+}
+
+.o_data_cell[name="number"] {
+    color: var(--o-action-color, #71639e);
+    font-weight: 600;
+    text-decoration: underline dotted;
+}
+.o_data_cell[name="number"]:hover {
+    text-decoration: underline;
+}

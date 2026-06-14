@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="rigging.ListRenderer" t-inherit="web.ListRenderer" t-inherit-mode="primary" owl="1">
+        <xpath expr="//div[hasclass('o_list_renderer')]" position="attributes">
+            <attribute name="class" add="o_rigging_list_view" separator=" "/>
+        </xpath>
+        <xpath expr="//thead/tr" position="after">
+            <tr class="o_rigging_filter_row">
+                <th t-if="hasSelectors"/>
+                <t t-foreach="columns" t-as="column" t-key="column.id">
+                    <th t-if="isFilterableColumn(column)" class="p-1">
+                        <select t-if="getSelectionOptions(column).length"
+                                class="form-select form-select-sm"
+                                t-on-change="(ev) => this.onColumnFilterChange(column.name, ev)">
+                            <option value=""/>
+                            <t t-foreach="getSelectionOptions(column)" t-as="opt" t-key="opt[0]">
+                                <option t-att-value="opt[0]" t-esc="opt[1]"/>
+                            </t>
+                        </select>
+                        <input t-else=""
+                               type="text"
+                               class="form-control form-control-sm"
+                               t-att-placeholder="column.label"
+                               t-on-input="(ev) => this.onColumnFilterInput(column.name, ev)"/>
+                    </th>
+                    <th t-else=""/>
+                </t>
+                <th t-if="hasActionsColumn or hasOpenFormViewColumn"/>
+            </tr>
+        </xpath>
+    </t>
+
+</templates>
