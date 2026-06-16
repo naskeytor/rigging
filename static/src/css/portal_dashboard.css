@@ -1,0 +1,27 @@
+/* Mobile-friendly tabs on the partner rigging dashboard */
+.rg_portal_card .rg_portal_tabs {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+}
+
+.rg_portal_card .rg_portal_tabs .nav-item {
+  flex: 0 0 auto;
+}
+
+.rg_portal_card .rg_portal_tabs .nav-link {
+  white-space: nowrap;
+}
+
+@media (max-width: 576px) {
+  .rg_portal_card .card-body {
+    padding: 0.5rem;
+  }
+
+  .rg_portal_card table th,
+  .rg_portal_card table td {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+}

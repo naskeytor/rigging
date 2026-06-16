@@ -19,7 +19,7 @@ Long description of module's purpose
 
     # any module necessary for this one to work correctly
     'depends': [
-        'base', 'contacts', 'project'
+        'base', 'contacts', 'project', 'portal'
     ],
 
     'post_init_hook': 'post_init_hook',
@@ -62,6 +62,9 @@ Long description of module's purpose
         # rigs al final de los modelos
         'views/rigging_rig_views.xml',
 
+        # portal (cliente)
+        'views/portal_templates.xml',
+
         # ✅ MENÚS SIEMPRE AL FINAL
         'views/rigging_menus.xml',
     ],
@@ -81,6 +84,9 @@ Long description of module's purpose
             'rigging/static/src/js/rig_list_renderer.js',
             'rigging/static/src/xml/rig_list_renderer.xml',
             'rigging/static/src/css/rig_list_filters.css',
+        ],
+        "web.assets_frontend": [
+            "rigging/static/src/css/portal_dashboard.css",
         ],
     },
 }
