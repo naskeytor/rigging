@@ -52,7 +52,7 @@
                                 <div class="tab-pane fade show active" id="rg-pane-rigs" role="tabpanel">
                                     <div t-if="not rigs" class="text-muted">No rigs found.</div>
                                     <div t-else="" class="table-responsive">
-                                        <table class="table table-sm table-striped">
+                                        <table class="table table-sm table-striped table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Number</th>
@@ -65,7 +65,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr t-foreach="rigs" t-as="rig">
+                                                <tr t-foreach="rigs" t-as="rig"
+                                                    t-attf-onclick="window.location.href='/my/rigging/rig/#{rig.id}'"
+                                                    style="cursor:pointer">
                                                     <td><t t-esc="rig.number"/></td>
                                                     <td><t t-esc="(rig.usage_type or '').title()"/></td>
                                                     <td><t t-esc="rig.canopy_id.display_name or '-'"/></td>
@@ -95,12 +97,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr t-foreach="canopies" t-as="canopy">
-                                                    <td>
-                                                        <a t-attf-href="/my/rigging/component/#{canopy.id}">
-                                                            <t t-esc="canopy.name"/>
-                                                        </a>
-                                                    </td>
+                                                <tr t-foreach="canopies" t-as="canopy"
+                                                    t-attf-onclick="window.location.href='/my/rigging/component/#{canopy.id}'"
+                                                    style="cursor:pointer">
+                                                    <td><t t-esc="canopy.name"/></td>
                                                     <td><t t-esc="canopy.manufacturer_id.display_name or '-'"/></td>
                                                     <td><t t-esc="canopy.model_id.display_name or '-'"/></td>
                                                     <td><t t-esc="canopy.size_id.display_name or '-'"/></td>
@@ -129,12 +129,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr t-foreach="containers" t-as="container">
-                                                    <td>
-                                                        <a t-attf-href="/my/rigging/component/#{container.id}">
-                                                            <t t-esc="container.name"/>
-                                                        </a>
-                                                    </td>
+                                                <tr t-foreach="containers" t-as="container"
+                                                    t-attf-onclick="window.location.href='/my/rigging/component/#{container.id}'"
+                                                    style="cursor:pointer">
+                                                    <td><t t-esc="container.name"/></td>
                                                     <td><t t-esc="container.manufacturer_id.display_name or '-'"/></td>
                                                     <td><t t-esc="container.model_id.display_name or '-'"/></td>
                                                     <td><t t-esc="container.size_id.display_name or '-'"/></td>
@@ -164,12 +162,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr t-foreach="reserves" t-as="reserve">
-                                                    <td>
-                                                        <a t-attf-href="/my/rigging/component/#{reserve.id}">
-                                                            <t t-esc="reserve.name"/>
-                                                        </a>
-                                                    </td>
+                                                <tr t-foreach="reserves" t-as="reserve"
+                                                    t-attf-onclick="window.location.href='/my/rigging/component/#{reserve.id}'"
+                                                    style="cursor:pointer">
+                                                    <td><t t-esc="reserve.name"/></td>
                                                     <td><t t-esc="reserve.manufacturer_id.display_name or '-'"/></td>
                                                     <td><t t-esc="reserve.model_id.display_name or '-'"/></td>
                                                     <td><t t-esc="reserve.size_id.display_name or '-'"/></td>
@@ -195,12 +191,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr t-foreach="aads" t-as="aad">
-                                                    <td>
-                                                        <a t-attf-href="/my/rigging/component/#{aad.id}">
-                                                            <t t-esc="aad.model_id.display_name or aad.name"/>
-                                                        </a>
-                                                    </td>
+                                                <tr t-foreach="aads" t-as="aad"
+                                                    t-attf-onclick="window.location.href='/my/rigging/component/#{aad.id}'"
+                                                    style="cursor:pointer">
+                                                    <td><t t-esc="aad.model_id.display_name or aad.name"/></td>
                                                     <td><t t-esc="aad.total_jumps"/></td>
                                                     <td><t t-esc="aad.last_jumps_update"/></td>
                                                 </tr>
@@ -213,9 +207,10 @@
                                 <div class="tab-pane fade" id="rg-pane-rigging" role="tabpanel">
                                     <div t-if="not rigging_jobs" class="text-muted">No rigging jobs found.</div>
                                     <div t-else="" class="table-responsive">
-                                        <table class="table table-sm table-striped">
+                                        <table class="table table-sm table-striped table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th>Ref</th>
                                                     <th>Date</th>
                                                     <th>Component</th>
                                                     <th>Type</th>
@@ -225,7 +220,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr t-foreach="rigging_jobs" t-as="job">
+                                                <tr t-foreach="rigging_jobs" t-as="job"
+                                                    t-attf-onclick="window.location.href='/my/rigging/job/#{job.id}'"
+                                                    style="cursor:pointer">
+                                                    <td><t t-esc="job.name"/></td>
                                                     <td><t t-esc="job.date"/></td>
                                                     <td><t t-esc="job.component_id.display_name"/></td>
                                                     <td><t t-esc="(job.rigging_type or '').replace('_', ' ').title()"/></td>
@@ -374,7 +372,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr t-foreach="rigging_jobs" t-as="job">
+                                    <tr t-foreach="rigging_jobs" t-as="job"
+                                        t-attf-onclick="window.location.href='/my/rigging/job/#{job.id}'"
+                                        style="cursor:pointer">
                                         <td><t t-esc="job.date"/></td>
                                         <td><t t-esc="(job.rigging_type or '').replace('_', ' ').title()"/></td>
                                         <td><t t-esc="job.jumps"/></td>
@@ -383,6 +383,251 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+
+        <!-- Rig detail page: /my/rigging/rig/<id> -->
+        <template id="portal_rig_detail" name="Rig Detail">
+            <t t-call="portal.portal_layout">
+                <t t-set="page_name" t-value="'rigging_rig'"/>
+                <div class="o_portal_rigging_dashboard">
+
+                    <div class="mb-3">
+                        <a href="/my/rigging" class="btn btn-sm btn-outline-secondary">
+                            <i class="fa fa-arrow-left me-1"/> Back to Dashboard
+                        </a>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="card mb-3 rg_portal_card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3 flex-wrap">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-1">Rig <t t-esc="rig.number"/></h4>
+                                    <div class="mt-1">
+                                        <span class="badge bg-info text-dark">
+                                            <t t-esc="(rig.usage_type or '').title()"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div t-if="rig.reserve_last_repack" class="text-end">
+                                    <div class="text-muted" style="font-size:0.78rem;">Last Repack</div>
+                                    <div class="fw-bold"><t t-esc="rig.reserve_last_repack"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mounted components -->
+                    <div class="card mb-3 rg_portal_card">
+                        <div class="card-header fw-semibold">Mounted Equipment</div>
+                        <div class="card-body">
+                            <div class="row g-3">
+
+                                <!-- Canopy -->
+                                <div class="col-12 col-md-6">
+                                    <div class="border rounded p-3 h-100">
+                                        <div class="text-muted rg_detail_label mb-2">Canopy</div>
+                                        <div t-if="not rig.canopy_id" class="text-muted fst-italic">Not mounted</div>
+                                        <div t-else="">
+                                            <div class="fw-semibold">
+                                                <a t-attf-href="/my/rigging/component/#{rig.canopy_id.id}">
+                                                    <t t-esc="rig.canopy_id.display_name"/>
+                                                </a>
+                                            </div>
+                                            <div class="small text-muted mt-1">Serial: <t t-esc="rig.canopy_id.name"/></div>
+                                            <div class="small mt-1">
+                                                <t t-esc="rig.canopy_id.total_jumps"/> jumps total
+                                                <t t-if="rig.canopy_id.has_reline">
+                                                    · <t t-esc="rig.canopy_id.jumps_on_lineset"/> on lineset
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Container -->
+                                <div class="col-12 col-md-6">
+                                    <div class="border rounded p-3 h-100">
+                                        <div class="text-muted rg_detail_label mb-2">Container</div>
+                                        <div t-if="not rig.container_id" class="text-muted fst-italic">Not mounted</div>
+                                        <div t-else="">
+                                            <div class="fw-semibold">
+                                                <a t-attf-href="/my/rigging/component/#{rig.container_id.id}">
+                                                    <t t-esc="rig.container_id.display_name"/>
+                                                </a>
+                                            </div>
+                                            <div class="small text-muted mt-1">Serial: <t t-esc="rig.container_id.name"/></div>
+                                            <div class="small mt-1">
+                                                <t t-esc="rig.container_id.total_jumps"/> jumps total
+                                                <t t-if="rig.usage_type == 'tandem' and rig.container_id.has_drogue_replace">
+                                                    · <t t-esc="rig.container_id.jumps_on_drogue"/> on drogue
+                                                </t>
+                                                <t t-if="rig.usage_type == 'tandem' and rig.container_id.has_killline_replace">
+                                                    · <t t-esc="rig.container_id.jumps_on_killline"/> on kill line
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Reserve -->
+                                <div class="col-12 col-md-6">
+                                    <div class="border rounded p-3 h-100">
+                                        <div class="text-muted rg_detail_label mb-2">Reserve</div>
+                                        <div t-if="not rig.reserve_id" class="text-muted fst-italic">Not mounted</div>
+                                        <div t-else="">
+                                            <div class="fw-semibold">
+                                                <a t-attf-href="/my/rigging/component/#{rig.reserve_id.id}">
+                                                    <t t-esc="rig.reserve_id.display_name"/>
+                                                </a>
+                                            </div>
+                                            <div class="small text-muted mt-1">Serial: <t t-esc="rig.reserve_id.name"/></div>
+                                            <div class="small mt-1">
+                                                <t t-esc="rig.reserve_id.total_jumps"/> jumps total
+                                                <t t-if="rig.reserve_last_repack">
+                                                    · Last repack: <t t-esc="rig.reserve_last_repack"/>
+                                                </t>
+                                                <t t-if="rig.usage_type == 'tandem' and rig.reserve_id.has_100_jumps_inspection">
+                                                    · <t t-esc="rig.reserve_id.jumps_on_100_inspection"/> since 100J inspection
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- AAD -->
+                                <div class="col-12 col-md-6">
+                                    <div class="border rounded p-3 h-100">
+                                        <div class="text-muted rg_detail_label mb-2">AAD</div>
+                                        <div t-if="not rig.aad_id" class="text-muted fst-italic">Not mounted</div>
+                                        <div t-else="">
+                                            <div class="fw-semibold">
+                                                <a t-attf-href="/my/rigging/component/#{rig.aad_id.id}">
+                                                    <t t-esc="rig.aad_id.display_name"/>
+                                                </a>
+                                            </div>
+                                            <div class="small mt-1">
+                                                <t t-esc="rig.aad_id.total_jumps"/> jumps total
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+
+        <!-- Rigging job detail page: /my/rigging/job/<id> -->
+        <template id="portal_rigging_job_detail" name="Rigging Job Detail">
+            <t t-call="portal.portal_layout">
+                <t t-set="page_name" t-value="'rigging_job'"/>
+                <div class="o_portal_rigging_dashboard">
+
+                    <div class="mb-3">
+                        <a href="/my/rigging#rg-tab-rigging" class="btn btn-sm btn-outline-secondary">
+                            <i class="fa fa-arrow-left me-1"/> Back to Dashboard
+                        </a>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="card mb-3 rg_portal_card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3 flex-wrap">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-1"><t t-esc="job.name"/></h4>
+                                    <div class="d-flex gap-2 flex-wrap mt-1">
+                                        <span class="badge bg-secondary">
+                                            <t t-esc="(job.rigging_type or '').replace('_', ' ').title()"/>
+                                        </span>
+                                        <span t-if="job.state == 'paid'" class="badge bg-success">Paid</span>
+                                        <span t-else="" class="badge bg-warning text-dark">Pending</span>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <div class="text-muted" style="font-size:0.78rem;">Date</div>
+                                    <div class="fw-bold"><t t-esc="job.date"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details grid -->
+                    <div class="card mb-3 rg_portal_card">
+                        <div class="card-header fw-semibold">Details</div>
+                        <div class="card-body">
+                            <div class="row g-3">
+
+                                <div class="col-6 col-md-4">
+                                    <div class="text-muted rg_detail_label">Component</div>
+                                    <div>
+                                        <a t-attf-href="/my/rigging/component/#{job.component_id.id}">
+                                            <t t-esc="job.component_id.display_name"/>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-md-4">
+                                    <div class="text-muted rg_detail_label">Component Type</div>
+                                    <div><t t-esc="(job.component_type or '').title()"/></div>
+                                </div>
+
+                                <div class="col-6 col-md-4">
+                                    <div class="text-muted rg_detail_label">Discipline</div>
+                                    <div><t t-esc="(job.component_usage_type or '').title()"/></div>
+                                </div>
+
+                                <div class="col-6 col-md-4">
+                                    <div class="text-muted rg_detail_label">Jumps at Job</div>
+                                    <div class="fw-semibold fs-5"><t t-esc="job.jumps or '-'"/></div>
+                                </div>
+
+                                <div class="col-6 col-md-4">
+                                    <div class="text-muted rg_detail_label">Price</div>
+                                    <div class="fw-semibold fs-5">
+                                        <t t-esc="job.price or '-'"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-md-4">
+                                    <div class="text-muted rg_detail_label">State</div>
+                                    <div>
+                                        <span t-if="job.state == 'paid'" class="badge bg-success">Paid</span>
+                                        <span t-else="" class="badge bg-warning text-dark">Pending</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flags (only show if any are set) -->
+                    <div class="card mb-3 rg_portal_card"
+                         t-if="job.reline or job.drogue_replace or job.killline_replace or job.inspection_100_jumps">
+                        <div class="card-header fw-semibold">Work Performed</div>
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap gap-2">
+                                <span t-if="job.reline" class="badge bg-primary">Reline</span>
+                                <span t-if="job.drogue_replace" class="badge bg-primary">Drogue Replace</span>
+                                <span t-if="job.killline_replace" class="badge bg-primary">Kill Line Replace</span>
+                                <span t-if="job.inspection_100_jumps" class="badge bg-primary">100 Jumps Inspection</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comment -->
+                    <div class="card rg_portal_card" t-if="job.comment">
+                        <div class="card-header fw-semibold">Notes</div>
+                        <div class="card-body">
+                            <p class="mb-0" style="white-space: pre-line;"><t t-esc="job.comment"/></p>
                         </div>
                     </div>
 
