@@ -1,4 +1,4 @@
-/* El wrapper de Odoo no debe “encapsular” visualmente */
+/* El wrapper de Odoo no debe "encapsular" visualmente */
 .rg_dashboard .o_kanban_record {
   width: 100% !important;
   border: 0 !important;
@@ -8,22 +8,161 @@
   margin: 0 !important;
 }
 
-/* Sidebar + content */
+/* ===== Layout: sidebar + content ===== */
 .rg_page { display: flex; gap: 14px; padding: 12px; }
-.rg_sidebar { width: 240px; border: 1px solid rgba(0,0,0,.08); border-radius: 14px; padding: 12px; background: #fff; }
+
+.rg_sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+  padding: 12px;
+  background: #fff;
+}
+
 .rg_content { flex: 1; min-width: 0; }
 
-/* Grid cards */
-.rg_dashboard_grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-@media (min-width: 768px){ .rg_dashboard_grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (min-width: 1200px){ .rg_dashboard_grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+/* ===== Sidebar: header + nav ===== */
+.rg_sidebar_header {
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #888;
+  padding: 2px 8px 10px;
+}
 
-.rg_dashboard_card { border: 1px solid rgba(0,0,0,.08); border-radius: 14px; background: #fff; overflow: hidden; }
-.rg_card_header { display:flex; justify-content:space-between; padding:12px 14px; border-bottom:1px solid rgba(0,0,0,.06); }
+.rg_nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rg_nav_item {
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #555;
+  transition: background 0.15s;
+  user-select: none;
+}
+
+.rg_nav_item:hover { background: rgba(0,0,0,.05); }
+
+.rg_nav_item.rg_nav_active {
+  background: #e8f0fe;
+  color: #1a73e8;
+  font-weight: 600;
+}
+
+/* ===== Grid cards ===== */
+.rg_dashboard_grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .rg_dashboard_grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1200px) {
+  .rg_dashboard_grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.rg_dashboard_card {
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.rg_card_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.rg_card_title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.rg_card_actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.rg_icon_btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: #777;
+  /* Minimum 44×44 touch target */
+  min-width: 36px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s;
+}
+
+.rg_icon_btn:hover { background: rgba(0,0,0,.07); color: #333; }
+
 .rg_card_body { padding: 14px; min-height: 110px; }
 
-/* Mobile: sidebar arriba */
-@media (max-width: 900px){ .rg_page{ flex-direction: column; } .rg_sidebar{ width: 100%; } }
+/* ===== Tablet: sidebar stacks above ===== */
+@media (max-width: 900px) {
+  .rg_page { flex-direction: column; }
+  .rg_sidebar { width: 100%; }
+}
+
+/* ===== Mobile: sidebar → horizontal scrollable pill nav ===== */
+@media (max-width: 767px) {
+  .rg_page { padding: 6px; gap: 6px; }
+
+  .rg_sidebar { padding: 8px 10px; border-radius: 10px; }
+
+  .rg_sidebar_header { display: none; }
+
+  .rg_nav {
+    flex-direction: row;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+
+  .rg_nav::-webkit-scrollbar { display: none; }
+
+  .rg_nav_item {
+    flex: 0 0 auto;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  .rg_nav_item.rg_nav_active { background: #1a73e8; color: #fff; }
+
+  .rg_dashboard_grid { gap: 8px; }
+
+  .rg_card_header { padding: 10px 12px; }
+  .rg_card_title { font-size: 0.88rem; }
+  .rg_card_body { padding: 10px; min-height: 70px; }
+
+  .rg_icon_btn { min-width: 40px; min-height: 40px; font-size: 1rem; }
+}
 
 /* ===== Expand / Minimize ===== */
 .rg-dashboard-lock-scroll { overflow: hidden !important; }
@@ -40,12 +179,11 @@
 
 .rg_dashboard_card.rg-is-expanded {
   position: fixed !important;
-  top: calc(var(--rg-odoo-topbar) + 12px) !important;
-  left: 12px !important;
-  right: 12px !important;
-  bottom: 12px !important;
+  top: calc(var(--rg-odoo-topbar) + 8px) !important;
+  left: 8px !important;
+  right: 8px !important;
+  bottom: 8px !important;
   z-index: 9999 !important;
-
   margin: 0 !important;
   border-radius: 14px;
   box-shadow: 0 16px 70px rgba(0,0,0,0.35);
@@ -59,4 +197,20 @@
 
 .rg_minimize_btn { display: none; }
 .rg_dashboard_card.rg-is-expanded .rg_minimize_btn { display: inline-flex; }
-.rg_dashboard_card.rg-is-expanded .rg_expand_btn { display: none; }
+.rg_dashboard_card.rg-is-expanded .rg_expand_btn  { display: none; }
+
+/* ===== Dark mode ===== */
+body.rigging-dark-mode .rg_sidebar,
+body.rigging-dark-mode .rg_dashboard_card {
+  background: #1f1f1f !important;
+  border-color: #333 !important;
+}
+
+body.rigging-dark-mode .rg_card_header { border-color: #2a2a2a !important; }
+body.rigging-dark-mode .rg_card_title  { color: #eee !important; }
+body.rigging-dark-mode .rg_sidebar_header { color: #777 !important; }
+body.rigging-dark-mode .rg_nav_item    { color: #bbb !important; }
+body.rigging-dark-mode .rg_nav_item:hover { background: rgba(255,255,255,.07) !important; }
+body.rigging-dark-mode .rg_nav_item.rg_nav_active { background: #1a3a6b !important; color: #90c4ff !important; }
+body.rigging-dark-mode .rg_icon_btn    { color: #aaa !important; }
+body.rigging-dark-mode .rg_icon_btn:hover { background: rgba(255,255,255,.1) !important; color: #fff !important; }
