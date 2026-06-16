@@ -30,6 +30,26 @@ class RiggingCustomerPortal(CustomerPortal):
         }
         return request.render('rigging.portal_rigging_dashboard', values)
 
+    @route(['/my/rigging/rig/<int:rig_id>'], type='http', auth='user', website=True)
+    def portal_rig_detail(self, rig_id, **kw):
+        rig = request.env['rigging.rig'].search([('id', '=', rig_id)])
+        if not rig:
+            return request.not_found()
+        return request.render('rigging.portal_rig_detail', {
+            'page_name': 'rigging_rig',
+            'rig': rig,
+        })
+
+    @route(['/my/rigging/job/<int:job_id>'], type='http', auth='user', website=True)
+    def portal_rigging_job_detail(self, job_id, **kw):
+        job = request.env['rigging.rigging'].search([('id', '=', job_id)])
+        if not job:
+            return request.not_found()
+        return request.render('rigging.portal_rigging_job_detail', {
+            'page_name': 'rigging_job',
+            'job': job,
+        })
+
     @route(['/my/rigging/component/<int:component_id>'], type='http', auth='user', website=True)
     def portal_component_detail(self, component_id, **kw):
         # search respects the portal security rule (owner_id = current partner)
