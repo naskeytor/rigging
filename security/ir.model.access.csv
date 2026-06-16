@@ -28,3 +28,9 @@ access_rigging_task_wizard_packer,rigging.task.wizard packer,model_rigging_task_
 access_rigging_task_wizard_rigger,rigging.task.wizard rigger,model_rigging_task_wizard,rigging.group_rigging_rigger,1,1,1,1
 access_rigging_task_home_admin,rigging.task.home admin,model_rigging_task_home,rigging.group_rigging_admin,1,1,1,1
 access_rigging_task_wizard_admin,rigging.task.wizard admin,model_rigging_task_wizard,rigging.group_rigging_admin,1,1,1,1
+access_rigging_rig_portal,rigging.rig portal,model_rigging_rig,base.group_portal,1,0,0,0
+access_rigging_component_portal,rigging.component portal,model_rigging_component,base.group_portal,1,0,0,0
+access_rigging_rigging_portal,rigging.rigging portal,model_rigging_rigging,base.group_portal,1,0,0,0
+access_rigging_manufacturer_portal,rigging.manufacturer portal,model_rigging_manufacturer,base.group_portal,1,0,0,0
+access_rigging_model_portal,rigging.model portal,model_rigging_model,base.group_portal,1,0,0,0
+access_rigging_size_portal,rigging.size portal,model_rigging_size,base.group_portal,1,0,0,0
