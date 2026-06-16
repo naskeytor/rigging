@@ -63,7 +63,7 @@
                                    invisible="not has_killline_replace or component_type != 'container' or usage_type != 'tandem'"/>
                             <field name="has_100_jumps_inspection" invisible="1"/>
                             <field name="jumps_on_100_inspection"
-                                   invisible="not has_100_jumps_inspection or component_type != 'container' or usage_type != 'tandem'"/>
+                                   invisible="not has_100_jumps_inspection or component_type != 'reserve' or usage_type != 'tandem'"/>
                         </group>
 
                         <group>

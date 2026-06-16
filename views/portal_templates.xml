@@ -83,7 +83,7 @@
                                 <div class="tab-pane fade" id="rg-pane-canopies" role="tabpanel">
                                     <div t-if="not canopies" class="text-muted">No canopies found.</div>
                                     <div t-else="" class="table-responsive">
-                                        <table class="table table-sm table-striped">
+                                        <table class="table table-sm table-striped table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Serial</th>
@@ -96,7 +96,11 @@
                                             </thead>
                                             <tbody>
                                                 <tr t-foreach="canopies" t-as="canopy">
-                                                    <td><t t-esc="canopy.name"/></td>
+                                                    <td>
+                                                        <a t-attf-href="/my/rigging/component/#{canopy.id}">
+                                                            <t t-esc="canopy.name"/>
+                                                        </a>
+                                                    </td>
                                                     <td><t t-esc="canopy.manufacturer_id.display_name or '-'"/></td>
                                                     <td><t t-esc="canopy.model_id.display_name or '-'"/></td>
                                                     <td><t t-esc="canopy.size_id.display_name or '-'"/></td>
@@ -112,7 +116,7 @@
                                 <div class="tab-pane fade" id="rg-pane-containers" role="tabpanel">
                                     <div t-if="not containers" class="text-muted">No containers found.</div>
                                     <div t-else="" class="table-responsive">
-                                        <table class="table table-sm table-striped">
+                                        <table class="table table-sm table-striped table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Serial</th>
@@ -120,19 +124,23 @@
                                                     <th>Model</th>
                                                     <th>Size</th>
                                                     <th>Total Jumps</th>
-                                                    <th>Jumps Since Drogue Replace</th>
-                                                    <th>Jumps Since Kill Line Replace</th>
+                                                    <th t-if="has_tandem_containers">Jumps Since Drogue Replace</th>
+                                                    <th t-if="has_tandem_containers">Jumps Since Kill Line Replace</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr t-foreach="containers" t-as="container">
-                                                    <td><t t-esc="container.name"/></td>
+                                                    <td>
+                                                        <a t-attf-href="/my/rigging/component/#{container.id}">
+                                                            <t t-esc="container.name"/>
+                                                        </a>
+                                                    </td>
                                                     <td><t t-esc="container.manufacturer_id.display_name or '-'"/></td>
                                                     <td><t t-esc="container.model_id.display_name or '-'"/></td>
                                                     <td><t t-esc="container.size_id.display_name or '-'"/></td>
                                                     <td><t t-esc="container.total_jumps"/></td>
-                                                    <td><t t-esc="container.jumps_on_drogue if container.has_drogue_replace else '-'"/></td>
-                                                    <td><t t-esc="container.jumps_on_killline if container.has_killline_replace else '-'"/></td>
+                                                    <td t-if="has_tandem_containers"><t t-esc="container.jumps_on_drogue if container.usage_type == 'tandem' and container.has_drogue_replace else '-'"/></td>
+                                                    <td t-if="has_tandem_containers"><t t-esc="container.jumps_on_killline if container.usage_type == 'tandem' and container.has_killline_replace else '-'"/></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -143,7 +151,7 @@
                                 <div class="tab-pane fade" id="rg-pane-reserves" role="tabpanel">
                                     <div t-if="not reserves" class="text-muted">No reserves found.</div>
                                     <div t-else="" class="table-responsive">
-                                        <table class="table table-sm table-striped">
+                                        <table class="table table-sm table-striped table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Serial</th>
@@ -152,18 +160,22 @@
                                                     <th>Size</th>
                                                     <th>Last Repack</th>
                                                     <th>Total Jumps</th>
-                                                    <th>Jumps Since 100 Jumps Inspection</th>
+                                                    <th t-if="has_tandem_reserves">Jumps Since 100 Jumps Inspection</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr t-foreach="reserves" t-as="reserve">
-                                                    <td><t t-esc="reserve.name"/></td>
+                                                    <td>
+                                                        <a t-attf-href="/my/rigging/component/#{reserve.id}">
+                                                            <t t-esc="reserve.name"/>
+                                                        </a>
+                                                    </td>
                                                     <td><t t-esc="reserve.manufacturer_id.display_name or '-'"/></td>
                                                     <td><t t-esc="reserve.model_id.display_name or '-'"/></td>
                                                     <td><t t-esc="reserve.size_id.display_name or '-'"/></td>
                                                     <td><t t-esc="reserve.last_repack or '-'"/></td>
                                                     <td><t t-esc="reserve.total_jumps"/></td>
-                                                    <td><t t-esc="reserve.jumps_on_100_inspection if reserve.has_100_jumps_inspection else '-'"/></td>
+                                                    <td t-if="has_tandem_reserves"><t t-esc="reserve.jumps_on_100_inspection if reserve.usage_type == 'tandem' and reserve.has_100_jumps_inspection else '-'"/></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -174,7 +186,7 @@
                                 <div class="tab-pane fade" id="rg-pane-aads" role="tabpanel">
                                     <div t-if="not aads" class="text-muted">No AAD's found.</div>
                                     <div t-else="" class="table-responsive">
-                                        <table class="table table-sm table-striped">
+                                        <table class="table table-sm table-striped table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Model</th>
@@ -184,7 +196,11 @@
                                             </thead>
                                             <tbody>
                                                 <tr t-foreach="aads" t-as="aad">
-                                                    <td><t t-esc="aad.model_id.display_name or aad.name"/></td>
+                                                    <td>
+                                                        <a t-attf-href="/my/rigging/component/#{aad.id}">
+                                                            <t t-esc="aad.model_id.display_name or aad.name"/>
+                                                        </a>
+                                                    </td>
                                                     <td><t t-esc="aad.total_jumps"/></td>
                                                     <td><t t-esc="aad.last_jumps_update"/></td>
                                                 </tr>
@@ -225,6 +241,151 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Component detail page: /my/rigging/component/<id> -->
+        <template id="portal_component_detail" name="Component Detail">
+            <t t-call="portal.portal_layout">
+                <t t-set="page_name" t-value="'rigging_component'"/>
+                <div class="o_portal_rigging_dashboard">
+
+                    <div class="mb-3">
+                        <a href="/my/rigging" class="btn btn-sm btn-outline-secondary">
+                            <i class="fa fa-arrow-left me-1"/> Back to Dashboard
+                        </a>
+                    </div>
+
+                    <!-- Header card -->
+                    <div class="card mb-3 rg_portal_card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3 flex-wrap">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-1">
+                                        <t t-esc="component.display_name"/>
+                                    </h4>
+                                    <div class="d-flex gap-2 flex-wrap mt-1">
+                                        <span class="badge bg-secondary">
+                                            <t t-esc="(component.component_type or '').title()"/>
+                                        </span>
+                                        <span class="badge bg-info text-dark">
+                                            <t t-esc="(component.usage_type or '').title()"/>
+                                        </span>
+                                        <span t-if="component.is_mounted" class="badge bg-success">Mounted</span>
+                                        <span t-else="" class="badge bg-light text-dark border">Not Mounted</span>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <div class="text-muted" style="font-size:0.78rem;">Serial</div>
+                                    <div class="fw-bold"><t t-esc="component.name"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details grid -->
+                    <div class="card mb-3 rg_portal_card">
+                        <div class="card-header fw-semibold">Details</div>
+                        <div class="card-body">
+                            <div class="row g-3">
+
+                                <div class="col-6 col-md-4">
+                                    <div class="text-muted rg_detail_label">Manufacturer</div>
+                                    <div><t t-esc="component.manufacturer_id.display_name or '-'"/></div>
+                                </div>
+
+                                <div class="col-6 col-md-4">
+                                    <div class="text-muted rg_detail_label">Model</div>
+                                    <div><t t-esc="component.model_id.display_name or '-'"/></div>
+                                </div>
+
+                                <div class="col-6 col-md-4" t-if="component.component_type != 'aad'">
+                                    <div class="text-muted rg_detail_label">Size</div>
+                                    <div><t t-esc="component.size_id.display_name or '-'"/></div>
+                                </div>
+
+                                <div class="col-6 col-md-4">
+                                    <div class="text-muted rg_detail_label">DOM</div>
+                                    <div><t t-esc="component.dom or '-'"/></div>
+                                </div>
+
+                                <div class="col-6 col-md-4">
+                                    <div class="text-muted rg_detail_label">Total Jumps</div>
+                                    <div class="fw-semibold fs-5"><t t-esc="component.total_jumps"/></div>
+                                </div>
+
+                                <div class="col-6 col-md-4">
+                                    <div class="text-muted rg_detail_label">Rig</div>
+                                    <div><t t-esc="component.rig_id.display_name or 'Not mounted'"/></div>
+                                </div>
+
+                                <!-- Reserve: Last Repack -->
+                                <div class="col-6 col-md-4" t-if="component.component_type == 'reserve'">
+                                    <div class="text-muted rg_detail_label">Last Repack</div>
+                                    <div><t t-esc="component.last_repack or '-'"/></div>
+                                </div>
+
+                                <!-- Canopy: Jumps on Lineset -->
+                                <div class="col-6 col-md-4"
+                                     t-if="component.component_type == 'canopy' and component.has_reline">
+                                    <div class="text-muted rg_detail_label">Jumps on Lineset</div>
+                                    <div><t t-esc="component.jumps_on_lineset"/></div>
+                                </div>
+
+                                <!-- Container tandem: Drogue -->
+                                <div class="col-6 col-md-4"
+                                     t-if="component.component_type == 'container' and component.usage_type == 'tandem' and component.has_drogue_replace">
+                                    <div class="text-muted rg_detail_label">Jumps on Drogue</div>
+                                    <div><t t-esc="component.jumps_on_drogue"/></div>
+                                </div>
+
+                                <!-- Container tandem: Kill Line -->
+                                <div class="col-6 col-md-4"
+                                     t-if="component.component_type == 'container' and component.usage_type == 'tandem' and component.has_killline_replace">
+                                    <div class="text-muted rg_detail_label">Jumps on Kill Line</div>
+                                    <div><t t-esc="component.jumps_on_killline"/></div>
+                                </div>
+
+                                <!-- Reserve tandem: 100 Jumps Inspection -->
+                                <div class="col-6 col-md-4"
+                                     t-if="component.component_type == 'reserve' and component.usage_type == 'tandem' and component.has_100_jumps_inspection">
+                                    <div class="text-muted rg_detail_label">Jumps Since 100 Jumps Inspection</div>
+                                    <div><t t-esc="component.jumps_on_100_inspection"/></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rigging History -->
+                    <div class="card rg_portal_card">
+                        <div class="card-header fw-semibold">Rigging History</div>
+                        <div t-if="not rigging_jobs" class="card-body text-muted">No rigging jobs found.</div>
+                        <div t-else="" class="table-responsive">
+                            <table class="table table-sm table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Jumps</th>
+                                        <th>Price</th>
+                                        <th>State</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="rigging_jobs" t-as="job">
+                                        <td><t t-esc="job.date"/></td>
+                                        <td><t t-esc="(job.rigging_type or '').replace('_', ' ').title()"/></td>
+                                        <td><t t-esc="job.jumps"/></td>
+                                        <td><t t-esc="job.price"/></td>
+                                        <td><t t-esc="(job.state or '').title()"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </t>
         </template>

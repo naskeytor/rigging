@@ -1,3 +1,11 @@
+/* Detail page labels */
+.rg_detail_label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
 /* Mobile-friendly tabs on the partner rigging dashboard */
 .rg_portal_card .rg_portal_tabs {
   flex-wrap: nowrap;
