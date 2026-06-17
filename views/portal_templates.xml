@@ -333,23 +333,23 @@
 
                                 <!-- Container tandem: Drogue -->
                                 <div class="col-6 col-md-4"
-                                     t-if="component.component_type == 'container' and component.usage_type == 'tandem' and component.has_drogue_replace">
+                                     t-if="component.component_type == 'container' and component.usage_type == 'tandem'">
                                     <div class="text-muted rg_detail_label">Jumps on Drogue</div>
-                                    <div><t t-esc="component.jumps_on_drogue"/></div>
+                                    <div><t t-esc="component.jumps_on_drogue if component.has_drogue_replace else '-'"/></div>
                                 </div>
 
                                 <!-- Container tandem: Kill Line -->
                                 <div class="col-6 col-md-4"
-                                     t-if="component.component_type == 'container' and component.usage_type == 'tandem' and component.has_killline_replace">
+                                     t-if="component.component_type == 'container' and component.usage_type == 'tandem'">
                                     <div class="text-muted rg_detail_label">Jumps on Kill Line</div>
-                                    <div><t t-esc="component.jumps_on_killline"/></div>
+                                    <div><t t-esc="component.jumps_on_killline if component.has_killline_replace else '-'"/></div>
                                 </div>
 
                                 <!-- Reserve tandem: 100 Jumps Inspection -->
                                 <div class="col-6 col-md-4"
-                                     t-if="component.component_type == 'reserve' and component.usage_type == 'tandem' and component.has_100_jumps_inspection">
+                                     t-if="component.component_type == 'reserve' and component.usage_type == 'tandem'">
                                     <div class="text-muted rg_detail_label">Jumps Since 100 Jumps Inspection</div>
-                                    <div><t t-esc="component.jumps_on_100_inspection"/></div>
+                                    <div><t t-esc="component.jumps_on_100_inspection if component.has_100_jumps_inspection else '-'"/></div>
                                 </div>
 
                             </div>
