@@ -126,6 +126,7 @@
                                                     <th>Total Jumps</th>
                                                     <th t-if="has_tandem_containers">Jumps Since Drogue Replace</th>
                                                     <th t-if="has_tandem_containers">Jumps Since Kill Line Replace</th>
+                                                    <th t-if="has_tandem_containers">Jumps Since 100 Jumps Inspection</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -139,6 +140,7 @@
                                                     <td><t t-esc="container.total_jumps"/></td>
                                                     <td t-if="has_tandem_containers"><t t-esc="container.jumps_on_drogue if container.usage_type == 'tandem' and container.has_drogue_replace else '-'"/></td>
                                                     <td t-if="has_tandem_containers"><t t-esc="container.jumps_on_killline if container.usage_type == 'tandem' and container.has_killline_replace else '-'"/></td>
+                                                    <td t-if="has_tandem_containers"><t t-esc="container.jumps_on_100_inspection if container.usage_type == 'tandem' and container.has_100_jumps_inspection else '-'"/></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -158,7 +160,6 @@
                                                     <th>Size</th>
                                                     <th>Last Repack</th>
                                                     <th>Total Jumps</th>
-                                                    <th t-if="has_tandem_reserves">Jumps Since 100 Jumps Inspection</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -171,7 +172,6 @@
                                                     <td><t t-esc="reserve.size_id.display_name or '-'"/></td>
                                                     <td><t t-esc="reserve.last_repack or '-'"/></td>
                                                     <td><t t-esc="reserve.total_jumps"/></td>
-                                                    <td t-if="has_tandem_reserves"><t t-esc="reserve.jumps_on_100_inspection if reserve.usage_type == 'tandem' and reserve.has_100_jumps_inspection else '-'"/></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -345,9 +345,9 @@
                                     <div><t t-esc="component.jumps_on_killline if component.has_killline_replace else '-'"/></div>
                                 </div>
 
-                                <!-- Reserve tandem: 100 Jumps Inspection -->
+                                <!-- Container tandem: 100 Jumps Inspection -->
                                 <div class="col-6 col-md-4"
-                                     t-if="component.component_type == 'reserve' and component.usage_type == 'tandem'">
+                                     t-if="component.component_type == 'container' and component.usage_type == 'tandem'">
                                     <div class="text-muted rg_detail_label">Jumps Since 100 Jumps Inspection</div>
                                     <div><t t-esc="component.jumps_on_100_inspection if component.has_100_jumps_inspection else '-'"/></div>
                                 </div>
