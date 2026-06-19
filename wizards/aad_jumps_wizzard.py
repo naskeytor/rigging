@@ -129,14 +129,25 @@ class RiggingAADJumpsWizard(models.TransientModel):
             if comp.component_type != "reserve" and comp not in comps_to_touch:
                 comps_to_touch |= comp
 
-            # 3) para todos esos componentes: reset + set de jumps_on_mount
+            # 3) para todos esos componentes: reset + set de jumps_on_mount y last_jumps_update
             for c in comps_to_touch:
-                c.jumps_on_mount = 0
-                c.jumps_on_mount = aad_jumps
-
-            # 4) si el componente es AAD -> total_jumps = aad_jumps SOLO para el AAD
-            if comp.component_type == "aad":
-                comp.total_jumps = aad_jumps
+                if c.component_type == 'aad':
+                    c.total_jumps = aad_jumps
+                    if comp.component_type == 'aad':
+                        c.jumps_on_mount = aad_jumps
+                else:
+                    c.last_jumps_update = aad_jumps
+                    c.jumps_on_mount = aad_jumps
+                if c.component_type == 'canopy':
+                    if c.lineset_ref_jumps == 0:
+                        c.lineset_ref_jumps = aad_jumps
+                if c.component_type == 'container':
+                    if c.drogue_ref_jumps == 0:
+                        c.drogue_ref_jumps = aad_jumps
+                    if c.killline_ref_jumps == 0:
+                        c.killline_ref_jumps = aad_jumps
+                    if c.inspection_100_ref_jumps == 0:
+                        c.inspection_100_ref_jumps = aad_jumps
 
             # 5) AHORA sí: marcar montado y enlazar rig
             if comp.rig_id != rig or not comp.is_mounted:
@@ -156,18 +167,48 @@ class RiggingAADJumpsWizard(models.TransientModel):
             if comp.component_type == "aad":
                 # actualizar saltos de canopy y container
                 for c in canopy_container:
+                    if c.component_type == 'canopy':
+                        if c.lineset_ref_jumps:
+                            c.lineset_jumps_frozen += aad_jumps - c.lineset_ref_jumps
+                            c.lineset_ref_jumps = 0
+                    if c.component_type == 'container':
+                        c.drogue_jumps_frozen = c.drogue_jumps_frozen + (aad_jumps - c.drogue_ref_jumps)
+                        c.drogue_ref_jumps = 0
+                        c.killline_jumps_frozen = c.killline_jumps_frozen + (aad_jumps - c.killline_ref_jumps)
+                        c.killline_ref_jumps = 0
+                        c.inspection_100_jumps_frozen = c.inspection_100_jumps_frozen + (aad_jumps - c.inspection_100_ref_jumps)
+                        c.inspection_100_ref_jumps = 0
                     delta = aad_jumps - (c.jumps_on_mount or 0)
                     c.total_jumps = (c.total_jumps or 0) + delta
                     c.jumps_on_mount = 0
+                    c.last_jumps_update = 0
 
                 # actualizar el propio AAD
                 comp.total_jumps = aad_jumps
                 comp.jumps_on_mount = 0
+                comp.last_jumps_update = 0
 
             elif comp.component_type in ("canopy", "container"):
+                if comp.component_type == 'canopy':
+                    if comp.lineset_ref_jumps:
+                        comp.lineset_jumps_frozen += aad_jumps - comp.lineset_ref_jumps
+                        comp.lineset_ref_jumps = 0
+                if comp.component_type == 'container':
+                    if comp.drogue_ref_jumps:
+                        comp.drogue_jumps_frozen += aad_jumps - comp.drogue_ref_jumps
+                        comp.drogue_ref_jumps = 0
+                    if comp.killline_ref_jumps:
+                        comp.killline_jumps_frozen += aad_jumps - comp.killline_ref_jumps
+                        comp.killline_ref_jumps = 0
+                    if comp.inspection_100_ref_jumps:
+                        comp.inspection_100_jumps_frozen += aad_jumps - comp.inspection_100_ref_jumps
+                        comp.inspection_100_ref_jumps = 0
+                if rig.aad_id:
+                    rig.aad_id.total_jumps = aad_jumps
                 delta = aad_jumps - (comp.jumps_on_mount or 0)
                 comp.total_jumps = (comp.total_jumps or 0) + delta
                 comp.jumps_on_mount = 0
+                comp.last_jumps_update = 0
 
             # recordar rig actual antes de limpiar
             old_rig = comp.rig_id

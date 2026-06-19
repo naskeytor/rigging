@@ -49,6 +49,8 @@ class Component(models.Model):
         compute="_compute_jumps_on_lineset",
         help="Jumps done on the current lineset since the last reline.",
     )
+    lineset_jumps_frozen = fields.Integer(default=0)
+    lineset_ref_jumps = fields.Integer(default=0)
 
     has_drogue_replace = fields.Boolean(
         string="Has Drogue Replace",
@@ -59,6 +61,8 @@ class Component(models.Model):
         compute="_compute_jumps_on_drogue",
         help="Jumps done on the current drogue since the last drogue replace.",
     )
+    drogue_jumps_frozen = fields.Integer(default=0)
+    drogue_ref_jumps = fields.Integer(default=0)
 
     has_killline_replace = fields.Boolean(
         string="Has Kill Line Replace",
@@ -69,6 +73,8 @@ class Component(models.Model):
         compute="_compute_jumps_on_killline",
         help="Jumps done on the current kill line since the last kill line replace.",
     )
+    killline_jumps_frozen = fields.Integer(default=0)
+    killline_ref_jumps = fields.Integer(default=0)
 
     has_100_jumps_inspection = fields.Boolean(
         string="Has 100 Jumps Inspection",
@@ -79,6 +85,8 @@ class Component(models.Model):
         compute="_compute_jumps_on_100_inspection",
         help="Jumps done since the last 100 jumps inspection.",
     )
+    inspection_100_jumps_frozen = fields.Integer(default=0)
+    inspection_100_ref_jumps = fields.Integer(default=0)
 
     owner_id = fields.Many2one(
         "res.partner",
@@ -118,63 +126,59 @@ class Component(models.Model):
         help="Last reserve repack date (auto-set by I+R rigging jobs).",
     )
 
-    @api.depends("rigging_ids.reline", "rigging_ids.jumps", "rigging_ids.date", "last_jumps_update")
+    @api.depends("rigging_ids.reline", "lineset_jumps_frozen", "lineset_ref_jumps", "last_jumps_update")
     def _compute_jumps_on_lineset(self):
         for comp in self:
             reline_jobs = comp.rigging_ids.filtered("reline")
-            if reline_jobs:
-                last_reline = max(reline_jobs, key=lambda r: r.date)
-                comp.has_reline = True
-                comp.jumps_on_lineset = (comp.last_jumps_update or 0) - (last_reline.jumps or 0)
-            else:
-                comp.has_reline = False
+            comp.has_reline = bool(reline_jobs)
+            if not reline_jobs:
                 comp.jumps_on_lineset = 0
+            elif not comp.last_jumps_update:
+                comp.jumps_on_lineset = comp.lineset_jumps_frozen
+            else:
+                comp.jumps_on_lineset = comp.lineset_jumps_frozen + (comp.last_jumps_update - comp.lineset_ref_jumps)
 
-    @api.depends("rigging_ids.drogue_replace", "rigging_ids.jumps", "rigging_ids.date", "last_jumps_update")
+    @api.depends("rigging_ids.drogue_replace", "drogue_jumps_frozen", "drogue_ref_jumps", "last_jumps_update")
     def _compute_jumps_on_drogue(self):
         for comp in self:
             drogue_jobs = comp.rigging_ids.filtered("drogue_replace")
-            if drogue_jobs:
-                last_drogue = max(drogue_jobs, key=lambda r: r.date)
-                comp.has_drogue_replace = True
-                comp.jumps_on_drogue = (comp.last_jumps_update or 0) - (last_drogue.jumps or 0)
-            else:
-                comp.has_drogue_replace = False
+            comp.has_drogue_replace = bool(drogue_jobs)
+            if not drogue_jobs:
                 comp.jumps_on_drogue = 0
+            elif not comp.last_jumps_update:
+                comp.jumps_on_drogue = comp.drogue_jumps_frozen
+            else:
+                comp.jumps_on_drogue = comp.drogue_jumps_frozen + (comp.last_jumps_update - comp.drogue_ref_jumps)
 
-    @api.depends("rigging_ids.killline_replace", "rigging_ids.jumps", "rigging_ids.date", "last_jumps_update")
+    @api.depends("rigging_ids.killline_replace", "killline_jumps_frozen", "killline_ref_jumps", "last_jumps_update")
     def _compute_jumps_on_killline(self):
         for comp in self:
             killline_jobs = comp.rigging_ids.filtered("killline_replace")
-            if killline_jobs:
-                last_killline = max(killline_jobs, key=lambda r: r.date)
-                comp.has_killline_replace = True
-                comp.jumps_on_killline = (comp.last_jumps_update or 0) - (last_killline.jumps or 0)
-            else:
-                comp.has_killline_replace = False
+            comp.has_killline_replace = bool(killline_jobs)
+            if not killline_jobs:
                 comp.jumps_on_killline = 0
+            elif not comp.last_jumps_update:
+                comp.jumps_on_killline = comp.killline_jumps_frozen
+            else:
+                comp.jumps_on_killline = comp.killline_jumps_frozen + (comp.last_jumps_update - comp.killline_ref_jumps)
 
     @api.depends(
-        "rigging_ids.inspection_100_jumps", "rigging_ids.jumps", "rigging_ids.date", "last_jumps_update",
+        "rigging_ids.inspection_100_jumps",
         "rig_id.reserve_id.rigging_ids.inspection_100_jumps",
-        "rig_id.reserve_id.rigging_ids.jumps",
-        "rig_id.reserve_id.rigging_ids.date",
+        "inspection_100_jumps_frozen", "inspection_100_ref_jumps", "last_jumps_update",
     )
     def _compute_jumps_on_100_inspection(self):
         for comp in self:
             inspection_jobs = comp.rigging_ids.filtered("inspection_100_jumps")
             if comp.rig_id and comp.rig_id.reserve_id:
                 inspection_jobs |= comp.rig_id.reserve_id.rigging_ids.filtered("inspection_100_jumps")
-            if inspection_jobs:
-                last_inspection = max(inspection_jobs, key=lambda r: (r.date, r.id))
-                comp.has_100_jumps_inspection = True
-                # I+R jobs on the reserve don't always carry the rig's jump count,
-                # so fall back to the container's current count to read as 0.
-                baseline_jumps = last_inspection.jumps or comp.last_jumps_update or 0
-                comp.jumps_on_100_inspection = (comp.last_jumps_update or 0) - baseline_jumps
-            else:
-                comp.has_100_jumps_inspection = False
+            comp.has_100_jumps_inspection = bool(inspection_jobs)
+            if not inspection_jobs:
                 comp.jumps_on_100_inspection = 0
+            elif not comp.last_jumps_update:
+                comp.jumps_on_100_inspection = comp.inspection_100_jumps_frozen
+            else:
+                comp.jumps_on_100_inspection = comp.inspection_100_jumps_frozen + (comp.last_jumps_update - comp.inspection_100_ref_jumps)
 
     # -------------------------------
     # Botones (tal como los tenías)
