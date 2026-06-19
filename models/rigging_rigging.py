@@ -90,6 +90,38 @@ class RiggingJob(models.Model):
                 else f"<span style='color:green;'>{value}</span>"
             )
 
+    def _sync_lineset_counter(self):
+        for rec in self:
+            comp = rec.component_id
+            if not comp or comp.component_type != 'canopy':
+                continue
+            if rec.reline:
+                comp.lineset_jumps_frozen = 0
+                comp.lineset_ref_jumps = comp.last_jumps_update
+
+    def _sync_tandem_counters(self):
+        for rec in self:
+            comp = rec.component_id
+            if not comp:
+                continue
+
+            if comp.component_type == 'container':
+                if rec.drogue_replace:
+                    comp.drogue_jumps_frozen = 0
+                    comp.drogue_ref_jumps = comp.last_jumps_update
+                if rec.killline_replace:
+                    comp.killline_jumps_frozen = 0
+                    comp.killline_ref_jumps = comp.last_jumps_update
+                if rec.inspection_100_jumps:
+                    comp.inspection_100_jumps_frozen = 0
+                    comp.inspection_100_ref_jumps = comp.last_jumps_update
+
+            if rec.inspection_100_jumps and comp.component_type == 'reserve':
+                if comp.rig_id and comp.rig_id.container_id:
+                    container = comp.rig_id.container_id
+                    container.inspection_100_jumps_frozen = 0
+                    container.inspection_100_ref_jumps = container.last_jumps_update
+
     # ------------------------------------------------------------
     # 🔧 Helper: sincronizar last_repack en la reserve
     # ------------------------------------------------------------
@@ -109,8 +141,14 @@ class RiggingJob(models.Model):
     def _update_rig_jumps(self):
         for rec in self:
             comp = rec.component_id
-            if rec.jumps and comp and comp.rig_id:
+            if not rec.jumps or not comp:
+                continue
+            if comp.rig_id:
                 comp.rig_id.action_update_all_jumps(str(rec.jumps))
+            elif comp.component_type in ('container', 'canopy'):
+                # Component off rig: update last_jumps_update so sync counters
+                # capture the correct reference on reset.
+                comp.last_jumps_update = rec.jumps
 
     # ------------------------------------------------------------
     # 🔧 UI: drogue replace implica killline replace (jumps on killline -> 0)
@@ -216,6 +254,8 @@ class RiggingJob(models.Model):
         recs._apply_100_jumps_inspection_rule()
         recs._sync_last_repack()
         recs._update_rig_jumps()
+        recs._sync_tandem_counters()
+        recs._sync_lineset_counter()
         return recs
 
     def write(self, vals):
@@ -228,4 +268,8 @@ class RiggingJob(models.Model):
             self._sync_last_repack()
         if "jumps" in vals:
             self._update_rig_jumps()
+        if any(k in vals for k in ("drogue_replace", "killline_replace", "inspection_100_jumps", "component_id")):
+            self._sync_tandem_counters()
+        if any(k in vals for k in ("reline", "component_id")):
+            self._sync_lineset_counter()
         return res
