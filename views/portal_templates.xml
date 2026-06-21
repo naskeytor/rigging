@@ -2,6 +2,15 @@
 <odoo>
     <data>
 
+        <!-- Replace portal navbar logo with Gravity Rigging logo -->
+        <template id="rigging_portal_logo" inherit_id="portal.frontend_layout">
+            <xpath expr="//a[contains(@class,'navbar-brand')]/img" position="replace">
+                <img src="/rigging/static/src/img/logo.jpg"
+                     alt="Gravity Rigging"
+                     style="height: 42px; width: auto;"/>
+            </xpath>
+        </template>
+
         <!-- Add Invoices / Addresses / Security to the top-right user dropdown -->
         <template id="rigging_portal_user_dropdown" inherit_id="portal.my_account_link">
             <xpath expr="//a[@href='/my/home']" position="after">
