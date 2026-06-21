@@ -76,6 +76,8 @@ Long description of module's purpose
     "assets": {
         "web.assets_backend": [
             "rigging/static/src/js/dashboard.js",
+            "rigging/static/src/js/rigging_dashboard_component.js",
+            "rigging/static/src/xml/rigging_dashboard.xml",
             "rigging/static/src/css/dashboard.css",
 
             'rigging/static/src/js/theme_switcher.js',

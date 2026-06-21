@@ -9,7 +9,7 @@
         <menuitem id="menu_dashboard"
                   name="Dashboard"
                   parent="menu_root"
-                  action="rigging_dashboard_action"
+                  action="rigging_dashboard_client_action"
                   sequence="10"/>
 
         <menuitem id="menu_rigs"
