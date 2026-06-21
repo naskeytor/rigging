@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
+    <record id="rigging_dashboard_client_action" model="ir.actions.client">
+        <field name="name">Dashboard</field>
+        <field name="tag">rigging.dashboard_client</field>
+    </record>
+
     <record id="rigging_dashboard_action" model="ir.actions.act_window">
         <field name="name">Dashboard</field>
         <field name="res_model">rigging.dashboard</field>
@@ -15,17 +20,14 @@
                 <templates>
                     <t t-name="card">
                         <div class="rg_page">
-                            <div class="rg_sidebar">
-                                <div class="rg_sidebar_header">Rigging</div>
-                                <div class="rg_nav">
-                                    <div class="rg_nav_item rg_nav_active">Dashboard</div>
-                                    <div class="rg_nav_item">Rigs</div>
-                                    <div class="rg_nav_item">Components</div>
-                                    <div class="rg_nav_item">Rigging Jobs</div>
+                            <div class="rg_main_card">
+                                <div class="rg_tabs">
+                                    <div class="rg_tab rg_tab_active">Dashboard</div>
+                                    <div class="rg_tab">Rigs</div>
+                                    <div class="rg_tab">Components</div>
+                                    <div class="rg_tab">Rigging Jobs</div>
                                 </div>
-                            </div>
-
-                            <div class="rg_content">
+                                <div class="rg_content">
                                 <div class="rg_dashboard_grid">
 
                                     <div class="rg_dashboard_card">
@@ -105,6 +107,7 @@
                                         <div class="rg_card_body">UI only</div>
                                     </div>
 
+                                </div>
                                 </div>
                             </div>
                         </div>

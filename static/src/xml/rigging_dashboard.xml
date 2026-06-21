@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="rigging.RiggingDashboard" owl="1">
+        <div class="rg_page">
+            <div class="rg_main_card">
+
+                <!-- ── Top bar: title + search ── -->
+                <div class="rg_dash_top">
+                    <span class="rg_dash_title">Dashboard</span>
+                    <div class="rg_search_wrap">
+                        <svg class="rg_search_icon" viewBox="0 0 20 20" fill="none">
+                            <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/>
+                            <path d="M13 13l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                        </svg>
+                        <input
+                            class="rg_search_input"
+                            type="text"
+                            placeholder="Search…"
+                            t-on-input="onSearch"
+                        />
+                    </div>
+                </div>
+
+                <!-- ── Tabs ── -->
+                <div class="rg_tabs">
+                    <t t-foreach="tabs" t-as="tab" t-key="tab.key">
+                        <div
+                            class="rg_tab"
+                            t-att-class="{ rg_tab_active: state.activeTab === tab.key }"
+                            t-on-click="() => this.setTab(tab.key)"
+                        >
+                            <t t-esc="tab.label"/>
+                        </div>
+                    </t>
+                </div>
+
+                <!-- ── Content ── -->
+                <div class="rg_content">
+
+                    <t t-if="state.loading">
+                        <div class="rg_table_loading">
+                            <div class="rg_spinner"/>
+                        </div>
+                    </t>
+
+                    <t t-elif="state.activeTab === 'schedule'">
+                        <div class="rg_empty_state">
+                            <svg viewBox="0 0 48 48" fill="none" class="rg_empty_icon">
+                                <rect x="6" y="10" width="36" height="32" rx="4" stroke="currentColor" stroke-width="2"/>
+                                <path d="M16 6v8M32 6v8M6 22h36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <p>Schedule — coming soon</p>
+                        </div>
+                    </t>
+
+                    <t t-else="">
+                        <div class="rg_table_wrap">
+                            <table class="rg_table">
+                                <thead>
+                                    <tr>
+                                        <t t-foreach="columns" t-as="col" t-key="col.field">
+                                            <th><t t-esc="col.label"/></th>
+                                        </t>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-if="state.records.length === 0">
+                                        <tr>
+                                            <td t-att-colspan="columns.length" class="rg_no_records">
+                                                No records found
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-foreach="state.records" t-as="rec" t-key="rec.id">
+                                            <tr class="rg_tr">
+                                                <t t-foreach="columns" t-as="col" t-key="col.field">
+                                                    <td>
+                                                        <t t-if="col.field === 'state'">
+                                                            <span t-att-class="stateClass(rec)">
+                                                                <t t-esc="cellValue(rec, col)"/>
+                                                            </span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <t t-esc="cellValue(rec, col)"/>
+                                                        </t>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
