@@ -22,6 +22,51 @@
   white-space: nowrap;
 }
 
+/* Clickable table rows */
+.rg-clickable-row { cursor: pointer; }
+
+/* Detail view header inside the card */
+.rg-detail-header {
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+
+/* Account shortcuts bar at the bottom of the dashboard */
+.rg_account_bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 10px 4px;
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+
+.rg_account_bar_label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #aaa;
+  margin-right: 4px;
+}
+
+.rg_account_link {
+  font-size: 0.82rem;
+  color: #666;
+  text-decoration: none;
+  padding: 4px 10px;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 20px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.rg_account_link:hover {
+  background: #f0f2ff;
+  color: #1a73e8;
+  border-color: #c5d5f8;
+  text-decoration: none;
+}
+
 @media (max-width: 576px) {
   .rg_portal_card .card-body {
     padding: 0.5rem;
