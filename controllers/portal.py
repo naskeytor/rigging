@@ -4,6 +4,10 @@ from odoo.addons.portal.controllers.portal import CustomerPortal
 
 class RiggingCustomerPortal(CustomerPortal):
 
+    @route(['/my', '/my/home'], type='http', auth='user', website=True)
+    def home(self, **kw):
+        return request.redirect('/my/rigging')
+
     @route(['/my/rigging'], type='http', auth='user', website=True)
     def portal_rigging_dashboard(self, **kw):
         partner = request.env.user.partner_id

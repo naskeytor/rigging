@@ -89,6 +89,7 @@ Long description of module's purpose
         ],
         "web.assets_frontend": [
             "rigging/static/src/css/portal_dashboard.css",
+            "rigging/static/src/js/portal_dashboard.js",
         ],
     },
 }
