@@ -4,13 +4,12 @@
         <field name="name">rigging.rigging.list</field>
         <field name="model">rigging.rigging</field>
         <field name="arch" type="xml">
-            <list string="Rigging Jobs">
+            <list string="Rigging Jobs" js_class="rigging_list">
                 <field name="owner_id"/>
                 <field name="date"/>
                 <field name="component_id"/>
                 <field name="rigging_type"/>
-                <!-- solo esta columna se colorea -->
-                <field name="price_color" widget="html" string="Price"/>
+                <field name="price" sum="Total" decoration-danger="price == 0"/>
                 <field name="state"/>
             </list>
         </field>
@@ -79,17 +78,18 @@
 
                 <separator/>
 
-                <!-- Date helpers (you can tweak later) -->
-
+                <!-- Date filter — generates This Month / Last Month / This Quarter / This Year etc. -->
+                <filter string="Date" name="date_filter" date="date"/>
 
                 <separator string="Group By"/>
 
-                <!-- Group by (safe: as filters, no <group>) -->
-                <filter string="Group by Type" name="gb_type" context="{'group_by':'rigging_type'}"/>
-                <filter string="Group by State" name="gb_state" context="{'group_by':'state'}"/>
-                <filter string="Group by Date" name="gb_date" context="{'group_by':'date'}"/>
-                <filter string="Group by Owner" name="gb_owner" context="{'group_by':'owner_id'}"/>
-                <filter string="Group by Component" name="gb_component" context="{'group_by':'component_id'}"/>
+                <filter string="Month"     name="gb_month"     context="{'group_by':'date:month'}"/>
+                <filter string="Quarter"   name="gb_quarter"   context="{'group_by':'date:quarter'}"/>
+                <filter string="Year"      name="gb_year"      context="{'group_by':'date:year'}"/>
+                <filter string="Customer"  name="gb_owner"     context="{'group_by':'owner_id'}"/>
+                <filter string="Type"      name="gb_type"      context="{'group_by':'rigging_type'}"/>
+                <filter string="State"     name="gb_state"     context="{'group_by':'state'}"/>
+                <filter string="Component" name="gb_component" context="{'group_by':'component_id'}"/>
 
             </search>
         </field>
