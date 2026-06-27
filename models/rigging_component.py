@@ -103,6 +103,17 @@ class Component(models.Model):
 
     is_mounted = fields.Boolean(string="Mounted", default=False)
 
+    service_state = fields.Selection(
+        [
+            ("in_service", "In Service"),
+            ("out_of_service", "Out of Service"),
+            ("project", "Project"),
+        ],
+        string="Status",
+        default="in_service",
+        required=True,
+    )
+
     rigging_ids = fields.One2many(
         "rigging.rigging",
         "component_id",
@@ -179,6 +190,18 @@ class Component(models.Model):
                 comp.jumps_on_100_inspection = comp.inspection_100_jumps_frozen
             else:
                 comp.jumps_on_100_inspection = comp.inspection_100_jumps_frozen + (comp.last_jumps_update - comp.inspection_100_ref_jumps)
+
+    # -------------------------------
+    # Cambios de estado de servicio
+    # -------------------------------
+    def action_set_in_service(self):
+        self.service_state = "in_service"
+
+    def action_set_out_of_service(self):
+        self.service_state = "out_of_service"
+
+    def action_set_project(self):
+        self.service_state = "project"
 
     # -------------------------------
     # Botones (tal como los tenías)

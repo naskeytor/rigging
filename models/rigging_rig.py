@@ -44,6 +44,16 @@ class Rig(models.Model):
         domain=[("component_type", "=", "aad")],
     )
 
+    service_state = fields.Selection(
+        [
+            ("in_service", "In Service"),
+            ("out_of_service", "Out of Service"),
+        ],
+        string="Status",
+        default="in_service",
+        required=True,
+    )
+
     usage_type = fields.Selection(
         [
             ("sport", "Sport"),
@@ -86,6 +96,33 @@ class Rig(models.Model):
                     comp.owner_id = rig.owner_id
 
     # -------------------------------------------------
+    # DISPLAY NAME
+    # -------------------------------------------------
+    def _compute_display_name(self):
+        for rig in self:
+            owner = rig.owner_id.name or ""
+            number = rig.number or ""
+            rig.display_name = f"{owner} {number}".strip() if owner else number
+
+    # -------------------------------------------------
+    # ESTADO DE SERVICIO
+    # -------------------------------------------------
+    def _check_service_state(self):
+        for rig in self:
+            incomplete = not rig.canopy_id or not rig.container_id or not rig.reserve_id or not rig.aad_id
+            if incomplete and rig.service_state == "in_service":
+                rig.service_state = "out_of_service"
+
+    def action_set_in_service(self):
+        for rig in self:
+            if not rig.canopy_id or not rig.container_id or not rig.reserve_id or not rig.aad_id:
+                raise UserError("Rig must have Canopy, Container, Reserve and AAD mounted to be In Service.")
+            rig.service_state = "in_service"
+
+    def action_set_out_of_service(self):
+        self.service_state = "out_of_service"
+
+    # -------------------------------------------------
     # SINCRONIZAR rig <-> componente.rig_id
     # -------------------------------------------------
     def _sync_components(self):
@@ -122,6 +159,8 @@ class Rig(models.Model):
                 "rig_id": False,
                 "is_mounted": False,
             })
+
+        self._check_service_state()
 
     @api.model
     def create(self, vals):
