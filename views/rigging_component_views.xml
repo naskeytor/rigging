@@ -21,6 +21,7 @@
                     <field name="total_jumps"/>
                     <field name="rig_id"/>
                     <field name="is_mounted"/>
+                    <field name="service_state"/>
                 </list>
             </field>
         </record>
@@ -31,6 +32,25 @@
             <field name="model">rigging.component</field>
             <field name="arch" type="xml">
                 <form string="Component">
+                    <header>
+                        <button name="action_set_in_service"
+                                string="In Service"
+                                type="object"
+                                class="btn-primary"
+                                invisible="service_state == 'in_service'"/>
+                        <button name="action_set_out_of_service"
+                                string="Out of Service"
+                                type="object"
+                                class="btn-secondary"
+                                invisible="service_state == 'out_of_service'"/>
+                        <button name="action_set_project"
+                                string="Project"
+                                type="object"
+                                class="btn-secondary"
+                                invisible="service_state == 'project'"/>
+                        <field name="service_state" widget="statusbar"
+                               statusbar_visible="in_service,out_of_service,project"/>
+                    </header>
                     <sheet>
 
                         <group>
@@ -81,12 +101,12 @@
                                     type="object"
                                     string="Mount"
                                     class="btn-primary"
-                                    invisible="is_mounted"/>
+                                    invisible="is_mounted or service_state != 'in_service'"/>
                             <button name="action_open_unmount_wizard"
                                     type="object"
                                     string="Unmount"
                                     class="btn-secondary"
-                                    invisible="not is_mounted"/>
+                                    invisible="not is_mounted or service_state != 'in_service'"/>
                             <button name="action_refresh"
                                     type="object"
                                     string="Refresh"
@@ -172,6 +192,19 @@
                     <filter string="Group by Owner" name="gb_owner" context="{'group_by':'owner_id'}"/>
                     <filter string="Group by Rig" name="gb_rig" context="{'group_by':'rig_id'}"/>
                     <filter string="Group by Mounted" name="gb_is_mounted" context="{'group_by':'is_mounted'}"/>
+                    <filter string="Group by Status" name="gb_service_state" context="{'group_by':'service_state'}"/>
+
+                    <separator/>
+
+                    <filter string="In Service"
+                            name="in_service"
+                            domain="[('service_state','=','in_service')]"/>
+                    <filter string="Out of Service"
+                            name="out_of_service"
+                            domain="[('service_state','=','out_of_service')]"/>
+                    <filter string="Project"
+                            name="project"
+                            domain="[('service_state','=','project')]"/>
 
                 </search>
             </field>

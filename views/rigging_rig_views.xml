@@ -25,6 +25,10 @@
                     <field name="aad_id" readonly="1" optional="show"/>
 
                     <field name="reserve_last_repack" readonly="1" optional="show"/>
+                    <field name="service_state" widget="badge"
+                           decoration-success="service_state == 'in_service'"
+                           decoration-danger="service_state == 'out_of_service'"
+                           readonly="1"/>
                 </list>
             </field>
         </record>
@@ -65,10 +69,20 @@
                                 ('reserve_last_repack','=',False),
                                 ('reserve_last_repack','&lt;=', (context_today() - relativedelta(days=180)).strftime('%Y-%m-%d'))]"/>
 
+                    <separator/>
+
+                    <filter string="In Service"
+                            name="in_service"
+                            domain="[('service_state','=','in_service')]"/>
+                    <filter string="Out of Service"
+                            name="out_of_service"
+                            domain="[('service_state','=','out_of_service')]"/>
+
                     <separator string="Group By"/>
 
                     <filter string="Discipline" name="gb_usage" context="{'group_by':'usage_type'}"/>
                     <filter string="Owner" name="gb_owner" context="{'group_by':'owner_id'}"/>
+                    <filter string="Status" name="gb_service_state" context="{'group_by':'service_state'}"/>
 
                 </search>
             </field>
@@ -80,6 +94,20 @@
             <field name="model">rigging.rig</field>
             <field name="arch" type="xml">
                 <form string="Rig">
+                    <header>
+                        <button name="action_set_in_service"
+                                string="In Service"
+                                type="object"
+                                class="btn-primary"
+                                invisible="service_state == 'in_service'"/>
+                        <button name="action_set_out_of_service"
+                                string="Out of Service"
+                                type="object"
+                                class="btn-secondary"
+                                invisible="service_state == 'out_of_service'"/>
+                        <field name="service_state" widget="statusbar"
+                               statusbar_visible="in_service,out_of_service"/>
+                    </header>
                     <sheet>
                         <group>
                             <field name="number"/>

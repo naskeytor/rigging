@@ -209,7 +209,7 @@ class RiggingJob(models.Model):
                 rig = comp.rig_id
                 if not rig.container_id:
                     raise UserError("Rig must have a Container mounted for I + R.")
-                if not rig.aad_id:
+                if not rig.aad_id and rig.usage_type != "pilot":
                     raise UserError("Rig must have an AAD mounted for I + R.")
 
             return result
@@ -236,7 +236,7 @@ class RiggingJob(models.Model):
             rig = comp.rig_id
             if not rig.container_id:
                 raise ValidationError("Rig must have a Container mounted for I + R.")
-            if not rig.aad_id:
+            if not rig.aad_id and rig.usage_type != "pilot":
                 raise ValidationError("Rig must have an AAD mounted for I + R.")
 
     # ------------------------------------------------------------
