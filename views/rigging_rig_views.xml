@@ -128,6 +128,16 @@
                                    invisible="not container_id"/>
                         </group>
 
+                        <group string="Container" invisible="not container_id">
+                            <field name="container_jumps_on_drogue"/>
+                            <field name="container_jumps_on_killline"/>
+                            <field name="container_jumps_on_100_inspection"/>
+                        </group>
+
+                        <group string="Canopy" invisible="not canopy_id">
+                            <field name="canopy_jumps_on_lineset"/>
+                        </group>
+
                         <group string="Tools">
                             <button name="%(rigging_rig_jumps_wizard_action)d"
                                     type="action"

@@ -108,6 +108,30 @@ class Rig(models.Model):
         for rig in self:
             rig.last_loop_adjust = rig.container_id.last_loop_adjust or False
 
+    container_jumps_on_drogue = fields.Integer(
+        string="Jumps on Drogue",
+        related="container_id.jumps_on_drogue",
+        readonly=True,
+    )
+
+    container_jumps_on_killline = fields.Integer(
+        string="Jumps on Kill Line",
+        related="container_id.jumps_on_killline",
+        readonly=True,
+    )
+
+    container_jumps_on_100_inspection = fields.Integer(
+        string="Jumps after 100 Jumps Inspection",
+        related="container_id.jumps_on_100_inspection",
+        readonly=True,
+    )
+
+    canopy_jumps_on_lineset = fields.Integer(
+        string="Jumps after Reline",
+        related="canopy_id.jumps_on_lineset",
+        readonly=True,
+    )
+
     # -------------------------------------------------
     # CAMBIO DE OWNER → aplicar en componentes montados
     # -------------------------------------------------

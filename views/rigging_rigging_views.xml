@@ -10,7 +10,7 @@
                 <field name="component_id"/>
                 <field name="rigging_type"/>
                 <field name="price" sum="Total" decoration-danger="price == 0"/>
-                <field name="state"/>
+                <field name="state" widget="state_selection"/>
             </list>
         </field>
     </record>
