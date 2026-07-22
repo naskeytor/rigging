@@ -12,9 +12,7 @@ class RiggingJob(models.Model):
     owner_id = fields.Many2one(
         "res.partner",
         string="Owner",
-        related="component_id.owner_id",
-        store=True,
-        readonly=True,
+        required=True,
     )
 
     date = fields.Date(string="Date", required=True, default=fields.Date.context_today)
@@ -22,7 +20,6 @@ class RiggingJob(models.Model):
     component_id = fields.Many2one(
         "rigging.component",
         string="Component",
-        required=True,
     )
 
     component_type = fields.Selection(
@@ -53,6 +50,7 @@ class RiggingJob(models.Model):
             ("inspection_repack", "I + R"),
             ("repair", "Reparation"),
             ("alteration", "Alteration"),
+            ("fabrication", "Fabrication"),
         ],
         string="Rigging Type",
         required=True,
@@ -153,6 +151,24 @@ class RiggingJob(models.Model):
     # ------------------------------------------------------------
     # 🔧 UI: drogue replace implica killline replace (jumps on killline -> 0)
     # ------------------------------------------------------------
+    # ------------------------------------------------------------
+    # 🔧 UI: al elegir Component, autocompletar Owner (editable igualmente)
+    # ------------------------------------------------------------
+    @api.onchange("component_id")
+    def _onchange_component_id_owner(self):
+        for rec in self:
+            if rec.component_id:
+                rec.owner_id = rec.component_id.owner_id
+
+    # ------------------------------------------------------------
+    # 🔧 UI: Fabrication no requiere Component (se limpia si estaba puesto)
+    # ------------------------------------------------------------
+    @api.onchange("rigging_type")
+    def _onchange_rigging_type_fabrication(self):
+        for rec in self:
+            if rec.rigging_type == "fabrication":
+                rec.component_id = False
+
     @api.onchange("drogue_replace")
     def _onchange_drogue_replace(self):
         for rec in self:
@@ -238,6 +254,12 @@ class RiggingJob(models.Model):
                 raise ValidationError("Rig must have a Container mounted for I + R.")
             if not rig.aad_id and rig.usage_type != "pilot":
                 raise ValidationError("Rig must have an AAD mounted for I + R.")
+
+    @api.constrains("rigging_type", "component_id")
+    def _check_component_required(self):
+        for rec in self:
+            if rec.rigging_type != "fabrication" and not rec.component_id:
+                raise ValidationError("Component is required unless the Rigging Type is Fabrication.")
 
     # ------------------------------------------------------------
     # ✅ Backend: create/write robustos (multi)

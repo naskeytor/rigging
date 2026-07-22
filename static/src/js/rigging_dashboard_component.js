@@ -108,7 +108,7 @@ const CONFIG = {
 const LABELS = {
     usage_type:   { sport: "Sport", tandem: "Tandem", pilot: "Pilot" },
     component_type: { canopy: "Canopy", container: "Container", reserve: "Reserve", aad: "AAD" },
-    rigging_type: { inspection_repack: "I + R", repair: "Repair", alteration: "Alteration" },
+    rigging_type: { inspection_repack: "I + R", repair: "Repair", alteration: "Alteration", fabrication: "Fabrication" },
     state:        { pending: "Pending", paid: "Paid" },
 };
 

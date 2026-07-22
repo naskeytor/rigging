@@ -23,7 +23,9 @@
                 <sheet>
                     <group>
                         <field name="owner_id"/>
-                        <field name="component_id"/>
+                        <field name="component_id"
+                               invisible="rigging_type == 'fabrication'"
+                               required="rigging_type != 'fabrication'"/>
                     </group>
                     <group>
                         <field name="date"/>
@@ -33,7 +35,7 @@
                     <field name="component_type" invisible="1"/>
                     <field name="component_usage_type" invisible="1"/>
                     <field name="component_is_mounted" invisible="1"/>
-                    <group string="Work Performed">
+                    <group string="Work Performed" invisible="rigging_type == 'fabrication'">
                         <field name="reline" invisible="component_type != 'canopy'"/>
                         <field name="drogue_replace"
                                invisible="component_type != 'container' or component_usage_type != 'tandem'"/>
