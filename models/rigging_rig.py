@@ -80,6 +80,34 @@ class Rig(models.Model):
                 rig.reserve_id.last_repack if rig.reserve_id else False
             )
 
+    last_jumps_update_date = fields.Date(
+        string="Last Jumps Update",
+        compute="_compute_last_jumps_update_date",
+        store=True,
+        readonly=True,
+    )
+
+    @api.depends("canopy_id.last_jumps_update_date", "container_id.last_jumps_update_date")
+    def _compute_last_jumps_update_date(self):
+        for rig in self:
+            rig.last_jumps_update_date = (
+                rig.canopy_id.last_jumps_update_date
+                or rig.container_id.last_jumps_update_date
+                or False
+            )
+
+    last_loop_adjust = fields.Date(
+        string="Last Loop Adjust",
+        compute="_compute_last_loop_adjust",
+        store=True,
+        readonly=True,
+    )
+
+    @api.depends("container_id.last_loop_adjust")
+    def _compute_last_loop_adjust(self):
+        for rig in self:
+            rig.last_loop_adjust = rig.container_id.last_loop_adjust or False
+
     # -------------------------------------------------
     # CAMBIO DE OWNER → aplicar en componentes montados
     # -------------------------------------------------
@@ -209,7 +237,7 @@ class Rig(models.Model):
     # ============================================================
     # 🔥 Acción genérica: update saltos en TODO el equipo
     # ============================================================
-    def action_update_all_jumps(self, aad_jumps_str):
+    def action_update_all_jumps(self, aad_jumps_str, date=None):
         """
         Actualiza los saltos de TODOS los componentes montados del rig,
         excepto la reserve.
@@ -224,6 +252,7 @@ class Rig(models.Model):
             total_jumps = aad_jumps
         """
         self.ensure_one()
+        date = date or fields.Date.context_today(self)
 
         # --- validar entrada ---
         if not aad_jumps_str:
@@ -250,6 +279,7 @@ class Rig(models.Model):
                     comp.last_jumps_update = comp.jumps_on_mount
                 delta = aad_jumps - (comp.last_jumps_update or 0)
                 comp.last_jumps_update = aad_jumps
+                comp.last_jumps_update_date = date
                 comp.total_jumps = (comp.total_jumps or 0) + delta
             else:
                 comp.total_jumps = aad_jumps

@@ -10,10 +10,11 @@
                         <field name="action_type" readonly="1"/>
                         <field name="component_id" readonly="1"/>
                         <field name="rig_id" readonly="1"/>
+                        <field name="component_type" invisible="1"/>
                     </group>
-                    <group>
+                    <group invisible="component_type == 'reserve'">
                         <field name="current_jumps"/>
-                        <field name="aad_jumps"/>
+                        <field name="aad_jumps" required="component_type != 'reserve'"/>
                     </group>
                 </sheet>
                 <footer>

@@ -60,6 +60,7 @@ class RiggingJob(models.Model):
     drogue_replace = fields.Boolean(string="Drogue Replace")
     killline_replace = fields.Boolean(string="Kill Line Replace")
     inspection_100_jumps = fields.Boolean(string="100 Jumps Inspection")
+    loop_adjust = fields.Boolean(string="Loop Adjust")
 
     comment = fields.Text(string="Comment")
     price = fields.Float(string="Price")
@@ -134,6 +135,15 @@ class RiggingJob(models.Model):
                 comp.write({"last_repack": rec.date or fields.Date.context_today(rec)})
 
     # ------------------------------------------------------------
+    # 🔧 Helper: sincronizar last_loop_adjust en el container
+    # ------------------------------------------------------------
+    def _sync_last_loop_adjust(self):
+        for rec in self:
+            comp = rec.component_id
+            if rec.loop_adjust and comp and comp.component_type == "container":
+                comp.write({"last_loop_adjust": rec.date or fields.Date.context_today(rec)})
+
+    # ------------------------------------------------------------
     # 🔧 Helper: propagar jumps al rig del componente
     # ------------------------------------------------------------
     def _update_rig_jumps(self):
@@ -142,11 +152,12 @@ class RiggingJob(models.Model):
             if not rec.jumps or not comp:
                 continue
             if comp.rig_id:
-                comp.rig_id.action_update_all_jumps(str(rec.jumps))
+                comp.rig_id.action_update_all_jumps(str(rec.jumps), rec.date)
             elif comp.component_type in ('container', 'canopy'):
                 # Component off rig: update last_jumps_update so sync counters
                 # capture the correct reference on reset.
                 comp.last_jumps_update = rec.jumps
+                comp.last_jumps_update_date = rec.date
 
     # ------------------------------------------------------------
     # 🔧 UI: drogue replace implica killline replace (jumps on killline -> 0)
@@ -275,6 +286,7 @@ class RiggingJob(models.Model):
         recs = super().create(vals_list)
         recs._apply_100_jumps_inspection_rule()
         recs._sync_last_repack()
+        recs._sync_last_loop_adjust()
         recs._update_rig_jumps()
         recs._sync_tandem_counters()
         recs._sync_lineset_counter()
@@ -288,6 +300,8 @@ class RiggingJob(models.Model):
             self._apply_100_jumps_inspection_rule()
         if any(k in vals for k in ("rigging_type", "component_id", "date")):
             self._sync_last_repack()
+        if any(k in vals for k in ("loop_adjust", "component_id", "date")):
+            self._sync_last_loop_adjust()
         if "jumps" in vals:
             self._update_rig_jumps()
         if any(k in vals for k in ("drogue_replace", "killline_replace", "inspection_100_jumps", "component_id")):

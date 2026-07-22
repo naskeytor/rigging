@@ -38,6 +38,7 @@ class Component(models.Model):
 
     jumps_on_mount = fields.Integer(string="Jumps on mount")
     last_jumps_update = fields.Integer(string="Last AAD Jumps Update")
+    last_jumps_update_date = fields.Date(string="Last AAD Jumps Update Date")
     total_jumps = fields.Integer(string="Total jumps")
 
     has_reline = fields.Boolean(
@@ -135,6 +136,11 @@ class Component(models.Model):
     last_repack = fields.Date(
         string="Last Repack",
         help="Last reserve repack date (auto-set by I+R rigging jobs).",
+    )
+
+    last_loop_adjust = fields.Date(
+        string="Last Loop Adjust",
+        help="Last closing loop adjustment date (auto-set by rigging jobs).",
     )
 
     @api.depends("rigging_ids.reline", "lineset_jumps_frozen", "lineset_ref_jumps", "last_jumps_update")

@@ -21,14 +21,6 @@
                 <attribute name="t-options">{"widget": "date", "format": "dd/MM/yyyy"}</attribute>
             </xpath>
 
-            <xpath expr="//p[@name='taxes_legal_notes']" position="after">
-                <p class="mt-2" style="font-size:9px; text-align:justify;">
-                    Operación exenta de IVA según el art. 6.1.j del Real Decreto 1619/2012,
-                    de 30 de noviembre, al tener la consideración como exportación según
-                    artículo 21 de la Ley 37/1992, de 28 de noviembre.
-                </p>
-            </xpath>
-
         </template>
 
     </data>

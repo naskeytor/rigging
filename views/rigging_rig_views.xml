@@ -25,6 +25,7 @@
                     <field name="aad_id" readonly="1" optional="show"/>
 
                     <field name="reserve_last_repack" readonly="1" optional="show"/>
+                    <field name="last_jumps_update_date" readonly="1" optional="show"/>
                     <field name="service_state" widget="badge"
                            decoration-success="service_state == 'in_service'"
                            decoration-danger="service_state == 'out_of_service'"
@@ -122,6 +123,9 @@
 
                             <field name="reserve_last_repack"
                                    modifiers='{"invisible":[["reserve_id","=",false]]}'/>
+                            <field name="last_jumps_update_date"/>
+                            <field name="last_loop_adjust"
+                                   invisible="not container_id"/>
                         </group>
 
                         <group string="Tools">

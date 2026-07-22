@@ -37,6 +37,7 @@
                     <field name="component_is_mounted" invisible="1"/>
                     <group string="Work Performed" invisible="rigging_type == 'fabrication'">
                         <field name="reline" invisible="component_type != 'canopy'"/>
+                        <field name="loop_adjust" invisible="component_type != 'container'"/>
                         <field name="drogue_replace"
                                invisible="component_type != 'container' or component_usage_type != 'tandem'"/>
                         <field name="killline_replace"
