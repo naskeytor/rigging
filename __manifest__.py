@@ -19,7 +19,7 @@ Long description of module's purpose
 
     # any module necessary for this one to work correctly
     'depends': [
-        'base', 'contacts', 'project', 'portal'
+        'base', 'contacts', 'project', 'portal', 'account'
     ],
 
     'post_init_hook': 'post_init_hook',
@@ -61,6 +61,9 @@ Long description of module's purpose
 
         # rigs al final de los modelos
         'views/rigging_rig_views.xml',
+
+        # herencia de factura
+        'views/report_invoice_inherit.xml',
 
         # portal (cliente)
         'views/portal_templates.xml',
