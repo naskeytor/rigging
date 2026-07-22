@@ -18,6 +18,7 @@
                     <field name="dom"/>
                     <field name="jumps_on_mount"/>
                     <field name="last_jumps_update"/>
+                    <field name="last_jumps_update_date"/>
                     <field name="total_jumps"/>
                     <field name="rig_id"/>
                     <field name="is_mounted"/>
@@ -70,9 +71,12 @@
                             <field name="dom"/>
                             <field name="jumps_on_mount"/>
                             <field name="last_jumps_update"/>
+                            <field name="last_jumps_update_date"/>
                             <field name="total_jumps"/>
                             <field name="last_repack"
                                    modifiers="{'invisible': [['component_type', '!=', 'reserve']]}"/>
+                            <field name="last_loop_adjust"
+                                   invisible="component_type != 'container'"/>
                             <field name="has_reline" invisible="1"/>
                             <field name="jumps_on_lineset" invisible="not has_reline"/>
                             <field name="has_drogue_replace" invisible="1"/>

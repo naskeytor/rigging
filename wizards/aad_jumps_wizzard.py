@@ -28,10 +28,15 @@ class RiggingAADJumpsWizard(models.TransientModel):
         default="mount",
     )
 
+    component_type = fields.Selection(
+        related="component_id.component_type",
+        readonly=True,
+    )
+
     # Lectura actual del AAD que mete el usuario
+    # No aplica a reserves: no acumulan saltos propios.
     aad_jumps = fields.Char(
         string="AAD jumps",
-        required=True,
     )
 
     # Opcional, por si quieres mostrar algo en el futuro
@@ -108,14 +113,18 @@ class RiggingAADJumpsWizard(models.TransientModel):
         if not rig:
             raise UserError("No rig selected.")
 
-        # ▶ Validar que el usuario ha puesto saltos
-        if not self.aad_jumps:
-            raise UserError("Please enter the AAD jumps.")
+        # Las reserves no acumulan saltos propios: no se pide el dato.
+        if comp.component_type == "reserve":
+            aad_jumps = 0
+        else:
+            # ▶ Validar que el usuario ha puesto saltos
+            if not self.aad_jumps:
+                raise UserError("Please enter the AAD jumps.")
 
-        try:
-            aad_jumps = int(self.aad_jumps)
-        except ValueError:
-            raise UserError("AAD jumps must be a number.")
+            try:
+                aad_jumps = int(self.aad_jumps)
+            except ValueError:
+                raise UserError("AAD jumps must be a number.")
 
         # ----------------- MOUNT -----------------
         if self.action_type == "mount":
@@ -137,6 +146,7 @@ class RiggingAADJumpsWizard(models.TransientModel):
                         c.jumps_on_mount = aad_jumps
                 else:
                     c.last_jumps_update = aad_jumps
+                    c.last_jumps_update_date = fields.Date.context_today(self)
                     c.jumps_on_mount = aad_jumps
                 if c.component_type == 'canopy':
                     if c.lineset_ref_jumps == 0:
@@ -182,11 +192,13 @@ class RiggingAADJumpsWizard(models.TransientModel):
                     c.total_jumps = (c.total_jumps or 0) + delta
                     c.jumps_on_mount = 0
                     c.last_jumps_update = 0
+                    c.last_jumps_update_date = False
 
                 # actualizar el propio AAD
                 comp.total_jumps = aad_jumps
                 comp.jumps_on_mount = 0
                 comp.last_jumps_update = 0
+                comp.last_jumps_update_date = False
 
             elif comp.component_type in ("canopy", "container"):
                 if comp.component_type == 'canopy':
@@ -209,6 +221,7 @@ class RiggingAADJumpsWizard(models.TransientModel):
                 comp.total_jumps = (comp.total_jumps or 0) + delta
                 comp.jumps_on_mount = 0
                 comp.last_jumps_update = 0
+                comp.last_jumps_update_date = False
 
             # recordar rig actual antes de limpiar
             old_rig = comp.rig_id
